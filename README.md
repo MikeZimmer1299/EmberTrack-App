@@ -10,3 +10,40 @@
 - I believe an Android application is a good way to test the ability of any software developer, along with new avenues for a dev to learn.
 - It takes the groundwork of what has been learned, in both college classes and free time, to create a product which may be used by more than the maker.
 - Most of my experience has involved Java with backend and simple command line interfaces, C++ for data structure education, and frontend environments with HTML/CSS/JavaScript. With an Android application, it will allow me to join the concepts of frontend, backend, and everything in between to create an application I can use in my daily life.
+## The Different App Screens
+### Home Screen
+- Most recent cigar and whiskey review
+- List of highest rated cigar and whiskey reviews from user
+- Random cigar and whiskey brand to give user option to read about the brand
+### My Cigars
+#### If 2+ Humidors
+- Initial screen will display 3+ options:
+	- View All Cigars (across all humidors)
+	- View Humidor *name1* Cigars
+	- View Humidor *name2* Cigars
+	- Continue trend for every other humidor
+#### If 1 Humidor or looking inside chosen Humidor
+- Initially show all cigars
+- Allow user to view cigars through filters:
+	- Brand
+	- Country of Origin
+	- Chosen length / ring gauge
+		- Length min to length max
+		- Ring gauge min to ring gauge max
+### My Whiskey
+- Initially show all whiskeys
+- Allow users to view whiskeys through filters:
+	- Brand (drop down menu)
+	- Location of origin (drop down menu)
+		- Country if non-American, Country/State if American
+	- Proof (user input)
+### Cigar Brands
+- Initially show all brands in alphabetical order
+- Filter based on country of origin
+### Whiskey Brands
+- Initially show all brands in alphabetical order
+- Filter based on country (and region) of origin
+### Cigar Reviews
+- 
+### Whiskey Reviews
+- 
