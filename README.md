@@ -10,7 +10,7 @@
 - I believe an Android application is a good way to test the ability of any software developer, along with new avenues for a dev to learn.
 - It takes the groundwork of what has been learned, in both college classes and free time, to create a product which may be used by more than the maker.
 - Most of my experience has involved Java with backend and simple command line interfaces, C++ for data structure education, and frontend environments with HTML/CSS/JavaScript. With an Android application, it will allow me to join the concepts of frontend, backend, and everything in between to create an application I can use in my daily life.
-## The Different App Screens
+## The Primary App Screens
 ### Home Screen
 - Most recent cigar and whiskey review
 - List of highest rated cigar and whiskey reviews from user
@@ -46,4 +46,13 @@
 ### Cigar Reviews
 - 
 ### Whiskey Reviews
+- 
+## The Secondary App Screens
+### New Cigar Reviews
+- Each rating category will have a line with hash marks, from 0 to 10, to allow the user to select the rating
+- Cigar brand and name are within the same card
+- Cigar length and ring gauge are within the same card
+- A cigar's draw, burn, construction, flavors, aroma, smoke production, and experience ratings will have their own cards
+	- The user will (eventually) have the option to type their own notes to attach to this new review, which will be its own card with a text box
+### New Whiskey Reviews
 - 
