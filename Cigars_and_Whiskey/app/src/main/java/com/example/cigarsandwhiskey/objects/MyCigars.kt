@@ -6,15 +6,28 @@ import com.example.cigarsandwhiskey.MainActivity
 data class MyCigars(
     var cigarBrand: String,
     var cigarName: String,
+    var countryOfOrigin: String,
     var sizeLength: Float,
-    var ringGauge: Int,
-    var humidor: String
+    var ringGauge: Int
     // TODO: At later time, may decide to return all data classes to be their own classes
     //  Unknown, as of right now, if MyCigars best left as data class or an entire class with
     //  included functions
     // The main issue is simply because if I need to call an object inside the screen, I will
-    //  to import the package into the screens
-)
+    //  to import the package into the screen files.
+    // I have removed the humidor var, created a MyHumidor object that will
+    //  properly track the cigars
+){
+    // Used to display the cigar in plaintext
+    override fun toString(): String { // TODO:
+
+        var cigarFormat: String
+        cigarFormat = "$cigarBrand $cigarName, $sizeLength x $ringGauge"
+
+        return cigarFormat
+    }
+
+    // TODO:
+}
 
 class CigarMainActivity(){
 
