@@ -17,6 +17,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cigarsandwhiskey.objectInterface.*
+import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.AddCigars
+import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.AddWhiskey
+import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.createCigarReview
+import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.createWhiskeyReview
 import kotlinx.coroutines.launch
 
 @Composable
@@ -140,13 +144,21 @@ fun Navigation(){
             navController = navController,
             startDestination = "home"
         ){
+            // TODO: added navController to params to allow buttons within to work
+            // Drawer Screen Options
             composable("home"){ HomeScreen() }
-            composable("my_cigars"){ MyCigarsScreen() }
-            composable("my_whiskey") { MyWhiskeyScreen() }
+            composable("my_cigars"){ MyCigarsScreen(navController) }
+            composable("my_whiskey") { MyWhiskeyScreen(navController) }
             composable("cigar_brands"){ CigarBrandsScreen() }
             composable("whiskey_brands"){ WhiskeyBrandsScreen() }
-            composable("cigar_reviews"){ CigarReviewsScreen() }
-            composable("whiskey_reviews"){ WhiskeyReviewsScreen() }
+            composable("cigar_reviews"){ CigarReviewsScreen(navController) }
+            composable("whiskey_reviews"){ WhiskeyReviewsScreen(navController) }
+
+            // Buttons from within different screens
+            composable("add_new_cigar"){ AddCigars() }
+            composable("add_new_whiskey") { AddWhiskey() }
+            composable("new_cigar_review"){ createCigarReview() }
+            composable("new_whiskey_review"){ createWhiskeyReview() }
         }
     }
 
