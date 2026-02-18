@@ -15,12 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
 @Composable
-@Preview
-fun MyWhiskeyScreen(){
+fun MyWhiskeyScreen(navController: NavController){
 
     Card(
         modifier = Modifier
@@ -44,7 +44,13 @@ fun MyWhiskeyScreen(){
                 0.dp
             ),
         containerColor = lushForestGrassLight,
-        onClick = {},
+        onClick = {
+            navController.navigate("add_new_whiskey"){
+                popUpTo(navController.graph.startDestinationId){saveState = true}
+                launchSingleTop = true
+                restoreState = true
+            }
+        },
         icon = { Icon(Icons.Filled.Edit, "Add Whiskey Button") },
         text = { Text(text = "Add Whiskey")}
     )

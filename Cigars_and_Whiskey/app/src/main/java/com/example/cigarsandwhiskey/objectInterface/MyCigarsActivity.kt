@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
@@ -36,8 +37,7 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 //}
 
 @Composable
-@Preview
-fun MyCigarsScreen(){
+fun MyCigarsScreen(navController: NavController){
 
     Card(
         modifier = Modifier
@@ -85,9 +85,17 @@ fun MyCigarsScreen(){
                 0.dp
             ),
         containerColor = lushForestGrassLight,
-        onClick = {},
+        onClick = {
+            navController.navigate("add_new_cigar"){
+                popUpTo(navController.graph.startDestinationId){saveState = true}
+                launchSingleTop = true
+                restoreState = true
+            }
+        },
         icon = { Icon(Icons.Filled.Add, "Add Cigar Button") },
         text = { Text(text = "Add Cigar(s)")}
     )
+
+    // TODO: Also need to think about how to add a humidor to be tracked
 
 }

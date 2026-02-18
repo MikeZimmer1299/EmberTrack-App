@@ -16,12 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import com.example.cigarsandwhiskey.Navigation
 
 @Composable
-@Preview
-fun CigarReviewsScreen(){
+fun CigarReviewsScreen(navController: NavController){
 
     Card(
         modifier = Modifier
@@ -36,6 +37,9 @@ fun CigarReviewsScreen(){
     }
 
     // TODO: This button will allow a user to add a new cigar review
+
+
+
     ExtendedFloatingActionButton(
         modifier = Modifier
             .padding(
@@ -45,7 +49,11 @@ fun CigarReviewsScreen(){
                 0.dp
             ),
         containerColor = lushForestGrassLight,
-        onClick = {},
+        onClick = { navController.navigate("new_cigar_review"){
+            popUpTo(navController.graph.startDestinationId){saveState = true}
+            launchSingleTop = true
+            restoreState = true
+        } },
         icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
         text = { Text(text = "Add Review")}
     )
