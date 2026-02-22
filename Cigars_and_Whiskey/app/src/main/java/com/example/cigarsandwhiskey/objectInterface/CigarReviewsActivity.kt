@@ -49,11 +49,13 @@ fun CigarReviewsScreen(navController: NavController){
                 0.dp
             ),
         containerColor = lushForestGrassLight,
-        onClick = { navController.navigate("new_cigar_review"){
-            popUpTo(navController.graph.startDestinationId){saveState = true}
-            launchSingleTop = true
-            restoreState = true
-        } },
+        onClick = { navController.navigate("new_cigar_review")
+//        {
+//            popUpTo(navController.graph.startDestinationId){saveState = true}
+//            launchSingleTop = true
+//            restoreState = true
+//        }
+        },
         icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
         text = { Text(text = "Add Review")}
     )
