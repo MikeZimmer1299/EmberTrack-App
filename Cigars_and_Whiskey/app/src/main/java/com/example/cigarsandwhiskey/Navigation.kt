@@ -33,6 +33,7 @@ fun Navigation(){
 
     ModalNavigationDrawer( // This is gesture based menu for different sections of app
 
+        drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
                 Text("Menu", modifier = Modifier.padding(16.dp))
@@ -40,13 +41,23 @@ fun Navigation(){
                 NavigationDrawerItem(
                     label = {Text(text = "Home")},
                     selected = false,
-                    onClick = {/* TODO */
+                    onClick = {
                         scope.launch {
                             drawerState.close()
                             navController.navigate("home"){
                                 popUpTo(navController.graph.startDestinationId) { saveState = true}
                                 launchSingleTop = true
                                 restoreState = true
+                                /*
+                                * The above section is what *clears* the history of different tabs.
+                                * When traversing to the home screen, I think this is a good idea,
+                                * but when traversing to other screens, a person's first instinct
+                                * is to press the back button on their phone when they want to
+                                * return to a previous screen, not use the navigation drawer when
+                                * they want to go back to the previous screen.
+                                * Or I may keep it for the main screens, then leave these lines of
+                                * code out of the `onClick` like when adding a review or cigars.
+                                */
                             }
                         }
                     }
