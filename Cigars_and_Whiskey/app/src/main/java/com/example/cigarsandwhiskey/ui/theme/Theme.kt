@@ -11,25 +11,42 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
+//private val DarkColorScheme = darkColorScheme(
+//    surface = lushForestGreenDark,
+////    primary = Purple80,
+//    primary = earthForestDark,
+////    secondary = PurpleGrey80,
+//    secondary = earthForestMediumDark,
+////    tertiary = Pink80,
+//    tertiary = earthForestMedium, // special emphasis elements (such as buttons)
+////    background = Color.Black,
+////    surface = Color(0xFFFFFBFE),
+//    onPrimary = Color.White,
+//    onSecondary = Color.White,
+////    onTertiary = Color.White,
+//    onTertiary = Color.White, // text color for special emphasis elements (buttons)
+////    onBackground = Color(0xFF1C1B1F),
+//    onBackground = Color.Red, // unknown
+////    onSurface = Color(0xFF1C1B1F),
+//    onSurface = lushForestGrassLight, // text on non-special elements
+//)
+
 private val DarkColorScheme = darkColorScheme(
+    background = lushForestGreenDark,
     surface = lushForestGreenDark,
-//    primary = Purple80,
+
     primary = earthForestDark,
-//    secondary = PurpleGrey80,
     secondary = earthForestMediumDark,
-//    tertiary = Pink80,
     tertiary = earthForestMedium, // special emphasis elements (such as buttons)
-//    background = Color.Black,
-//    surface = Color(0xFFFFFBFE),
+
     onPrimary = Color.White,
     onSecondary = Color.White,
-//    onTertiary = Color.White,
-    onTertiary = Color.White, // text color for special emphasis elements (buttons)
-//    onBackground = Color(0xFF1C1B1F),
-    onBackground = Color.Red, // unknown
-//    onSurface = Color(0xFF1C1B1F),
-    onSurface = lushForestGrassLight, // text on non-special elements
+    onTertiary = Color.White,
+
+    onBackground = Color.Black,
+    onSurface = Color.Black, // text on non-special elements
 )
+
 
 private val LightColorScheme = lightColorScheme(
 //    primary = Purple40,
