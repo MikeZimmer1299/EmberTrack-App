@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 // TODO: New secondary screen for when the user wishes to create a new
 //  review for a recently enjoyed whiskey
 @Composable
-fun createWhiskeyReview(){
+fun NewWhiskeyReview(){
 
     Card(
         modifier = Modifier
