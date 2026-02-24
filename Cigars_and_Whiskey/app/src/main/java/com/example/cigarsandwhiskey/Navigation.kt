@@ -17,10 +17,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cigarsandwhiskey.objectInterface.*
-import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.AddCigars
-import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.AddWhiskey
-import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.createCigarReview
-import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.createWhiskeyReview
+import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.*
+import com.example.cigarsandwhiskey.objects.getMyHumidorList
 import kotlinx.coroutines.launch
 
 @Composable
@@ -68,10 +66,19 @@ fun Navigation(){
                     onClick = {
                         scope.launch {
                             drawerState.close()
-                            navController.navigate("my_cigars"){
-                                popUpTo(navController.graph.startDestinationId) { saveState = true}
-                                launchSingleTop = true
-                                restoreState = true
+                            if(getMyHumidorList().size < 2){
+                                navController.navigate("my_cigars"){
+                                    popUpTo(navController.graph.startDestinationId) { saveState = true}
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
+                            }
+                            else{
+                                navController.navigate("my_humidors"){
+                                    popUpTo(navController.graph.startDestinationId) { saveState = true}
+                                    launchSingleTop = true
+                                    restoreState = true
+                                }
                             }
                         }
                     }
@@ -158,6 +165,7 @@ fun Navigation(){
             // TODO: added navController to params to allow buttons within to work
             // Drawer Screen Options
             composable("home"){ HomeScreen() }
+            composable("my_humidors") { HumidorOptionScreen(navController) }
             composable("my_cigars"){ MyCigarsScreen(navController) }
             composable("my_whiskey") { MyWhiskeyScreen(navController) }
             composable("cigar_brands"){ CigarBrandsScreen() }
@@ -168,8 +176,8 @@ fun Navigation(){
             // Buttons from within different screens
             composable("add_new_cigar"){ AddCigars() }
             composable("add_new_whiskey") { AddWhiskey() }
-            composable("new_cigar_review"){ createCigarReview() }
-            composable("new_whiskey_review"){ createWhiskeyReview() }
+            composable("new_cigar_review"){ NewCigarReview() }
+            composable("new_whiskey_review"){ NewWhiskeyReview() }
         }
     }
 
