@@ -10,10 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
 @Composable
-fun HumidorOptionScreen(){
+fun HumidorOptionScreen(navController: NavController){
 
     Card(
         modifier = Modifier
