@@ -28,6 +28,11 @@ class MyHumidor(
 
 // Getter for number of humidors
 // May change once the static data is implemented
+fun getMyHumidorSize() : Int{
+    return humidorList.size
+}
+
+// Getter for list of user's humidors
 fun getMyHumidorList() : List<MyHumidor>{
     return humidorList
 }
