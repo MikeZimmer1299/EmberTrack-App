@@ -44,9 +44,13 @@
 - Initially show all brands in alphabetical order
 - Filter based on country (and region) of origin
 ### Cigar Reviews
-- 
+- This will allow the user to view previous reviews and add a new review
+	- The new review will be done through a button to come to the new review screen
+	- Old reviews will be brought to a different screen, which will show the full results the user originally chose (and eventually their own notes once that is implemented)
 ### Whiskey Reviews
-- 
+- Same as Cigar Reviews, this will allow the user to view previous reviews and add a new review
+	- The new review will be done through a button to come to the new review screen
+	- Old reviews will be brought to a different screen, which will show the full results the user originally chose (and eventually their own notes once that is implemented)
 ## The Secondary App Screens
 ### New Cigar Reviews
 - Each rating category will have a line with hash marks, from 0 to 10, to allow the user to select the rating
@@ -55,4 +59,19 @@
 - A cigar's draw, burn, construction, flavors, aroma, smoke production, and experience ratings will have their own cards
 	- The user will (eventually) have the option to type their own notes to attach to this new review, which will be its own card with a text box
 ### New Whiskey Reviews
-- 
+- Much simpler than the Cigar Reviews, as there is less to rate
+- Whiskey brand, name, and proof are within the same card
+- There will be a rating scale (1-10)
+	- Flavors, aroma, mouth feel (will find a better descriptor later), 
+### Add Cigars
+- This will allow the user to add cigars to their chosen humidor(s)
+- User will be able to choose:
+	- Cigar Brand/Name/Origin
+	- Length & Ring Gauge
+	- Humidor & Quantity
+### Add Whiskey
+- This will allow the user to add whiskey to their collection
+- Users will be able to choose:
+	- Whiskey Brand/Name
+	- Location/Origin
+	- Proof
