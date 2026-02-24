@@ -43,7 +43,7 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 //  review for a recently enjoyed cigar
 @Composable
 @Preview
-fun createCigarReview(){
+fun NewCigarReview(){
 
     Card(
         modifier = Modifier
