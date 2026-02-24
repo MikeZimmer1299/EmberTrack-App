@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import com.example.cigarsandwhiskey.objects.MyCigars
 import com.example.cigarsandwhiskey.objects.MyHumidor
 
+val humidorList = listOf<MyHumidor>()
+
 class MyHumidor(
     var humidorName: String,
     var cigarsInside: List<MyCigars> = listOf<MyCigars>(),
@@ -22,6 +24,10 @@ class MyHumidor(
 //        return numberOfCigars
 //    }
 
+}
+
+fun getMyHumidorList() : List<MyHumidor>{
+    return humidorList
 }
 
 //@Composable
