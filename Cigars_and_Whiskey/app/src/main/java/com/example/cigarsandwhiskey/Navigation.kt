@@ -18,7 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cigarsandwhiskey.objectInterface.*
 import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.*
-import com.example.cigarsandwhiskey.objects.getMyHumidorList
+import com.example.cigarsandwhiskey.objects.MyHumidor.*
 import kotlinx.coroutines.launch
 
 @Composable
@@ -66,7 +66,7 @@ fun Navigation(){
                     onClick = {
                         scope.launch {
                             drawerState.close()
-                            if(getMyHumidorList().size < 2){
+                            if(getMyHumidorSize() <= 2){
                                 navController.navigate("my_cigars"){
                                     popUpTo(navController.graph.startDestinationId) { saveState = true}
                                     launchSingleTop = true
