@@ -1,6 +1,8 @@
 package com.example.cigarsandwhiskey.objectInterface
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,9 +15,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
@@ -33,7 +39,29 @@ fun CigarReviewsScreen(navController: NavController){
             containerColor = lushForestGreenDark
         )
     ){
-        Text(text = "Welcome to the Cigar Reviews Page")
+//        Text(text = "Welcome to the Cigar Reviews Page")
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp, 30.dp, 0.dp, 0.dp),
+
+//        colors = CardDefaults.cardColors()
+        ) {
+            Text(text = "Cigar Reviews", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .drawBehind{
+                        val strokeWidthPx = 3.dp.toPx()
+                        drawLine(
+                            color = Color.Black,
+                            strokeWidth = strokeWidthPx,
+                            start = Offset(0f, size.height),
+                            end = Offset(size.width, size.height)
+                        )
+                    }
+            )
+        }
+
     }
 
     // TODO: This button will allow a user to add a new cigar review
