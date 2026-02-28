@@ -7,9 +7,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -17,18 +19,22 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,6 +44,7 @@ import com.example.cigarsandwhiskey.generalFunctions.ratingBar
 import com.example.cigarsandwhiskey.objects.CigarReviews
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import kotlin.math.exp
 
 
 // New secondary screen for when the user wishes to create a new
@@ -56,6 +63,7 @@ fun NewCigarReview(){
         )
     ) {
 
+        // TODO: Temporary list, will move elsewhere later
         val brandList = listOf<String>(
             "Please Choose a Brand",
             "Tatuaje",
@@ -108,10 +116,7 @@ fun NewCigarReview(){
 
                 // TODO: Dropdown menu with cigar brands
                 var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
-                // mutableStateOf changed to mutableIntStateOf
-//                var buttonModifier = Modifier
-//                    .background(Color.White)
-//                    .width(210.dp)
+                // TIPS: mutableStateOf changed to mutableIntStateOf
 
                 dropdownMenu(
                     brandList,
@@ -165,6 +170,9 @@ fun NewCigarReview(){
             }
         }
 
+
+
+
         // TODO: Card for length and ring gauge
         ElevatedCard(
             modifier = Modifier
@@ -203,7 +211,7 @@ fun NewCigarReview(){
             }
 
 
-            Row( // Row for stating CIGAR RING GAUGE
+            Row( // TIPS: Row for stating CIGAR RING GAUGE
                 modifier = Modifier.padding(0.dp, 12.dp)
             ) {
                 Text(
@@ -228,310 +236,452 @@ fun NewCigarReview(){
         }
 
 
-        // TODO: Card for Draw Rating
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    0.dp
-                )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            // Allows each card to have its own rating bar that will not affect the others
-            var rating: Float by remember { mutableFloatStateOf(0f) }
-            Row() {
-                Text(
-                    text = "Draw",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
 
-            // Initiates the rating bar click-ability
-            ratingBar(
-                rating = rating,
-                onRatingChanged = { rating = it }
+
+        // TIPS: Score Sheet Begins Here
+
+        var drawRating by remember{mutableFloatStateOf(0f)}
+        var burnRating by remember{mutableFloatStateOf(0f)}
+        var constructRating by remember{mutableFloatStateOf(0f)}
+        var flavorRating by remember{mutableFloatStateOf(0f)}
+        var aromaRating by remember{mutableFloatStateOf(0f)}
+        var smokeProdRating by remember{mutableFloatStateOf(0f)}
+        var experienceRating by remember{mutableFloatStateOf(0f)}
+
+//        val finalScore by remember {
+//            derivedStateOf {
+//                (drawRating +
+//                    burnRating +
+//                    constructRating +
+//                    flavorRating +
+//                    aromaRating +
+//                    smokeProdRating +
+//                    experienceRating
+//                ) / 7f
+//            }
+//        }
+
+        val ratings = remember {
+            mutableStateListOf(
+                0f, // Draw
+                0f, // Burn
+                0f, // Construction
+                0f, // Flavor
+                0f, // Aroma
+                0f, // Smoke Production
+                0f  // Experience
             )
         }
 
-        // TODO: Card for Burn Rating
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    0.dp
-                )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            var rating: Float by remember { mutableFloatStateOf(0f) }
-            Row() {
-                Text(
-                    text = "Burn",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
+        val finalScore by remember {
+            derivedStateOf {
+                ratings.average().toFloat()
             }
-
-            // Initiates the rating bar click-ability
-            ratingBar(
-                rating = rating,
-                onRatingChanged = { rating = it }
-            )
         }
 
-        // TODO: Card for Construction Rating
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    0.dp
-                )
+        val categories = listOf(
+            "Draw",
+            "Burn",
+            "Construction",
+            "Flavor",
+            "Aroma",
+            "Smoke Production",
+            "Experience"
+        )
+
+        categories.forEachIndexed { index, category ->
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(
+                        10.dp, // left
+                        10.dp,
+                        10.dp, // right
+                        0.dp
+                    )
 //                .background(color = Color.Green)
-                .size(width = 480.dp, height = 160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            var rating: Float by remember { mutableFloatStateOf(0f) }
-            Row() {
-                Text(
-                    text = "Construction",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
+                    .size(width = 480.dp, height = 160.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
+                )
+            ) {
+                Row() {
+                    Text(
+                        text = category,
+                        fontSize = 35.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                }
+
+                // Initiates the rating bar click-ability
+                // TIPS: Allows each card to have its own rating bar that will
+                //  not affect the others
+//                var rating: Float by remember { mutableFloatStateOf(0f) }
+                ratingBar(
+                    rating = ratings[index],
+                    onRatingChanged = { ratings[index] = it }
                 )
             }
-
-            // Initiates the rating bar click-ability
-            ratingBar(
-                rating = rating,
-                onRatingChanged = { rating = it }
-            )
         }
 
-        // TODO: Card for Flavors Rating
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    0.dp
-                )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            var rating: Float by remember { mutableFloatStateOf(0f) }
-            Row() {
-                Text(
-                    text = "Flavors",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
 
-            // Initiates the rating bar click-ability
-            ratingBar(
-                rating = rating,
-                onRatingChanged = { rating = it }
-            )
-        }
 
-        // TODO: Card for Aroma Rating
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    0.dp
-                )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            var rating: Float by remember { mutableFloatStateOf(0f) }
-            Row() {
-                Text(
-                    text = "Aroma",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
 
-            // Initiates the rating bar click-ability
-            ratingBar(
-                rating = rating,
-                onRatingChanged = { rating = it }
-            )
-        }
-
-        // TODO: Card for Smoke Production Rating
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    0.dp
-                )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            var rating: Float by remember { mutableFloatStateOf(0f) }
-            Row() {
-                Text(
-                    text = "Smoke Production",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
-
-            // Initiates the rating bar click-ability
-            ratingBar(
-                rating = rating,
-                onRatingChanged = { rating = it }
-            )
-        }
-
-        // TODO: Card for Experience Rating
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    0.dp
-                )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 160.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            var rating: Float by remember { mutableFloatStateOf(0f) }
-            Row() {
-                Text(
-                    text = "Experience",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
-
-            // Initiates the rating bar click-ability
-            ratingBar(
-                rating = rating,
-                onRatingChanged = { rating = it }
-            )
-        }
+//        // TIPS: Card for Draw Rating
+//        ElevatedCard(
+//            modifier = Modifier
+//                .padding(
+//                    10.dp, // left
+//                    10.dp,
+//                    10.dp, // right
+//                    0.dp
+//                )
+////                .background(color = Color.Green)
+//                .size(width = 480.dp, height = 160.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = lushForestGrassLight
+//            )
+//        ) {
+//            Row() {
+//                Text(
+//                    text = "Draw",
+//                    fontSize = 35.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier
+//                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+//                        .drawBehind {
+//                            val strokeWidthPx = 3.dp.toPx()
+//                            val verticalOffset = size.height
+//                            drawLine(
+//                                color = Color.Black,
+//                                strokeWidth = strokeWidthPx,
+//                                start = Offset(0f, verticalOffset),
+//                                end = Offset(size.width, verticalOffset)
+//                            )
+//                        }
+//                )
+//            }
+//
+//            // Initiates the rating bar click-ability
+//            // TIPS: Allows each card to have its own rating bar that will
+//            //  not affect the others
+//            var rating: Float by remember { mutableFloatStateOf(0f) }
+//            ratingBar(
+//                rating = drawRating,
+//                onRatingChanged = { drawRating = it }
+//            )
+//        }
+//
+//        // TIPS: Card for Burn Rating
+//        ElevatedCard(
+//            modifier = Modifier
+//                .padding(
+//                    10.dp, // left
+//                    10.dp,
+//                    10.dp, // right
+//                    0.dp
+//                )
+////                .background(color = Color.Green)
+//                .size(width = 480.dp, height = 160.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = lushForestGrassLight
+//            )
+//        ) {
+//            Row() {
+//                Text(
+//                    text = "Burn",
+//                    fontSize = 35.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier
+//                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+//                        .drawBehind {
+//                            val strokeWidthPx = 3.dp.toPx()
+//                            val verticalOffset = size.height
+//                            drawLine(
+//                                color = Color.Black,
+//                                strokeWidth = strokeWidthPx,
+//                                start = Offset(0f, verticalOffset),
+//                                end = Offset(size.width, verticalOffset)
+//                            )
+//                        }
+//                )
+//            }
+//
+//            // Initiates the rating bar click-ability
+//            var rating: Float by remember { mutableFloatStateOf(0f) }
+//            ratingBar(
+//                rating = burnRating,
+//                onRatingChanged = { burnRating = it }
+//            )
+//        }
+//
+//        // TIPS: Card for Construction Rating
+//        ElevatedCard(
+//            modifier = Modifier
+//                .padding(
+//                    10.dp, // left
+//                    10.dp,
+//                    10.dp, // right
+//                    0.dp
+//                )
+////                .background(color = Color.Green)
+//                .size(width = 480.dp, height = 160.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = lushForestGrassLight
+//            )
+//        ) {
+//            Row() {
+//                Text(
+//                    text = "Construction",
+//                    fontSize = 35.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier
+//                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+//                        .drawBehind {
+//                            val strokeWidthPx = 3.dp.toPx()
+//                            val verticalOffset = size.height
+//                            drawLine(
+//                                color = Color.Black,
+//                                strokeWidth = strokeWidthPx,
+//                                start = Offset(0f, verticalOffset),
+//                                end = Offset(size.width, verticalOffset)
+//                            )
+//                        }
+//                )
+//            }
+//
+//            // Initiates the rating bar click-ability
+//            var rating: Float by remember { mutableFloatStateOf(0f) }
+//            ratingBar(
+//                rating = constructRating,
+//                onRatingChanged = { constructRating = it }
+//            )
+//        }
+//
+//        // TIPS: Card for Flavors Rating
+//        ElevatedCard(
+//            modifier = Modifier
+//                .padding(
+//                    10.dp, // left
+//                    10.dp,
+//                    10.dp, // right
+//                    0.dp
+//                )
+////                .background(color = Color.Green)
+//                .size(width = 480.dp, height = 160.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = lushForestGrassLight
+//            )
+//        ) {
+//            Row() {
+//                Text(
+//                    text = "Flavors",
+//                    fontSize = 35.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier
+//                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+//                        .drawBehind {
+//                            val strokeWidthPx = 3.dp.toPx()
+//                            val verticalOffset = size.height
+//                            drawLine(
+//                                color = Color.Black,
+//                                strokeWidth = strokeWidthPx,
+//                                start = Offset(0f, verticalOffset),
+//                                end = Offset(size.width, verticalOffset)
+//                            )
+//                        }
+//                )
+//            }
+//
+//            // Initiates the rating bar click-ability
+//            var rating: Float by remember { mutableFloatStateOf(0f) }
+//            ratingBar(
+//                rating = flavorRating,
+//                onRatingChanged = { flavorRating = it }
+//            )
+//        }
+//
+//        // TIPS: Card for Aroma Rating
+//        ElevatedCard(
+//            modifier = Modifier
+//                .padding(
+//                    10.dp, // left
+//                    10.dp,
+//                    10.dp, // right
+//                    0.dp
+//                )
+////                .background(color = Color.Green)
+//                .size(width = 480.dp, height = 160.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = lushForestGrassLight
+//            )
+//        ) {
+//            Row() {
+//                Text(
+//                    text = "Aroma",
+//                    fontSize = 35.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier
+//                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+//                        .drawBehind {
+//                            val strokeWidthPx = 3.dp.toPx()
+//                            val verticalOffset = size.height
+//                            drawLine(
+//                                color = Color.Black,
+//                                strokeWidth = strokeWidthPx,
+//                                start = Offset(0f, verticalOffset),
+//                                end = Offset(size.width, verticalOffset)
+//                            )
+//                        }
+//                )
+//            }
+//
+//            // Initiates the rating bar click-ability
+//            var rating: Float by remember { mutableFloatStateOf(0f) }
+//            ratingBar(
+//                rating = aromaRating,
+//                onRatingChanged = { aromaRating = it }
+//            )
+//        }
+//
+//        // TIPS: Card for Smoke Production Rating
+//        ElevatedCard(
+//            modifier = Modifier
+//                .padding(
+//                    10.dp, // left
+//                    10.dp,
+//                    10.dp, // right
+//                    0.dp
+//                )
+////                .background(color = Color.Green)
+//                .size(width = 480.dp, height = 160.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = lushForestGrassLight
+//            )
+//        ) {
+//            Row() {
+//                Text(
+//                    text = "Smoke Production",
+//                    fontSize = 35.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier
+//                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+//                        .drawBehind {
+//                            val strokeWidthPx = 3.dp.toPx()
+//                            val verticalOffset = size.height
+//                            drawLine(
+//                                color = Color.Black,
+//                                strokeWidth = strokeWidthPx,
+//                                start = Offset(0f, verticalOffset),
+//                                end = Offset(size.width, verticalOffset)
+//                            )
+//                        }
+//                )
+//            }
+//
+//            // Initiates the rating bar click-ability
+//            var rating: Float by remember { mutableFloatStateOf(0f) }
+//            ratingBar(
+//                rating = smokeProdRating,
+//                onRatingChanged = { smokeProdRating = it }
+//            )
+//        }
+//
+//        // TIPS: Card for Experience Rating
+//        ElevatedCard(
+//            modifier = Modifier
+//                .padding(
+//                    10.dp, // left
+//                    10.dp,
+//                    10.dp, // right
+//                    0.dp
+//                )
+////                .background(color = Color.Green)
+//                .size(width = 480.dp, height = 160.dp),
+//            colors = CardDefaults.cardColors(
+//                containerColor = lushForestGrassLight
+//            )
+//        ) {
+//            Row() {
+//                Text(
+//                    text = "Experience",
+//                    fontSize = 35.sp,
+//                    fontWeight = FontWeight.Bold,
+//                    modifier = Modifier
+//                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+//                        .drawBehind {
+//                            val strokeWidthPx = 3.dp.toPx()
+//                            val verticalOffset = size.height
+//                            drawLine(
+//                                color = Color.Black,
+//                                strokeWidth = strokeWidthPx,
+//                                start = Offset(0f, verticalOffset),
+//                                end = Offset(size.width, verticalOffset)
+//                            )
+//                        }
+//                )
+//            }
+//
+//            // Initiates the rating bar click-ability
+//            var rating: Float by remember { mutableFloatStateOf(0f) }
+//            ratingBar(
+//                rating = experienceRating,
+//                onRatingChanged = { experienceRating = it }
+//            )
+//        }
         
-        // TODO: Card for the Overall Rating (Final Score)
-
+        // TIPS: Card for the Overall Rating (Final Score)
+        ElevatedCard(
+            modifier = Modifier
+                .padding(10.dp, // left
+                    10.dp,
+                    10.dp, // right
+                    60.dp)
+                .size(width = 480.dp, height = 80.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGrassLight
+            )
+        ) {
+            Row() {
+                Text(
+                    text = "Final Score:",
+                    fontSize = 56.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(10.dp, 5.dp, 0.dp, 0.dp)
+                        .drawBehind{
+                            val strokeWidthPx = 3.dp.toPx()
+                            val verticalOffset = size.height
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, verticalOffset),
+                                end = Offset(size.width, verticalOffset)
+                            )
+                        }
+                )
+                Text(
+                    text = String.format("%.1f", finalScore),
+                    fontSize = 70.sp,
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.End, // TODO: Work on this text align
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 0.dp, 1.dp, 0.dp)
+                )
+            }
+        }
 
         // TODO: Eventually, written review section (optional to user)
 
