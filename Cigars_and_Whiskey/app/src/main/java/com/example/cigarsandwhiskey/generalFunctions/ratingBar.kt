@@ -11,7 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun ratingBar(
@@ -28,7 +30,7 @@ fun ratingBar(
                 modifier = Modifier
                     .padding(
                         2.dp,
-                        20.dp,
+                        10.dp,
                         2.dp,
                         2.dp
                     )
@@ -36,14 +38,14 @@ fun ratingBar(
                     .background(
                         if (isFilled) Color(0xFF4CAF50)
                         else Color(0xFF7A4343),
-                        shape = RoundedCornerShape(4.dp)
+                        shape = RoundedCornerShape(10.dp)
                     )
                     .clickable {
                         onRatingChanged(i.toFloat())
                     },
-                contentAlignment = Alignment.Center
+                contentAlignment = Alignment.Center,
             ){
-                Text(text = i.toString())
+                Text(text = i.toString(), fontWeight = FontWeight.Bold, fontSize = 30.sp)
             }
         }
     }
