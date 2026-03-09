@@ -52,7 +52,7 @@ fun DropdownMenu(
 
 
     // TIPS: The Dropdown List itself
-    Box(){
+    Box{
         if (showDropdown){
             Popup(
                 alignment = Alignment.TopCenter,
@@ -75,7 +75,8 @@ fun DropdownMenu(
                                 .width(350.dp)
                                 .height(50.dp)
                                 .clickable{
-                                    selectedText = item
+                                    selectedText = item 
+                              // if this ^^^ is NOT here, the text doesn't update. IDE is wrong
                                     onItemClick(index)
                                     showDropdown = !showDropdown
                                 },
@@ -91,7 +92,10 @@ fun DropdownMenu(
 
 }
 
-fun CigarBrandsList(): List<String>{
+// Temporary use. Eventually, this will return a better implemented list of brands.
+//  This will eventually be grabbing the list from seed data, instead of below.
+//  Probably. Depends what I decide is best implementation, but I think seeding is better
+fun cigarBrandsList(): List<String>{
 
     val brandList = listOf<String>(
         "Tatuaje",
@@ -104,7 +108,8 @@ fun CigarBrandsList(): List<String>{
     return brandList
 }
 
-fun CigarOriginList(): List<String>{
+// Countries are best used as this, as the number of countries is far fewer than list of brands
+fun cigarOriginList(): List<String>{
 
     val originList = listOf<String>(
         "Dominican Republic",
