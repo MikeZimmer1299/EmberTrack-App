@@ -1,17 +1,12 @@
 package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
-import android.text.style.UnderlineSpan
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -21,14 +16,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -38,16 +30,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cigarsandwhiskey.generalFunctions.dropdownMenu
+import com.example.cigarsandwhiskey.generalFunctions.DropdownMenu
+import com.example.cigarsandwhiskey.generalFunctions.cigarBrandsList
+import com.example.cigarsandwhiskey.generalFunctions.cigarOriginList
 import com.example.cigarsandwhiskey.generalFunctions.ratingBar
 
 import com.example.cigarsandwhiskey.objects.CigarReviews
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
-import kotlin.math.exp
 
 
-// New secondary screen for when the user wishes to create a new
+// Secondary screen for when the user wishes to create a new
 //  review for a recently enjoyed cigar
 @Composable
 @Preview
@@ -62,24 +55,7 @@ fun NewCigarReview(){
             containerColor = lushForestGreenDark
         )
     ) {
-
-        // TODO: Temporary list, will move elsewhere later
-        val brandList = listOf<String>(
-            "Please Choose a Brand",
-            "Tatuaje",
-            "Davidoff",
-            "Cavalier Geneve",
-            "Crowned Heads",
-            "EGM"
-        )
-
-//        Text(text = "Cool, I can navigate to this screen")
-
-        // TODO: ALL BARS WILL HAVE A LINE WITH HASH MARKS, FROM 0 TO 10
-        //
-
-        // TODO: Card for Cigar name and brand (double the content in this card)
-        //  May also add Origin into this card as well. Yes, will be doing that
+        // TIPS: This card holds the Cigar Brand, Name, and Country of Origin
         ElevatedCard(
             modifier = Modifier
                 .padding(
@@ -93,7 +69,7 @@ fun NewCigarReview(){
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row( // Row for stating CIGAR BRAND
+            Row( // TIPS: Row for stating CIGAR BRAND
                 modifier = Modifier.padding(0.dp, 12.dp)
             ) {
                 Text(
@@ -101,7 +77,7 @@ fun NewCigarReview(){
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(5.dp, 0.dp, 25.dp, 0.dp)
+                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
                         .drawBehind{
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height + 2.sp.toPx()
@@ -113,18 +89,21 @@ fun NewCigarReview(){
                             )
                         }
                 )
+                Spacer(modifier = Modifier.width(20.dp))
+//                 this ^^^ is possible going to replace the end padding in the text above
 
-                // TODO: Dropdown menu with cigar brands
-                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
                 // TIPS: mutableStateOf changed to mutableIntStateOf
-
-                dropdownMenu(
-                    brandList,
+                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
+                DropdownMenu(
+                    cigarBrandsList(),
                     selectedIndex,
-//                    buttonModifier,
-                    onItemClick = {selectedIndex = it})
+                    "Choose a Cigar Brand",
+                    onItemClick = {selectedIndex = it}
+                )
             }
-            Row( // Row for stating CIGAR NAME
+
+
+            Row( // TIPS: Row for stating CIGAR NAME
                 modifier = Modifier.padding(0.dp, 12.dp)
             ) {
                 Text(
@@ -146,7 +125,9 @@ fun NewCigarReview(){
                 )
                 // TODO: Text Box to enter cigar name
             }
-            Row( // Row for stating COUNTRY OF ORIGIN
+
+
+            Row( // TIPS: Row for stating COUNTRY OF ORIGIN
                 modifier = Modifier.padding(0.dp, 12.dp)
             ) {
                 Text(
@@ -154,7 +135,7 @@ fun NewCigarReview(){
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(5.dp, 0.dp, 25.dp, 0.dp)
+                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
                         .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height + 2.sp.toPx()
@@ -166,10 +147,18 @@ fun NewCigarReview(){
                             )
                         }
                 )
+                Spacer(modifier = Modifier.width(20.dp))
+
                 // TODO: Dropdown menu of countries
+                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
+                DropdownMenu(
+                    cigarOriginList(),
+                    selectedIndex,
+                    "Country of Origin",
+                    onItemClick = {selectedIndex = it}
+                )
             }
         }
-
 
 
 
@@ -282,7 +271,7 @@ fun NewCigarReview(){
                     containerColor = lushForestGrassLight
                 )
             ) {
-                Row() {
+                Row {
                     Text(
                         text = category,
                         fontSize = 35.sp,
@@ -326,7 +315,7 @@ fun NewCigarReview(){
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row() {
+            Row {
                 Text(
                     text = "Final Score:",
                     fontSize = 56.sp,
