@@ -62,7 +62,7 @@
 - Much simpler than the Cigar Reviews, as there is less to rate
 - Whiskey brand, name, and proof are within the same card
 - There will be a rating scale (1-10)
-	- Flavors, aroma, mouth feel (will find a better descriptor later), 
+	- Flavors, aroma, viscosity, 
 ### Add Cigars
 - This will allow the user to add cigars to their chosen humidor(s)
 - User will be able to choose:
@@ -75,3 +75,6 @@
 	- Whiskey Brand/Name
 	- Location/Origin
 	- Proof
+## Long Term Plan
+	- Once the app is in a fully working state, I plan to use an AWS instance to allow users to attach their collections to a cloud environment.
+	- With this cloud environment, they would be able to add friends and view those friends' collection of cigars and whiskey, along with viewing their friends' reviews of cigars smoked and whiskey drank
