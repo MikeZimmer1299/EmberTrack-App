@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -14,9 +15,13 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.cigarsandwhiskey.objects.MyCigars
 import com.example.cigarsandwhiskey.objects.MyWhiskey
 import com.example.cigarsandwhiskey.objects.filterList
@@ -52,6 +57,29 @@ fun HomeScreen(){
         //  Within this card, I think, is where the content for all pages
         //  should end up going.
 
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp, 30.dp, 0.dp, 0.dp),
+
+//        colors = CardDefaults.cardColors()
+        ) {
+            Text(text = "Home", fontSize = 40.sp,
+                modifier = Modifier
+                    .drawBehind{
+                        val strokeWidthPx = 3.dp.toPx()
+                        drawLine(
+                            color = Color.Black,
+                            strokeWidth = strokeWidthPx,
+                            start = Offset(0f, size.height),
+                            end = Offset(size.width, size.height)
+                        )
+                    },
+//                color = lushForestGrassLight,
+                fontWeight = FontWeight.Bold
+            )
+        }
+
         // Row for each object desired on the home screen
         // TODO: May make these, instead of rows, as other cards? Example below of elevated card
         //  This is the correct move
@@ -60,7 +88,7 @@ fun HomeScreen(){
             modifier = Modifier
                 .padding(
                     10.dp, // left
-                    45.dp,
+                    15.dp,
                     10.dp, // right
                     5.dp
                 )
