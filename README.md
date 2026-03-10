@@ -76,5 +76,5 @@
 	- Location/Origin
 	- Proof
 ## Long Term Plan
-	- Once the app is in a fully working state, I plan to use an AWS instance to allow users to attach their collections to a cloud environment.
-	- With this cloud environment, they would be able to add friends and view those friends' collection of cigars and whiskey, along with viewing their friends' reviews of cigars smoked and whiskey drank
+- Once the app is in a fully working state, I plan to use an AWS instance to allow users to attach their collections to a cloud environment.
+- With this cloud environment, they would be able to add friends and view those friends' collection of cigars and whiskey, along with viewing their friends' reviews of cigars smoked and whiskey drank
