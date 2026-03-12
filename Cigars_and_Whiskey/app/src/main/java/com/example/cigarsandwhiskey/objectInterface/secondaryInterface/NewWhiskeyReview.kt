@@ -22,19 +22,29 @@ fun NewWhiskeyReview(){
             .verticalScroll(rememberScrollState())
     ) {
 
-        // TODO: Card for Whiskey Name and Brand will be in same card
+    // TODO: Card for Whiskey Name and Brand will be in same card
+
+        // TODO: Whiskey Brand (Dropdown menu)
+
+        // TODO: Whiskey Name (Text Field)
 
 
-        // TODO: Card for Type and Proof will be in the same card
+    // TODO: Card for Type and Proof will be in the same card
+
+        // TODO: Whiskey Type (Dropdown menu, i.e. bourbon, rye, Scotch, etc.)
+
+        // TODO: Proof will be text field that will take integer
+
+    // TODO: Card for Aromas
 
 
-        // TODO: Card for Aromas
+    // TODO: Card for Flavors
 
 
-        // TODO: Card for Flavors
+    // TODO: Card for Finish
 
 
-        // TODO: Card for Finish
+    // TODO: Card for finishing the review and adding it to whiskey reviews list
 
 
     }
