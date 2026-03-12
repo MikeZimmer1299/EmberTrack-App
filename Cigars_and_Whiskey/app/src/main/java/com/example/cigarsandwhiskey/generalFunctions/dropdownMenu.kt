@@ -30,7 +30,7 @@ import androidx.compose.ui.window.PopupProperties
 @Composable
 fun DropdownMenu(
     itemList: List<String>,
-    selectedIndex: Int,
+//    selectedIndex: Int, // this may be unnecessary
     initialText: String,
     onItemClick: (Int) -> Unit
 ){
@@ -43,11 +43,12 @@ fun DropdownMenu(
         modifier = Modifier
             .background(Color.White)
             .clickable{showDropdown = !showDropdown}
+            .height(40.dp)
             .width(220.dp)
             .padding(0.dp, 0.dp, 0.dp, 0.dp),
         contentAlignment = Alignment.Center
     ){
-        Text(text = selectedText, modifier = Modifier.padding(5.dp))
+        Text(text = selectedText, modifier = Modifier.padding(5.dp), fontSize = 20.sp)
     }
 
 
