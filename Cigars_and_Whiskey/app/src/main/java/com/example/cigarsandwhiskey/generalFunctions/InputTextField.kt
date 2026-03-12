@@ -4,20 +4,27 @@ import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.ui.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+// Reusable text field that allows the user to input text for different pieces of information,
+//  such as cigar name,
 @Composable
 fun InputTextField(
     text: String,
     onTextChange: (String) -> Unit,
-    placeholder: String
+    placeholder: String,
+    designatedKeyboard: KeyboardType = KeyboardType.Text
+        // Defaults to text keyboard, but for text fields with intended ints,
+        //  I can pass `KeyboardType.Number` to prevent text from being entered by user
 ){
     Box(
         modifier = Modifier
@@ -36,7 +43,8 @@ fun InputTextField(
                 color = Color.Black,
                 textAlign = TextAlign.Center
             ),
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = designatedKeyboard)
         )
 
         if(text.isEmpty()){
