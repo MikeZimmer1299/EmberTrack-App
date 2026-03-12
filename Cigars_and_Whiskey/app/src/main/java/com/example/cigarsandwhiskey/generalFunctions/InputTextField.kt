@@ -1,0 +1,46 @@
+package com.example.cigarsandwhiskey.generalFunctions
+
+import androidx.compose.runtime.Composable
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.Text
+import androidx.compose.ui.*
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+
+@Composable
+fun InputTextField(
+    text: String,
+    onTextChange: (String) -> Unit,
+    placeholder: String
+){
+    Box(
+        modifier = Modifier
+            .background(Color.White)
+            .width(220.dp)
+            .height(40.dp)
+            .padding(0.dp, 0.dp, 0.dp, 0.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        BasicTextField(
+            value = text,
+            onValueChange = onTextChange,
+            singleLine = true,
+            textStyle = TextStyle(
+                fontSize = 20.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Center
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        if(text.isEmpty()){
+            Text(text = placeholder, color = Color.Black, fontSize = 20.sp)
+        }
+    }
+}
