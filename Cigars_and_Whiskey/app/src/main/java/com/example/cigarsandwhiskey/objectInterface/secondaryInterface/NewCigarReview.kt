@@ -1,14 +1,26 @@
 package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
+
+/*
+* TODO: I have come to realize I need to rework the sizing. I realized that I have built
+*   the current UI to fit a specific screen size, instead of fitting all screen sizes
+*   by being modular. It's a simple fix, changing it to `.fillMaxSize()` and making
+*   adjustments to the padding on each card.
+*/
+
+import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -16,26 +28,28 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+
 import com.example.cigarsandwhiskey.generalFunctions.DropdownMenu
+import com.example.cigarsandwhiskey.generalFunctions.InputTextField
 import com.example.cigarsandwhiskey.generalFunctions.cigarBrandsList
 import com.example.cigarsandwhiskey.generalFunctions.cigarOriginList
 import com.example.cigarsandwhiskey.generalFunctions.ratingBar
-
 import com.example.cigarsandwhiskey.objects.CigarReviews
+import com.example.cigarsandwhiskey.specializedFunctions.ReviewWarning
+import com.example.cigarsandwhiskey.specializedFunctions.cigarReviewCompletion
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
@@ -43,8 +57,14 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 // Secondary screen for when the user wishes to create a new
 //  review for a recently enjoyed cigar
 @Composable
-@Preview
-fun NewCigarReview(){
+fun NewCigarReview() {
+
+    // TIPS: Cigar Brand, Name, and Origin objects
+    var cigarBrand by remember { mutableStateOf("") }
+    var cigarName by remember { mutableStateOf("") }
+    var cigarCountry by remember { mutableStateOf("") }
+
+    var openAlertDialog by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -64,7 +84,8 @@ fun NewCigarReview(){
                     10.dp, // right
                     0.dp
                 )
-                .size(width = 480.dp, height = 200.dp),
+                .fillMaxWidth()
+                .height(200.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -78,7 +99,7 @@ fun NewCigarReview(){
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind{
+                        .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height + 2.sp.toPx()
                             drawLine(
@@ -93,13 +114,14 @@ fun NewCigarReview(){
 //                 this ^^^ is possible going to replace the end padding in the text above
 
                 // TIPS: mutableStateOf changed to mutableIntStateOf
-                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
+//                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
                 DropdownMenu(
                     cigarBrandsList(),
-                    selectedIndex,
-                    "Choose a Cigar Brand",
-                    onItemClick = {selectedIndex = it}
+//                    selectedIndex, // this may be unnecessary
+                    "Choose a Brand",
+                    onItemClick = { cigarBrand = it.toString() }
                 )
+//                Log.d("Output", "Viewing the brand: $chosenBrand")
             }
 
 
@@ -111,7 +133,7 @@ fun NewCigarReview(){
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(5.dp, 0.dp, 25.dp, 0.dp)
+                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
                         .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height + 2.sp.toPx()
@@ -123,7 +145,14 @@ fun NewCigarReview(){
                             )
                         }
                 )
-                // TODO: Text Box to enter cigar name
+                Spacer(modifier = Modifier.width(20.dp))
+
+                // TIPS: Text Box to enter cigar name
+                InputTextField(
+                    cigarName,
+                    onTextChange = { cigarName = it },
+                    placeholder = "Enter Cigar Name"
+                )
             }
 
 
@@ -147,22 +176,25 @@ fun NewCigarReview(){
                             )
                         }
                 )
-                Spacer(modifier = Modifier.width(20.dp))
+                Spacer(modifier = Modifier.width(17.dp))
 
-                // TODO: Dropdown menu of countries
-                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
+                // TIPS: Dropdown menu of countries
                 DropdownMenu(
                     cigarOriginList(),
-                    selectedIndex,
+//                    selectedIndex, // this may be unnecessary
                     "Country of Origin",
-                    onItemClick = {selectedIndex = it}
+                    onItemClick = { cigarCountry = it.toString() }
                 )
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+        // TIPS: Cigar Length and Ring Gauge objects
+        var cigarLength by remember { mutableStateOf("") }
+        var cigarRingGauge by remember { mutableStateOf("") }
 
-
-        // TODO: Card for length and ring gauge
+        // TIPS: Card for length and ring gauge
         ElevatedCard(
             modifier = Modifier
                 .padding(
@@ -171,11 +203,12 @@ fun NewCigarReview(){
                     10.dp, // right
                     0.dp
                 )
-                .size(width = 480.dp, height = 135.dp),
+                .fillMaxWidth()
+                .height(135.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
-        ){
+        ) {
             Row( // Row for stating CIGAR LENGTH
                 modifier = Modifier.padding(0.dp, 12.dp)
             ) {
@@ -184,7 +217,7 @@ fun NewCigarReview(){
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(5.dp, 0.dp, 25.dp, 0.dp)
+                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
                         .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height + 2.sp.toPx()
@@ -196,7 +229,16 @@ fun NewCigarReview(){
                             )
                         }
                 )
-                // TODO: Text box for cigar length
+                Spacer(modifier = Modifier.width(8.dp))
+
+                // TIPS: Text box for cigar length
+//                var cigarLength by remember { mutableStateOf("") }
+                InputTextField(
+                    cigarLength,
+                    onTextChange = { cigarLength = it },
+                    placeholder = "Enter Cigar Length",
+                    KeyboardType.Number
+                )
             }
 
 
@@ -208,7 +250,7 @@ fun NewCigarReview(){
                     fontSize = 35.sp,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(5.dp, 0.dp, 25.dp, 0.dp)
+                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
                         .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height + 2.sp.toPx()
@@ -220,12 +262,22 @@ fun NewCigarReview(){
                             )
                         }
                 )
-                // TODO: Text box for cigar length
+
+                Spacer(modifier = Modifier.width(30.dp))
+
+                // TIPS: Text box for cigar length
+                InputTextField(
+                    cigarRingGauge,
+                    onTextChange = { cigarRingGauge = it },
+                    placeholder = "Enter Ring Gauge",
+                    KeyboardType.Number
+                )
             }
         }
 
 
-
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
 
         // TIPS: Score Sheet Begins Here
         val ratings = remember {
@@ -265,8 +317,8 @@ fun NewCigarReview(){
                         10.dp, // right
                         0.dp
                     )
-//                .background(color = Color.Green)
-                    .size(width = 480.dp, height = 160.dp),
+                    .fillMaxWidth()
+                    .height(160.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = lushForestGrassLight
                 )
@@ -302,15 +354,20 @@ fun NewCigarReview(){
             }
         }
 
-        
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+
         // TIPS: Card for the Overall Rating (Final Score)
         ElevatedCard(
             modifier = Modifier
-                .padding(10.dp, // left
+                .padding(
+                    10.dp, // left
                     10.dp,
                     10.dp, // right
-                    60.dp)
-                .size(width = 480.dp, height = 80.dp),
+                    0.dp
+                )
+                .fillMaxWidth()
+                .height(80.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -322,7 +379,7 @@ fun NewCigarReview(){
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(10.dp, 5.dp, 0.dp, 0.dp)
-                        .drawBehind{
+                        .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height
                             drawLine(
@@ -345,10 +402,127 @@ fun NewCigarReview(){
             }
         }
 
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+
         // TODO: Eventually, written review section (optional to user)
 
 
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+
+        // TODO: Final Card that will allow the user to create the new review, adding it
+        //  to the list of Cigar Reviews
+
+//        val newReview = CigarReviews()
+        var newReview by remember { mutableStateOf(CigarReviews()) }
+
+        ElevatedCard(
+            modifier = Modifier
+                .padding(
+                    10.dp, // left
+                    10.dp,
+                    10.dp, // right
+                    60.dp
+                )
+                .fillMaxWidth()
+                .height(65.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGrassLight
+            )
+        ) {
+            Row {
+                Text(
+                    text = "Finish Review:",
+                    fontSize = 45.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(10.dp, 5.dp, 0.dp, 0.dp)
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            val verticalOffset = size.height
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, verticalOffset),
+                                end = Offset(size.width, verticalOffset)
+                            )
+                        }
+                )
+                Button(
+                    onClick = {
+                        newReview = newReview.copy(
+                            brand = cigarBrand,
+                            cigarName = cigarName,
+                            origin = cigarCountry,
+                            sizeLength = cigarLength,
+                            ringGauge = cigarRingGauge,
+                            draw = ratings[0].toInt(),
+                            burn = ratings[1].toInt(),
+                            construction = ratings[2].toInt(),
+                            flavors = ratings[3].toInt(),
+                            aroma = ratings[4].toInt(),
+                            smokeProduction = ratings[5].toInt(),
+                            experience = ratings[6].toInt(),
+                            finalScore = finalScore,
+                        )
+                        if (!cigarReviewCompletion(newReview)) {
+                            openAlertDialog = true
+                            Log.d("Review", "Review is NOT complete")
+                            // TIPS: unable to call Composable from within here, made
+                            //  a mutableStateOf boolean. cigarReviewCompletion called below
+                        } else {
+                            /* TODO:
+                            *   This will add `newReview` to a list of review.
+                            *   I need to figure out the best way to store the reviews.
+                            *   That's where the long term storage comes into play
+                            *
+                            * TODO:
+                            *  This may be unnecessary, since I can't call composables from
+                            *   within this type of code blocks
+                            */
+                            Log.d("Review", "Final Score: ${newReview.finalScore}")
+                        }
+
+//                        Log.d("Review", "Review Final Score: ${newReview.finalScore}")
+                    },
+                    modifier = Modifier
+                        .padding(10.dp, 10.dp, 0.dp, 0.dp)
+                        .height(45.dp)
+//                        .width(115.dp)
+                    ,
+                    colors = ButtonDefaults.buttonColors(lushForestGreenDark)
+                ) {
+                    Text(text = "Add Review")
+                }
+
+                /*
+                 * If not filled, have popup or some notification for user to
+                 * finish the review before they are able to add the review
+                 */
+                if(openAlertDialog){
+                    ReviewWarning(
+                        onDismissRequest = { openAlertDialog = false },
+                        onConfirmation = {
+                            openAlertDialog = false
+                            println("Confirmation Registered")
+                        },
+                        dialogTitle = "Warning!",
+                        dialogText = "You have not finished your review!"
+                    )
+                }
+                else{ // if the user has finished the review
+                    // TODO: Going to be adding cigar info to review
+                }
+            }
+        }
+
+        // TODO: This will be added into an `onClick` later
+//        val newReview = CigarReviews()
+
+        // TODO: Below will be used once I have the `onClick` working, to make sure the
+        //  review is actually gathering the information properly
+//        Log.d("Review", "Review Final Score: ${newReview.finalScore}")
 
     }
-
 }
