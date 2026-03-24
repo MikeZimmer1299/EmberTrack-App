@@ -414,7 +414,6 @@ fun NewCigarReview() {
         // TODO: Final Card that will allow the user to create the new review, adding it
         //  to the list of Cigar Reviews
 
-//        val newReview = CigarReviews()
         var newReview by remember { mutableStateOf(CigarReviews()) }
 
         ElevatedCard(

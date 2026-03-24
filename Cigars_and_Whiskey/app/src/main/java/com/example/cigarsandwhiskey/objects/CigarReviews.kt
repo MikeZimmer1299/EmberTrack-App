@@ -3,7 +3,7 @@ package com.example.cigarsandwhiskey.objects
 import androidx.compose.runtime.Composable
 import kotlin.math.exp
 
-class CigarReviews(
+data class CigarReviews(
     var brand: String = "",
     var cigarName: String = "",
     var origin: String = "", // this will be a dropdown object, type probably needs to be changed
