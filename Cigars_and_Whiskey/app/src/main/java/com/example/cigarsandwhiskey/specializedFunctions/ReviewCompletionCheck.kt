@@ -1,5 +1,6 @@
 package com.example.cigarsandwhiskey.specializedFunctions
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import com.example.cigarsandwhiskey.objects.CigarReviews
 import com.example.cigarsandwhiskey.objects.WhiskeyReviews
@@ -10,11 +11,27 @@ import com.example.cigarsandwhiskey.objects.WhiskeyReviews
 //@Composable
 fun cigarReviewCompletion(ReviewCheck: CigarReviews): Boolean{
 
-    var reviewComplete: Boolean = false // default false, unless otherwise made true
+    val textFields = listOf( // String comparison
+        ReviewCheck.brand,
+        ReviewCheck.cigarName,
+        ReviewCheck.origin,
+        ReviewCheck.sizeLength,
+        ReviewCheck.ringGauge
+    )
+    val scoreFields = listOf( // Int comparison
+        ReviewCheck.draw,
+        ReviewCheck.burn,
+        ReviewCheck.construction,
+        ReviewCheck.flavors,
+        ReviewCheck.aroma,
+        ReviewCheck.smokeProduction,
+        ReviewCheck.experience
+    )
 
-
-
-    return reviewComplete
+    // A review is complete if text fields are not blank and
+    //  if scores are not 0
+    return textFields.none { it.isBlank() } &&
+            scoreFields.none { it == 0 }
 }
 
 
