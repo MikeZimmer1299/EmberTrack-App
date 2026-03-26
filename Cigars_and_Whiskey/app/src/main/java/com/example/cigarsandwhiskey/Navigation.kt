@@ -16,14 +16,14 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 import com.example.cigarsandwhiskey.objectInterface.*
 import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.*
 import com.example.cigarsandwhiskey.objects.MyHumidor.*
 import kotlinx.coroutines.launch
 
 @Composable
-@Preview
-fun Navigation(){
+fun Navigation(database: AppDatabase){
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -162,22 +162,22 @@ fun Navigation(){
             navController = navController,
             startDestination = "home"
         ){
-            // TODO: added navController to params to allow buttons within to work
+            // TODO: Need to add `database.___` as param to view info from database
             // Drawer Screen Options
             composable("home"){ HomeScreen() }
-            composable("my_humidors") { HumidorOptionScreen(navController) }
-            composable("my_cigars"){ MyCigarsScreen(navController) }
-            composable("my_whiskey") { MyWhiskeyScreen(navController) }
+            composable("my_humidors") { HumidorOptionScreen(navController) } // add
+            composable("my_cigars"){ MyCigarsScreen(navController) } // add
+            composable("my_whiskey") { MyWhiskeyScreen(navController) } // add
             composable("cigar_brands"){ CigarBrandsScreen() }
             composable("whiskey_brands"){ WhiskeyBrandsScreen() }
-            composable("cigar_reviews"){ CigarReviewsScreen(navController) }
-            composable("whiskey_reviews"){ WhiskeyReviewsScreen(navController) }
+            composable("cigar_reviews"){ CigarReviewsScreen(navController) } // add
+            composable("whiskey_reviews"){ WhiskeyReviewsScreen(navController) } // add
 
             // Buttons from within different screens
             composable("add_new_cigar"){ AddCigars() }
             composable("add_new_whiskey") { AddWhiskey() }
-            composable("new_cigar_review"){ NewCigarReview() }
-            composable("new_whiskey_review"){ NewWhiskeyReview() }
+            composable("new_cigar_review"){ NewCigarReview(navController, database.cigarReviewDao(), scope) }
+            composable("new_whiskey_review"){ NewWhiskeyReview(navController) }
         }
     }
 
