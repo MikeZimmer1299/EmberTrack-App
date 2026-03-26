@@ -2,11 +2,17 @@ package com.example.cigarsandwhiskey.objects
 
 import androidx.compose.runtime.Composable
 import kotlin.math.exp
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
+@Entity(tableName = "cigar_reviews")
 data class CigarReviews(
-    var brand: String = "",
+    @PrimaryKey(autoGenerate = true)
+    var id: Int = 0, // handled automatically by Room
+
+    var brand: String = "", // this is a dropdown menu object
     var cigarName: String = "",
-    var origin: String = "", // this will be a dropdown object, type probably needs to be changed
+    var origin: String = "", // this is a dropdown menu object
     var sizeLength: String = "",
     var ringGauge: String = "",
     var draw: Int = 0,
@@ -19,6 +25,7 @@ data class CigarReviews(
     // Eventually, this will also have a written review object
     //  to attach to each review
     var finalScore: Float = 0f
+    // TODO: Add a slot for date
 ) {
 
 //    @Composable
@@ -66,7 +73,7 @@ data class CigarReviews(
     // Calculates overall score of the cigar
     // Converts all int values into float value, to allow user to see the real score
     // TODO: this may be removed later, since the calculation is done in NewCigarReview.kt
-    @Composable
+//    @Composable
     fun overallScore(
         draw: Int, burn: Int, construction: Int, flavors: Int,
         aroma: Int, smokeProduction: Int, experience: Int
