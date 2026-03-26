@@ -41,6 +41,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 
 import com.example.cigarsandwhiskey.generalFunctions.DropdownMenu
 import com.example.cigarsandwhiskey.generalFunctions.InputTextField
@@ -52,12 +54,18 @@ import com.example.cigarsandwhiskey.specializedFunctions.ReviewWarning
 import com.example.cigarsandwhiskey.specializedFunctions.cigarReviewCompletion
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 // Secondary screen for when the user wishes to create a new
 //  review for a recently enjoyed cigar
 @Composable
-fun NewCigarReview() {
+fun NewCigarReview(
+    navController: NavController,
+    cigarDao: CigarReviewDao,
+    scope: CoroutineScope
+) {
 
     // TIPS: Cigar Brand, Name, and Origin objects
     var cigarBrand by remember { mutableStateOf("") }
@@ -448,7 +456,7 @@ fun NewCigarReview() {
                             )
                         }
                 )
-                Button(
+                Button( // TODO: Add a date slot to the review, will autofill when made
                     onClick = {
                         newReview = newReview.copy(
                             brand = cigarBrand,
@@ -471,16 +479,18 @@ fun NewCigarReview() {
                             // TIPS: unable to call Composable from within here, made
                             //  a mutableStateOf boolean. cigarReviewCompletion called below
                         } else {
-                            /* TODO:
-                            *   This will add `newReview` to a list of review.
-                            *   I need to figure out the best way to store the reviews.
-                            *   That's where the long term storage comes into play
-                            *
-                            * TODO:
-                            *  This may be unnecessary, since I can't call composables from
-                            *   within this type of code blocks
-                            */
-                            Log.d("Review", "Final Score: ${newReview.finalScore}")
+                            scope.launch {
+                                try {
+                                    // saves review to local storage/database
+//                                    cigarDao.insertReview((newReview))
+                                    Log.d("Review", "Final Score: ${newReview.finalScore}")
+
+                                    // returns to previous screen after successful save
+                                    navController.popBackStack()
+                                } catch (e: Exception){
+                                    Log.d("Database Error", "Unable to save review")
+                                }
+                            }
                         }
 
 //                        Log.d("Review", "Review Final Score: ${newReview.finalScore}")
@@ -509,9 +519,6 @@ fun NewCigarReview() {
                         dialogTitle = "Warning!",
                         dialogText = "You have not finished your review!"
                     )
-                }
-                else{ // if the user has finished the review
-                    // TODO: Going to be adding cigar info to review
                 }
             }
         }
