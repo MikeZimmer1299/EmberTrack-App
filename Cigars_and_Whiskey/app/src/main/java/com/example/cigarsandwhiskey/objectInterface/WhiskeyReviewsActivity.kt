@@ -74,7 +74,7 @@ fun WhiskeyReviewsScreen(navController: NavController){
                 0.dp
             ),
         containerColor = lushForestGrassLight,
-        onClick = {},
+        onClick = { navController.navigate("new_whiskey_review")},
         icon = { Icon(Icons.Filled.Edit, "Add Whiskey Review Button") },
         text = { Text(text = "Add Review")}
     )
