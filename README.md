@@ -75,6 +75,10 @@
 	- Whiskey Brand/Name
 	- Location/Origin
 	- Proof
+## Database
+- To allow long term storage of the cigar/whiskey collections and reviews, there needs to be a database stored onto the device's local storage
+- The app is using Room, which implements an SQLite database
+	- The main types of Entities are `MyCigars`, `MyWhiskey`, `CigarReviews`, `WhiskeyReviews`, and `MyHumidor`
 ## Long Term Plan
 - Once the app is in a fully working state, I plan to use an AWS instance to allow users to attach their collections to a cloud environment.
 - With this cloud environment, they would be able to add friends and view those friends' collection of cigars and whiskey, along with viewing their friends' reviews of cigars smoked and whiskey drank
