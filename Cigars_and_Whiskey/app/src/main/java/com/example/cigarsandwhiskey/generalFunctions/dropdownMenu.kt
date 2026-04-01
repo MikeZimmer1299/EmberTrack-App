@@ -101,7 +101,7 @@ fun cigarBrandsList(): List<String>{
     val brandList = listOf<String>(
         "Tatuaje",
         "Davidoff",
-        "Cavalier Geneve",
+        "Cavalier Genève",
         "Crowned Heads",
         "EGM"
     )
