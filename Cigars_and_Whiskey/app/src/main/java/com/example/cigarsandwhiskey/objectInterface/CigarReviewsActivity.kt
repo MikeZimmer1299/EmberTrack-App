@@ -1,8 +1,10 @@
 package com.example.cigarsandwhiskey.objectInterface
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -10,25 +12,28 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
-import com.example.cigarsandwhiskey.Navigation
+import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 
 @Composable
-fun CigarReviewsScreen(navController: NavController){
+fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
 
     Card(
         modifier = Modifier
@@ -39,14 +44,12 @@ fun CigarReviewsScreen(navController: NavController){
             containerColor = lushForestGreenDark
         )
     ){
-//        Text(text = "Welcome to the Cigar Reviews Page")
 
+        // TIPS: Title for Screen
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
-
-//        colors = CardDefaults.cardColors()
         ) {
             Text(text = "Cigar Reviews", fontSize = 40.sp, fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -62,12 +65,77 @@ fun CigarReviewsScreen(navController: NavController){
             )
         }
 
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+
+        // TIPS: Grab the cigar reviews from the database, storing them into a list
+        val reviewList by cigarDao.getAllCigarReviews()
+            .collectAsStateWithLifecycle(emptyList())
+
+        reviewList.forEachIndexed { index, reviews ->
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(160.dp) // min height is 160.dp
+                    .padding(
+                        10.dp, // left
+                        20.dp,
+                        10.dp, // right
+                        0.dp),
+                colors = CardDefaults.cardColors(containerColor = lushForestGrassLight)
+            ){
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ) {
+                    Text(
+                        text = reviews.brand,
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ) {
+                    Text(
+                        text = reviews.cigarName,
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(12.dp, 0.dp)
+                ) {
+                    Text(
+                        text = "Size: ${reviews.sizeLength} x ${reviews.ringGauge}",
+                        fontSize = 35.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        lineHeight = 35.sp
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(12.dp, 0.dp)
+                ) {
+                    Text(
+                        text = "Final Score: ${reviews.finalScore}",
+                        fontSize = 35.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        lineHeight = 35.sp
+                    )
+                }
+            }
+        }
     }
 
-    // TODO: This button will allow a user to add a new cigar review
 
+    ///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
 
-
+    // TIPS: This button allows a user to add a new cigar review.
+    //  This sits on top of the above card
     ExtendedFloatingActionButton(
         modifier = Modifier
             .padding(
@@ -77,15 +145,8 @@ fun CigarReviewsScreen(navController: NavController){
                 0.dp
             ),
         containerColor = lushForestGrassLight,
-        onClick = { navController.navigate("new_cigar_review")
-//        {
-//            popUpTo(navController.graph.startDestinationId){saveState = true}
-//            launchSingleTop = true
-//            restoreState = true
-//        }
-        },
+        onClick = { navController.navigate("new_cigar_review") },
         icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
         text = { Text(text = "Add Review")}
     )
-
 }
