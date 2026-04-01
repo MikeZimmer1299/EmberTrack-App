@@ -123,11 +123,12 @@ fun NewCigarReview(
 
                 // TIPS: mutableStateOf changed to mutableIntStateOf
 //                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
+                var cigarBrandList = cigarBrandsList()
                 DropdownMenu(
-                    cigarBrandsList(),
+                    cigarBrandList,
 //                    selectedIndex, // this may be unnecessary
                     "Choose a Brand",
-                    onItemClick = { cigarBrand = it.toString() }
+                    onItemClick = { cigarBrand = cigarBrandList[it] }
                 )
 //                Log.d("Output", "Viewing the brand: $chosenBrand")
             }
@@ -187,11 +188,12 @@ fun NewCigarReview(
                 Spacer(modifier = Modifier.width(17.dp))
 
                 // TIPS: Dropdown menu of countries
+                var cigarOriginList = cigarOriginList()
                 DropdownMenu(
-                    cigarOriginList(),
+                    cigarOriginList,
 //                    selectedIndex, // this may be unnecessary
                     "Country of Origin",
-                    onItemClick = { cigarCountry = it.toString() }
+                    onItemClick = { cigarCountry = cigarOriginList[it] }
                 )
             }
         }
@@ -482,7 +484,7 @@ fun NewCigarReview(
                             scope.launch {
                                 try {
                                     // saves review to local storage/database
-//                                    cigarDao.insertReview((newReview))
+                                    cigarDao.insertReview((newReview))
                                     Log.d("Review", "Final Score: ${newReview.finalScore}")
 
                                     // returns to previous screen after successful save
