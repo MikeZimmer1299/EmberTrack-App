@@ -2,10 +2,9 @@ package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
 
 /*
-* TODO: I have come to realize I need to rework the sizing. I realized that I have built
-*   the current UI to fit a specific screen size, instead of fitting all screen sizes
-*   by being modular. It's a simple fix, changing it to `.fillMaxSize()` and making
-*   adjustments to the padding on each card.
+* TODO: The width and height sizing has been rectified. The text sizing is where
+*  I will need to better implement a solution. I'm not 100% sure how I will go
+*  about finding a solution, but I'll figure it out when it becomes a problem.
 */
 
 import android.util.Log
