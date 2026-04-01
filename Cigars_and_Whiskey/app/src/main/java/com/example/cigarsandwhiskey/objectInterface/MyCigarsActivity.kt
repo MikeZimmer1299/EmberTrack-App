@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.cigarsandwhiskey.dataAccessObjects.MyCigarsDao
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
@@ -42,7 +43,10 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 //}
 
 @Composable
-fun MyCigarsScreen(navController: NavController){
+fun MyCigarsScreen(
+    navController: NavController,
+    myCigarsDao: MyCigarsDao
+){
 
     Card(
         modifier = Modifier
