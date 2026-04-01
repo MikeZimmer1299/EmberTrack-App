@@ -10,14 +10,20 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.cigarsandwhiskey.dataAccessObjects.MyWhiskeyDao
+import com.example.cigarsandwhiskey.dataAccessObjects.WhiskeyReviewDao
 
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import kotlinx.coroutines.CoroutineScope
 
 
 // TODO: New secondary screen for when the user wishes to create a new
 //  review for a recently enjoyed whiskey
 @Composable
-fun NewWhiskeyReview(navController: NavController){
+fun NewWhiskeyReview(
+    navController: NavController,
+    whiskeyReviewDao: WhiskeyReviewDao,
+    scope: CoroutineScope){
 
     Card(
         modifier = Modifier

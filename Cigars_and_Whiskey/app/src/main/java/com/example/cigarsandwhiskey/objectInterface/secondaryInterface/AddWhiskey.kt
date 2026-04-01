@@ -10,10 +10,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.cigarsandwhiskey.dataAccessObjects.MyWhiskeyDao
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun AddWhiskey(){
+fun AddWhiskey(
+    navController: NavController,
+    myWhiskeyDao: MyWhiskeyDao,
+    scope: CoroutineScope
+){
 
     Card(
         modifier = Modifier

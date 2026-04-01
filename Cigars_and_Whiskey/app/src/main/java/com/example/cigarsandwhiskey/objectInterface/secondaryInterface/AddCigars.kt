@@ -14,11 +14,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.cigarsandwhiskey.dataAccessObjects.MyCigarsDao
+import com.example.cigarsandwhiskey.objects.MyCigars
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
-fun AddCigars(){
+fun AddCigars(
+    navController: NavController,
+    myCigarsDao: MyCigarsDao,
+    scope: CoroutineScope
+){
 
     Card(
         modifier = Modifier
