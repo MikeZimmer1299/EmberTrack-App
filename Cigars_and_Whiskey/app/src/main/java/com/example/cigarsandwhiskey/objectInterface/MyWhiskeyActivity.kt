@@ -24,11 +24,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.cigarsandwhiskey.dataAccessObjects.MyWhiskeyDao
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
 @Composable
-fun MyWhiskeyScreen(navController: NavController){
+fun MyWhiskeyScreen(
+    navController: NavController,
+    myWhiskeyDao: MyWhiskeyDao
+){
 
     Card(
         modifier = Modifier
