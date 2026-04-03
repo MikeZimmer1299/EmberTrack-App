@@ -1,5 +1,6 @@
 package com.example.cigarsandwhiskey.objectInterface
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -71,6 +72,8 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
         // TIPS: Grab the cigar reviews from the database, storing them into a list
         val reviewList by cigarDao.getAllCigarReviews()
             .collectAsStateWithLifecycle(emptyList())
+        
+        Log.d("Output", "cigarDao.getAllCigarReviews() success")
 
         reviewList.forEachIndexed { index, reviews ->
             ElevatedCard(
@@ -127,6 +130,7 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
                     )
                 }
             }
+            Log.d("Output", "ReviewList has added a review")
         }
     }
 
