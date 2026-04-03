@@ -11,13 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.cigarsandwhiskey.dataAccessObjects.MyHumidorDao
 import com.example.cigarsandwhiskey.objects.MyHumidor
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
 @Composable
 fun HumidorOptionScreen(
     navController: NavController,
-    myHumidor: MyHumidor
+    myHumidorDao: MyHumidorDao
 ){
 
     Card(
