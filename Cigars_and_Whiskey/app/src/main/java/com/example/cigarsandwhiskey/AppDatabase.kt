@@ -6,6 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 import com.example.cigarsandwhiskey.dataAccessObjects.MyCigarsDao
+import com.example.cigarsandwhiskey.dataAccessObjects.MyHumidorDao
 import com.example.cigarsandwhiskey.dataAccessObjects.MyWhiskeyDao
 import com.example.cigarsandwhiskey.dataAccessObjects.WhiskeyReviewDao
 import com.example.cigarsandwhiskey.objects.CigarReviews
@@ -23,11 +24,11 @@ import com.example.cigarsandwhiskey.objects.WhiskeyReviews
 
 abstract class AppDatabase : RoomDatabase() {
 
-    abstract fun myCigars(): MyCigarsDao
+    abstract fun myCigarsDao(): MyCigarsDao
     abstract fun cigarReviewDao(): CigarReviewDao
     abstract fun myWhiskeyDao(): MyWhiskeyDao
     abstract fun myWhiskeyReviewDao(): WhiskeyReviewDao
-    abstract fun myHumidorsDao(): MyHumidor
+    abstract fun myHumidorsDao(): MyHumidorDao
 
 
     companion object{
