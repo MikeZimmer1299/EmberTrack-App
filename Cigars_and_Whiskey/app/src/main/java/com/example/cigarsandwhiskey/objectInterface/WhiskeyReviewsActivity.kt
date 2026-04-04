@@ -66,6 +66,13 @@ fun WhiskeyReviewsScreen(
                     }
             )
         }
+
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+
+        // TODO: First card with whiskey brand, name, type, and proof
+
+
     }
 
     // TODO: This button will allow a user to add a new whiskey review
