@@ -9,23 +9,23 @@ import com.example.cigarsandwhiskey.objects.WhiskeyReviews
 // Checks if the cigar review is completed before allowing the review to be added
 //  to the list of user reviews
 //@Composable
-fun cigarReviewCompletion(ReviewCheck: CigarReviews): Boolean{
+fun cigarReviewCompletion(reviewCheck: CigarReviews): Boolean{
 
     val textFields = listOf( // String comparison
-        ReviewCheck.brand,
-        ReviewCheck.cigarName,
-        ReviewCheck.origin,
-        ReviewCheck.sizeLength,
-        ReviewCheck.ringGauge
+        reviewCheck.brand,
+        reviewCheck.cigarName,
+        reviewCheck.origin,
+        reviewCheck.sizeLength,
+        reviewCheck.ringGauge
     )
     val scoreFields = listOf( // Int comparison
-        ReviewCheck.draw,
-        ReviewCheck.burn,
-        ReviewCheck.construction,
-        ReviewCheck.flavors,
-        ReviewCheck.aroma,
-        ReviewCheck.smokeProduction,
-        ReviewCheck.experience
+        reviewCheck.draw,
+        reviewCheck.burn,
+        reviewCheck.construction,
+        reviewCheck.flavors,
+        reviewCheck.aroma,
+        reviewCheck.smokeProduction,
+        reviewCheck.experience
     )
 
     // A review is complete if text fields are not blank and
@@ -38,11 +38,20 @@ fun cigarReviewCompletion(ReviewCheck: CigarReviews): Boolean{
 // Checks if the whiskey review is completed before allowing the review to be added
 //  to the list of user reviews
 //@Composable
-fun whiskeyReviewCompletion(ReviewCheck: WhiskeyReviews): Boolean{
+fun whiskeyReviewCompletion(reviewCheck: WhiskeyReviews): Boolean{
 
-    var reviewComplete: Boolean = false // default false, unless otherwise made true
+    val textFields = listOf(
+        reviewCheck.brand,
+        reviewCheck.whiskeyName,
+        reviewCheck.type,
+        reviewCheck.origin,
+        reviewCheck.proof,
+        reviewCheck.ageStatement,
+        reviewCheck.flavors,
+        reviewCheck.aroma,
+        reviewCheck.mouthFeel,
+        reviewCheck.ageStatement
+    )
 
-
-
-    return reviewComplete
+    return textFields.none { it.isBlank() }
 }
