@@ -73,7 +73,7 @@ fun DropdownMenu(
                         Box(
                             modifier = Modifier
                                 .background(Color.LightGray)
-                                .width(350.dp)
+                                .width(300.dp)
                                 .height(50.dp)
                                 .clickable{
                                     selectedText = item 
@@ -90,7 +90,6 @@ fun DropdownMenu(
             }
         }
     }
-
 }
 
 // Temporary use. Eventually, this will return a better implemented list of brands.
@@ -103,7 +102,18 @@ fun cigarBrandsList(): List<String>{
         "Davidoff",
         "Cavalier Genève",
         "Crowned Heads",
-        "EGM"
+        "EGM",
+        "Warped",
+        "Padron",
+        "My Father",
+        "Montecristo",
+        "Foundation",
+        "Atabey",
+        "Byron",
+        "Avowed",
+        "AVO",
+        "JC Newman",
+        "Arturo Fuente"
     )
 
     return brandList
@@ -123,12 +133,73 @@ fun cigarOriginList(): List<String>{
     return originList
 }
 
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+// List of whiskey brands
+fun whiskeyBrandsList(): List<String>{
+
+    val brandsList = listOf<String>(
+        "Maker's Mark",
+        "New Riff",
+        "Penelope",
+        "Old Forester",
+        "Buffalo Trace"
+    )
+
+    return brandsList
+}
 
 
+// List of types of whiskey
+fun whiskeyTypesList(): List<String>{
 
+    val typeList = listOf<String>(
+        "Bourbon",
+        "Rye",
+        "Wheat",
+        "Single Malt",
+        "Blended"
+    )
 
+    return typeList
+}
 
+// List of whiskey origins
+fun whiskeyOriginList(): List<String>{
 
+    val originList = listOf<String>(
+        "Kentucky, US",
+        "Tennessee, US",
+        "Colorado, US",
+        "Islay, Scotland",
+        "Highland, Scotland",
+        "Lowland, Scotland",
+        "Speyside, Scotland",
+        "Islands, Scotland",
+        "Campbeltown ,Scotland",
+        "Ireland",
+        "Japan",
+        "Canada"
+    )
+
+    return originList
+}
+
+// List of whiskey years aged range
+fun whiskeyAgeList(): List<String>{
+
+    val yearsList = listOf<String>(
+        "3 or Less",
+        "4-6",
+        "7-10",
+        "11-13",
+        "14-16",
+        "17+"
+    )
+
+    return yearsList
+}
 
 
 
