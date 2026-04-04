@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -241,7 +240,6 @@ fun NewCigarReview(
                 Spacer(modifier = Modifier.width(8.dp))
 
                 // TIPS: Text box for cigar length
-//                var cigarLength by remember { mutableStateOf("") }
                 InputTextField(
                     cigarLength,
                     onTextChange = { cigarLength = it },
@@ -523,13 +521,5 @@ fun NewCigarReview(
                 }
             }
         }
-
-        // TODO: This will be added into an `onClick` later
-//        val newReview = CigarReviews()
-
-        // TODO: Below will be used once I have the `onClick` working, to make sure the
-        //  review is actually gathering the information properly
-//        Log.d("Review", "Review Final Score: ${newReview.finalScore}")
-
     }
 }
