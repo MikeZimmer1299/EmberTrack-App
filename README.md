@@ -82,3 +82,4 @@
 ## Long Term Plan
 - Once the app is in a fully working state, I plan to use an AWS instance to allow users to attach their collections to a cloud environment.
 - With this cloud environment, they would be able to add friends and view those friends' collection of cigars and whiskey, along with viewing their friends' reviews of cigars smoked and whiskey drank
+- I am also planning on building a website, which would have access to the cloud and give users the option to view/add to their collections or reviews through their web browser.
