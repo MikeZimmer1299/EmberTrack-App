@@ -73,7 +73,7 @@ fun DropdownMenu(
                         Box(
                             modifier = Modifier
                                 .background(Color.LightGray)
-                                .width(300.dp)
+                                .width(320.dp)
                                 .height(50.dp)
                                 .clickable{
                                     selectedText = item 
@@ -98,22 +98,32 @@ fun DropdownMenu(
 fun cigarBrandsList(): List<String>{
 
     val brandList = listOf<String>(
-        "Tatuaje",
-        "Davidoff",
-        "Cavalier Genève",
-        "Crowned Heads",
-        "EGM",
-        "Warped",
-        "Padron",
-        "My Father",
-        "Montecristo",
-        "Foundation",
-        "Atabey",
-        "Byron",
-        "Avowed",
-        "AVO",
-        "JC Newman",
-        "Arturo Fuente"
+        "Aganorsa Leaf", "Aging Room", "AJ Fernandez", "Alec Bradley",
+        "Aladino", "Arturo Fuente", "Ashton", "Atabey",
+        "AVO", "Avowed", "Bandolero", "Bellas Artes",
+        "Black Label Trading Co.", "Black Works Studio",
+        "Byron", "Caldwell", "Camacho", "Cavalier Genève", "C.L.E",
+        "Casa 1910", "Cohiba", "Crowned Heads", "Crux", "Davidoff",
+        "Diamond Crown", "Don Pepin Garcia", "Drew Estate",
+        "Dunbarton Tobacco & Trust", "Eladio Diaz", "E.P. Carrillo",
+        "EGM", "El Rey del Mundo", "El Septimo",
+        "Espinosa", "EZRA Zion", "Felipe Gregorio", "Ferio Tego",
+        "Foundation", "Fratello", "Gran Habano", "Gurkha",
+        "H. Upmann", "Henry Clay", "Herrera Esteli", "Hiram & Solomon",
+        "HVC", "Illusione", "Jake Wyatt Cigar Co.", "JC Newman", "JFR",
+        "Joya de Nicaragua", "Kristoff", "La Aroma de Cuba", "La Barba",
+        "La Flor Dominicana", "La Gloria Cubana", "La Herencia Cubana",
+        "La Palina", "Leaf by Oscar", "Luciano", "Macanudo",
+        "Meerapfel", "Montecristo", "My Father", "Nat Sherman",
+        "New World", "Nub", "Oliva", "One Off",
+        "Oveja Negra", "Padron", "Partagas", "Perdomo", "Plasencia",
+        "Principle Cigars", "Punch", "Quesada",
+        "Rocky Patel", "Romeo y Julieta", "RoMa Craft", "Room101",
+        "San Cristobal", "San Lotano", "Santa Clara", "Serino Cigars",
+        "Southern Draw", "Stolen Throne", "Tatuaje",
+        "Trinidad", "Undercrown", "Vegafina",
+        "Viaje", "Warped", "West Tampa Tobacco Co.",
+        "Zino", "Zino Platinum", "Other"
     )
 
     return brandList
@@ -123,11 +133,9 @@ fun cigarBrandsList(): List<String>{
 fun cigarOriginList(): List<String>{
 
     val originList = listOf<String>(
-        "Dominican Republic",
-        "Nicaragua",
-        "Honduras",
-        "United States",
-        "Cuba"
+        "Dominican Republic", "Nicaragua",
+        "Honduras", "United States",
+        "Cuba", "Costa Rica"
     )
 
     return originList
@@ -140,11 +148,27 @@ fun cigarOriginList(): List<String>{
 fun whiskeyBrandsList(): List<String>{
 
     val brandsList = listOf<String>(
-        "Maker's Mark",
-        "New Riff",
-        "Penelope",
-        "Old Forester",
-        "Buffalo Trace"
+        "Aberfeldy", "Aberlour", "Ailsa Bay", "Akashi", "Amrut", "Angel's Envy",
+        "Ardbeg", "Ardmore", "Arran", "Auchentoshan", "Aultmore", "Balcones",
+        "Ballantine's", "Basil Hayden's", "Belle Meade", "BenRiach", "Benromach", "Blanton's",
+        "Booker's", "Bowmore", "Breckenridge", "Buffalo Trace", "Bulleit", "Bushmills",
+        "Caol Ila", "Cardhu", "Chivas Regal", "E.H. Taylor", "Compass Box", "Connemara",
+        "Coppercraft", "Crown Royal", "Dalmore", "Dalwhinnie", "Deanston", "Dickel",
+        "Eagle Rare", "Elijah Craig", "Evan Williams", "Four Roses", "Garrison Brothers", "George Dickel",
+        "GlenDronach", "Glenfiddich", "Glenfarclas", "GlenGrant", "Glenlivet", "Glenmorangie",
+        "Green Spot", "Hakushu", "Hibiki", "High West", "Highland Park", "Hudson",
+        "I.W. Harper", "Jack Daniel's", "Jameson", "Jefferson's", "Jim Beam", "Johnnie Walker",
+        "Jura", "Kaiyo", "Kilchoman", "Knappogue Castle", "Knob Creek", "Lagavulin",
+        "Laphroaig", "Larceny", "Leopold Bros.", "Little Book", "Lot No. 40", "Maker's Mark",
+        "Michter's", "Midleton", "Monkey Shoulder", "Mortlach", "Nikka", "Oban",
+        "Old Elk", "Old Forester", "Old Grand-Dad", "Old Overholt", "Old Pulteney", "Pendleton",
+        "Penelope", "Pikesville Rye", "Pinhook", "Powers", "Rabbit Hole", "Redbreast",
+        "Redemption", "Reservoir", "Russell's Reserve", "Sagamore Spirit", "Sazerac Rye", "Scapa",
+        "Seagram's 7", "Smoke Wagon", "Speyburn", "Springbank", "Stagg Jr.", "Starward",
+        "Stranahan's", "Suntory Toki", "Talisker", "Teeling", "Templeton Rye", "The Macallan",
+        "The Sexton", "Thomas H. Handy", "Tincup", "Tullamore D.E.W.", "Uncle Nearest",
+        "Westland", "WhistlePig", "Wild Turkey", "Willett", "Woodford Reserve", "Yellowstone",
+        "Yamazaki"
     )
 
     return brandsList
@@ -169,18 +193,10 @@ fun whiskeyTypesList(): List<String>{
 fun whiskeyOriginList(): List<String>{
 
     val originList = listOf<String>(
-        "Kentucky, US",
-        "Tennessee, US",
-        "Colorado, US",
-        "Islay, Scotland",
-        "Highland, Scotland",
-        "Lowland, Scotland",
-        "Speyside, Scotland",
-        "Islands, Scotland",
-        "Campbeltown ,Scotland",
-        "Ireland",
-        "Japan",
-        "Canada"
+        "Kentucky, US", "Tennessee, US", "Colorado, US",
+        "Islay, Scotland", "Highland, Scotland", "Lowland, Scotland",
+        "Speyside, Scotland", "Islands, Scotland", "Campbeltown ,Scotland",
+        "Ireland", "Japan", "Canada"
     )
 
     return originList
