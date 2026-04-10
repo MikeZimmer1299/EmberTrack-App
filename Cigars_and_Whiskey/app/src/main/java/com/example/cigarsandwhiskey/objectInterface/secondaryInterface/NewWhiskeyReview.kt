@@ -561,14 +561,6 @@ fun NewWhiskeyReview(
                         if(!whiskeyReviewCompletion(newReview)){
                             openAlertDialog = true
                             Log.d("Review", "Review is NOT complete")
-                            Log.d("Review", whiskeyFlavors)
-                            Log.d("Review", score.toString())
-                            Log.d("Review", whiskeyAroma)
-                            Log.d("Review", mouthFeel)
-                            Log.d("Review", whiskeyName)
-                            Log.d("Review", whiskeyType)
-                            Log.d("Review", whiskeyOrigin)
-                            Log.d("Review", whiskeyAge)
                         } else {
                             scope.launch {
                                 try {
