@@ -3,6 +3,7 @@ package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 import android.util.Log
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,9 +17,12 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -34,6 +38,7 @@ import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.dataAccessObjects.WhiskeyReviewDao
 import com.example.cigarsandwhiskey.generalFunctions.DropdownMenu
 import com.example.cigarsandwhiskey.generalFunctions.InputTextField
+import com.example.cigarsandwhiskey.generalFunctions.ratingBar
 import com.example.cigarsandwhiskey.generalFunctions.whiskeyAgeList
 import com.example.cigarsandwhiskey.generalFunctions.whiskeyBrandsList
 import com.example.cigarsandwhiskey.generalFunctions.whiskeyOriginList
@@ -227,7 +232,7 @@ fun NewWhiskeyReview(
                 DropdownMenu(
                     whiskeyOriginList,
                     "Choose an Origin",
-                    onItemClick = {whiskeyType = whiskeyOriginList[it]}
+                    onItemClick = {whiskeyOrigin = whiskeyOriginList[it]}
                 )
             }
 
@@ -257,7 +262,7 @@ fun NewWhiskeyReview(
                 DropdownMenu(
                     whiskeyAgeList,
                     "Age Statement",
-                    onItemClick = {whiskeyType = whiskeyAgeList[it]}
+                    onItemClick = {whiskeyAge = whiskeyAgeList[it]}
                 )
             }
 
@@ -299,25 +304,205 @@ fun NewWhiskeyReview(
         var whiskeyAroma by remember { mutableStateOf("") }
         var mouthFeel by remember { mutableStateOf("") }
 
-        // TODO: Card for Flavors
+        // TIPS: Card for Flavors
+        ElevatedCard(
+            modifier = Modifier
+                .padding(10.dp, 10.dp, 10.dp, 0.dp)
+                .fillMaxWidth()
+                .heightIn(130.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGrassLight
+            )
+        ) {
+            Row{
+                Text(
+                    text = "Flavors",
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            val verticalOffset = size.height
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, verticalOffset),
+                                end = Offset(size.width, verticalOffset)
+                            )
+                        }
+                )
+            }
+            Row{
+                TextField(
+                    value = whiskeyFlavors,
+                    onValueChange = {whiskeyFlavors = it},
+                    placeholder = {Text("What are the flavors?")},
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White,
+                        unfocusedTextColor = Color.Black,
+                        focusedTextColor = Color.Black,
+                        unfocusedPlaceholderColor = Color.Black
+                    ),
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .fillMaxHeight()
+                        .fillMaxWidth()
+                )
+            }
+        }
 
 
+        // TIPS: Card for Aromas
+        ElevatedCard(
+            modifier = Modifier
+                .padding(10.dp, 10.dp, 10.dp, 0.dp)
+                .fillMaxWidth()
+                .heightIn(130.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGrassLight
+            )
+        ) {
+            Row{
+                Text(
+                    text = "Aromas",
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            val verticalOffset = size.height
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, verticalOffset),
+                                end = Offset(size.width, verticalOffset)
+                            )
+                        }
+                )
+            }
+            Row{
+                TextField(
+                    value = whiskeyAroma,
+                    onValueChange = {whiskeyAroma = it},
+                    placeholder = {Text("What are the aromas?")},
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White,
+                        unfocusedTextColor = Color.Black,
+                        focusedTextColor = Color.Black,
+                        unfocusedPlaceholderColor = Color.Black
+                    ),
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .fillMaxHeight()
+                        .fillMaxWidth()
+                )
+            }
+        }
 
-        // TODO: Card for Aromas
 
-
-
-        // TODO: Card for Mouthfeel
-
+        // TIPS: Card for Mouthfeel
+        ElevatedCard(
+            modifier = Modifier
+                .padding(10.dp, 10.dp, 10.dp, 0.dp)
+                .fillMaxWidth()
+                .heightIn(130.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGrassLight
+            )
+        ) {
+            Row{
+                Text(
+                    text = "Mouthfeel",
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            val verticalOffset = size.height
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, verticalOffset),
+                                end = Offset(size.width, verticalOffset)
+                            )
+                        }
+                )
+            }
+            Row{
+                TextField(
+                    value = mouthFeel,
+                    onValueChange = {mouthFeel = it},
+                    placeholder = {Text("What is the mouthfeel?")},
+                    colors = OutlinedTextFieldDefaults.colors(
+                        unfocusedContainerColor = Color.White,
+                        focusedContainerColor = Color.White,
+                        unfocusedTextColor = Color.Black,
+                        focusedTextColor = Color.Black,
+                        unfocusedPlaceholderColor = Color.Black
+                    ),
+                    modifier = Modifier
+                        .padding(12.dp)
+                        .fillMaxHeight()
+                        .fillMaxWidth()
+                )
+            }
+        }
 
 
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
 
-        var score by remember { mutableStateOf("") }
+        var score by remember { mutableFloatStateOf(0f) }
 
-        // TODO: Card for Overall Score
+        // TIPS: Card for Overall Score
+        ElevatedCard(
+            modifier = Modifier
+                .padding(
+                    10.dp, // left
+                    10.dp,
+                    10.dp, // right
+                    0.dp
+                )
+                .fillMaxWidth()
+                .height(160.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGrassLight
+            )
+        ) {
+            Row {
+                Text(
+                    text = "Overall Score",
+                    fontSize = 35.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            val verticalOffset = size.height
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, verticalOffset),
+                                end = Offset(size.width, verticalOffset)
+                            )
+                        }
+                )
+            }
 
+            // Initiates the rating bar click-ability
+            // TIPS: Allows each card to have its own rating bar that will
+            //  not affect the others
+//                var rating: Float by remember { mutableFloatStateOf(0f) }
+            ratingBar(
+                rating = score,
+                onRatingChanged = { score = it }
+            )
+        }
 
 
         ///////////////////////////////////////////////////////////////////////////////
@@ -371,11 +556,19 @@ fun NewWhiskeyReview(
                             flavors = whiskeyFlavors,
                             aroma = whiskeyAroma,
                             mouthFeel = mouthFeel,
-                            overallScore = score
+                            overallScore = score.toInt()
                         )
                         if(!whiskeyReviewCompletion(newReview)){
                             openAlertDialog = true
                             Log.d("Review", "Review is NOT complete")
+                            Log.d("Review", whiskeyFlavors)
+                            Log.d("Review", score.toString())
+                            Log.d("Review", whiskeyAroma)
+                            Log.d("Review", mouthFeel)
+                            Log.d("Review", whiskeyName)
+                            Log.d("Review", whiskeyType)
+                            Log.d("Review", whiskeyOrigin)
+                            Log.d("Review", whiskeyAge)
                         } else {
                             scope.launch {
                                 try {
