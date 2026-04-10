@@ -17,7 +17,7 @@ data class WhiskeyReviews(
     var flavors: String = "",
     var aroma: String = "",
     var mouthFeel: String = "",
-    var overallScore: String = ""
+    var overallScore: Int = 0
     // Eventually will have option to include written review.
     // This may be more directly necessary to have when the app
     //  goes live
