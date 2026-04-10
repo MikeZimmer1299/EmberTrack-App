@@ -50,7 +50,7 @@ fun whiskeyReviewCompletion(reviewCheck: WhiskeyReviews): Boolean{
         reviewCheck.flavors,
         reviewCheck.aroma,
         reviewCheck.mouthFeel,
-        reviewCheck.ageStatement
+        reviewCheck.overallScore.toString()
     )
 
     return textFields.none { it.isBlank() }
