@@ -1,30 +1,34 @@
 package com.example.cigarsandwhiskey.objectInterface
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+
 import com.example.cigarsandwhiskey.dataAccessObjects.WhiskeyReviewDao
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
@@ -44,8 +48,6 @@ fun WhiskeyReviewsScreen(
             containerColor = lushForestGreenDark
         )
     ){
-//        Text(text = "Welcome to the Whiskey Reviews Page")
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -71,11 +73,77 @@ fun WhiskeyReviewsScreen(
         ///////////////////////////////////////////////////////////////////////////////
 
         // TODO: First card with whiskey brand, name, type, and proof
+        val reviewList by whiskeyReviewDao.getAllWhiskeyReviews()
+            .collectAsStateWithLifecycle(emptyList())
 
+        Log.d("Output", "whiskeyReviewDao.getAllWhiskeyReviews() success")
+
+        reviewList.forEachIndexed { index, reviews ->
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .heightIn(160.dp) // min height is 160.dp
+                    .padding(
+                        10.dp, // left
+                        20.dp,
+                        10.dp, // right
+                        0.dp),
+                colors = CardDefaults.cardColors(containerColor = lushForestGrassLight)
+            ) {
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ) {
+                    Text(
+                        text = reviews.brand,
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ) {
+                    Text(
+                        text = reviews.whiskeyName,
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ){
+                    Text(
+                        text = "Proof: ${reviews.proof} / " + reviews.proof.toFloat() / 2 + "%",
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ){
+                    Text(
+                        text = "Overall Score: ${reviews.overallScore}",
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        softWrap = true
+                    )
+                }
+            }
+            Log.d("Output", "ReviewList has added a review")
+        }
 
     }
 
-    // TODO: This button will allow a user to add a new whiskey review
+    ///////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+
+    // TIPS: This button will allow a user to add a new whiskey review
     ExtendedFloatingActionButton(
         modifier = Modifier
             .padding(
