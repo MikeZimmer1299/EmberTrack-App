@@ -398,7 +398,7 @@ fun NewCigarReview(
                         }
                 )
                 Text(
-                    text = String.format("%.1f", finalScore),
+                    text = "%.1f".format(finalScore),
                     fontSize = 70.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.End, // TODO: Work on this text align
