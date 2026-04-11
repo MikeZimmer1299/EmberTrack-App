@@ -123,7 +123,7 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
                     modifier = Modifier.padding(12.dp, 0.dp)
                 ) {
                     Text(
-                        text = "Final Score: ${reviews.finalScore}",
+                        text = "Final Score: ${"%.1f".format(reviews.finalScore)}",
                         fontSize = 35.sp,
                         fontWeight = FontWeight.SemiBold,
                         lineHeight = 35.sp
