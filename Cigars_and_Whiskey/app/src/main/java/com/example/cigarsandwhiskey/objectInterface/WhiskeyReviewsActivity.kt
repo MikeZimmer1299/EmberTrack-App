@@ -52,8 +52,6 @@ fun WhiskeyReviewsScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
-
-//        colors = CardDefaults.cardColors()
         ) {
             Text(text = "Whiskey Reviews", fontSize = 40.sp, fontWeight = FontWeight.Bold,
                 modifier = Modifier
