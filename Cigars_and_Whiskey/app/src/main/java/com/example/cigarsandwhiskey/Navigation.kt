@@ -11,7 +11,7 @@ import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,7 +33,10 @@ fun Navigation(database: AppDatabase){
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                Text("Menu", modifier = Modifier.padding(16.dp))
+                Text("Menu",
+                    modifier = Modifier.padding(16.dp),
+                    color = Color.White
+                )
                 HorizontalDivider()
                 NavigationDrawerItem(
                     label = {Text(text = "Home")},
