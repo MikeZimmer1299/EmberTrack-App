@@ -3,6 +3,7 @@ package com.example.cigarsandwhiskey.objectInterface
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -123,5 +124,16 @@ fun MyCigarsScreen(
     )
 
     // TODO: Also need to think about how to add a humidor to be tracked
+
+
+
+
+    ElevatedCard(modifier = Modifier
+        .padding(20.dp)
+        .height(20.dp)
+    ) {
+        // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+        //  card in the list. But it works, so ¯\_(ツ)_/¯
+    }
 
 }

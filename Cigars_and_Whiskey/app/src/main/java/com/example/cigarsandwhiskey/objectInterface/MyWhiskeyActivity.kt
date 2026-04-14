@@ -3,6 +3,7 @@ package com.example.cigarsandwhiskey.objectInterface
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -11,6 +12,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -65,6 +67,15 @@ fun MyWhiskeyScreen(
                     )
                 }
         )
+
+
+        ElevatedCard(modifier = Modifier
+            .padding(20.dp)
+            .height(20.dp)
+        ) {
+            // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+            //  card in the list. But it works, so ¯\_(ツ)_/¯
+        }
     }
 
     // TODO: This will allow the user to add whiskey to their collection

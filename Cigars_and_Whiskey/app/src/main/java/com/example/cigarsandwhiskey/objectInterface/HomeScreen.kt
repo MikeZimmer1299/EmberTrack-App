@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -343,6 +344,15 @@ fun HomeScreen(){
                     "go, to give option for user to learn", color = Color.Black)
             // TODO: This text is currently the same color at "lushForestGrassLight"
             //  until I changed the color manually. Will need to keep in mind for future
+        }
+
+
+        ElevatedCard(modifier = Modifier
+            .padding(20.dp)
+            .height(20.dp)
+        ) {
+            // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+            //  card in the list. But it works, so ¯\_(ツ)_/¯
         }
     }
 
