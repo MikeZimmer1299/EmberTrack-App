@@ -8,6 +8,7 @@ package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 */
 
 import android.util.Log
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -34,6 +35,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -72,11 +75,18 @@ fun NewCigarReview(
 
     var openAlertDialog by remember { mutableStateOf(false) }
 
+    val focusManager = LocalFocusManager.current
+
     Card(
         modifier = Modifier
             .fillMaxSize()
             .padding(0.dp)
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .pointerInput(Unit){
+                detectTapGestures(onTap = {
+                    focusManager.clearFocus()
+                })
+            },
         colors = CardDefaults.cardColors(
             containerColor = lushForestGreenDark
         )
@@ -133,7 +143,13 @@ fun NewCigarReview(
 
 
             Row( // TIPS: Row for stating CIGAR NAME
-                modifier = Modifier.padding(0.dp, 12.dp)
+                modifier = Modifier
+                    .padding(0.dp, 12.dp)
+//                    .pointerInput(Unit){
+//                        detectTapGestures(onTap = {
+//                            focusManager.clearFocus()
+//                        })
+//                    }
             ) {
                 Text(
                     text = "Cigar Name:",
