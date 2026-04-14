@@ -4,12 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.ui.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -26,6 +29,7 @@ fun InputTextField(
         // Defaults to text keyboard, but for text fields with intended ints,
         //  I can pass `KeyboardType.Number` to prevent text from being entered by user
 ){
+    val focusManager = LocalFocusManager.current
     Box(
         modifier = Modifier
             .background(Color.White)
@@ -44,7 +48,13 @@ fun InputTextField(
                 textAlign = TextAlign.Center
             ),
             modifier = Modifier.fillMaxWidth(),
-            keyboardOptions = KeyboardOptions(keyboardType = designatedKeyboard)
+            keyboardOptions = KeyboardOptions(
+                keyboardType = designatedKeyboard,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone = { focusManager.clearFocus() }
+            )
         )
 
         if(text.isEmpty()){
