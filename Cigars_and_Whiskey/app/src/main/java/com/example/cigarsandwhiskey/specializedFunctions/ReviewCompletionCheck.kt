@@ -3,12 +3,13 @@ package com.example.cigarsandwhiskey.specializedFunctions
 import android.util.Log
 import androidx.compose.runtime.Composable
 import com.example.cigarsandwhiskey.objects.CigarReviews
+import com.example.cigarsandwhiskey.objects.MyCigars
+import com.example.cigarsandwhiskey.objects.MyWhiskey
 import com.example.cigarsandwhiskey.objects.WhiskeyReviews
 
 
 // Checks if the cigar review is completed before allowing the review to be added
 //  to the list of user reviews
-//@Composable
 fun cigarReviewCompletion(reviewCheck: CigarReviews): Boolean{
 
     val textFields = listOf( // String comparison
@@ -37,7 +38,6 @@ fun cigarReviewCompletion(reviewCheck: CigarReviews): Boolean{
 
 // Checks if the whiskey review is completed before allowing the review to be added
 //  to the list of user reviews
-//@Composable
 fun whiskeyReviewCompletion(reviewCheck: WhiskeyReviews): Boolean{
 
     val textFields = listOf(
@@ -54,4 +54,31 @@ fun whiskeyReviewCompletion(reviewCheck: WhiskeyReviews): Boolean{
     )
 
     return textFields.none { it.isBlank() }
+}
+
+
+// Checks if cigars being added to the collection is filled out
+fun addNewCigarCompletion(additionCheck: MyCigars): Boolean{
+    val textFields = listOf(
+        additionCheck.cigarBrand,
+        additionCheck.cigarName,
+        additionCheck.countryOfOrigin,
+        additionCheck.sizeLength,
+        additionCheck.ringGauge
+    )
+    Log.d("Completion Check", "Completion")
+    return textFields.none{it.isBlank()}
+}
+
+
+// Checks if whiskey being added to collection is filled out
+fun addNewWhiskeyCompletion(additionCheck: MyWhiskey): Boolean{
+
+    val textFields = listOf(
+        additionCheck.brand,
+        additionCheck.name,
+        additionCheck.proof
+    )
+
+    return false;
 }
