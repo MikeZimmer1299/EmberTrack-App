@@ -14,7 +14,7 @@ val humidorList = listOf<MyHumidor>()
 @Entity(tableName = "my_humidors")
 data class MyHumidor(
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    var id: Int = 1,
 
     var humidorName: String = "Main Humidor",
     var numberOfCigars: Int = 0
