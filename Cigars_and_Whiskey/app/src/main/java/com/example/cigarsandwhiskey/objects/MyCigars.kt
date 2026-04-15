@@ -8,21 +8,21 @@ import androidx.room.PrimaryKey
 import com.example.cigarsandwhiskey.MainActivity
 
 @Entity(tableName = "my_cigars",
-    foreignKeys = [
-        ForeignKey(
-            entity = MyHumidor::class,
-            parentColumns = ["id"],
-            childColumns = ["humidorId"],
-            onDelete = ForeignKey.CASCADE // Deletes all cigars if humidor is deleted
-        )
-    ],
-    indices = [Index(value = ["humidorId"])]
+//    foreignKeys = [
+//        ForeignKey(
+//            entity = MyHumidor::class,
+//            parentColumns = ["id"],
+//            childColumns = ["humidorId"],
+//            onDelete = ForeignKey.CASCADE // Deletes all cigars if humidor is deleted
+//        )
+//    ],
+//    indices = [Index(value = ["humidorId"])]
 )
 data class MyCigars(
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0,
+    var id: Int = 1,
 
-    var humidorId: Int = 1, // default to "Main Humidor"
+//    var humidorId: Int = 0, // default to "Main Humidor"
     var cigarBrand: String = "",
     var cigarName: String = "",
     var countryOfOrigin: String = "",
