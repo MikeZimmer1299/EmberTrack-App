@@ -130,7 +130,6 @@ fun NewCigarReview(
 //                 this ^^^ is possible going to replace the end padding in the text above
 
                 // TIPS: mutableStateOf changed to mutableIntStateOf
-//                var selectedIndex by rememberSaveable { mutableIntStateOf(0) }
                 var cigarBrandList = cigarBrandsList()
                 DropdownMenu(
                     cigarBrandList,
@@ -145,11 +144,6 @@ fun NewCigarReview(
             Row( // TIPS: Row for stating CIGAR NAME
                 modifier = Modifier
                     .padding(0.dp, 12.dp)
-//                    .pointerInput(Unit){
-//                        detectTapGestures(onTap = {
-//                            focusManager.clearFocus()
-//                        })
-//                    }
             ) {
                 Text(
                     text = "Cigar Name:",
@@ -233,7 +227,7 @@ fun NewCigarReview(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row( // Row for stating CIGAR LENGTH
+            Row( // TIPS: Row for stating CIGAR LENGTH
                 modifier = Modifier.padding(0.dp, 12.dp)
             ) {
                 Text(
@@ -513,7 +507,6 @@ fun NewCigarReview(
                     modifier = Modifier
                         .padding(10.dp, 10.dp, 0.dp, 0.dp)
                         .height(45.dp)
-//                        .width(115.dp)
                     ,
                     colors = ButtonDefaults.buttonColors(lushForestGreenDark)
                 ) {
