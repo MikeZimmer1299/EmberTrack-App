@@ -166,7 +166,7 @@ fun Navigation(database: AppDatabase){
         ){
             // TODO: Need to add `database.___` as param to view info from database
             // Drawer Screen Options
-            composable("home"){ HomeScreen() }
+            composable("home"){ HomeScreen(database) }
             composable("my_humidors") { HumidorOptionScreen(navController, database.myHumidorsDao()) } // add
             composable("my_cigars"){ MyCigarsScreen(navController, database.myCigarsDao()) } // add
             composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao()) } // add
