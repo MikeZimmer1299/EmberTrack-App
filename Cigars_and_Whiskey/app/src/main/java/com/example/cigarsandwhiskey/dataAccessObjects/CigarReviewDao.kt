@@ -24,8 +24,14 @@ interface CigarReviewDao{
 
     // TIPS: This is for the search function, which will return
     //  cigars by a specific brand
-    @Query("SELECT * FROM cigar_reviews WHERE brand = :brand LIMIT 1")
-    fun getAllBrandReviews(brand: String): CigarReviews?
+    @Query("SELECT * FROM cigar_reviews WHERE brand = :brand")
+    fun getAllBrandReviews(brand: String): List<CigarReviews?>
+    // Changed to List to view all reviews from a brand. I will need to implement
+    //  an update to the screen to display reviews from the brand, not just all reviews
+
+    // TIPS: This is intended to be used on the HomeScreen. Same thing in WhiskeyReviewDao
+    @Query("SELECT * FROM cigar_reviews ORDER BY id DESC LIMIT 1")
+    fun getMostRecentCigarReview(): Flow<CigarReviews?>
 
     @Delete
     suspend fun deleteReview(review: CigarReviews)

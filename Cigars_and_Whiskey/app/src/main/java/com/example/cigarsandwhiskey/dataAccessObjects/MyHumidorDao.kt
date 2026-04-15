@@ -20,6 +20,10 @@ interface MyHumidorDao {
     @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun addNewHumidor(humidor: MyHumidor)
 
+    @Transaction
+    @Query("SELECT * FROM my_humidors LIMIT 1")
+    suspend fun getDefaultHumidor(): Flow<HumidorWithCigars?>
+
     @Delete
     suspend fun deleteHumidor(humidor: MyHumidor)
 }
