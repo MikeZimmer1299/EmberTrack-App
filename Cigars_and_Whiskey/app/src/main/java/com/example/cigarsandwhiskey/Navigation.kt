@@ -18,7 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cigarsandwhiskey.objectInterface.*
 import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.*
-import com.example.cigarsandwhiskey.objects.MyHumidor.*
+//import com.example.cigarsandwhiskey.objects.MyHumidor.*
 import kotlinx.coroutines.launch
 
 @Composable
@@ -68,19 +68,10 @@ fun Navigation(database: AppDatabase){
                     onClick = {
                         scope.launch {
                             drawerState.close()
-                            if(getMyHumidorSize() <= 2){
-                                navController.navigate("my_cigars"){
-                                    popUpTo(navController.graph.startDestinationId) { saveState = true}
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
-                            else{
-                                navController.navigate("my_humidors"){
-                                    popUpTo(navController.graph.startDestinationId) { saveState = true}
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
+                            navController.navigate("my_cigars"){
+                                popUpTo(navController.graph.startDestinationId) { saveState = true}
+                                launchSingleTop = true
+                                restoreState = true
                             }
                         }
                     }
@@ -167,7 +158,7 @@ fun Navigation(database: AppDatabase){
             // TODO: Need to add `database.___` as param to view info from database
             // Drawer Screen Options
             composable("home"){ HomeScreen(database) }
-            composable("my_humidors") { HumidorOptionScreen(navController, database.myHumidorsDao()) } // add
+//            composable("my_humidors") { HumidorOptionScreen(navController, database.myHumidorsDao()) } // removed for now, may implement at a later time
             composable("my_cigars"){ MyCigarsScreen(navController, database.myCigarsDao()) } // add
             composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao()) } // add
             composable("cigar_brands"){ CigarBrandsScreen() }
