@@ -39,9 +39,9 @@ private val DarkColorScheme = darkColorScheme(
     secondary = earthForestMediumDark,
     tertiary = earthForestMedium, // special emphasis elements (such as buttons)
 
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
+    onPrimary = Color(0xFFECDFDF),
+    onSecondary = Color(0xFFECDFDF),
+    onTertiary = Color(0xFFECDFDF),
 
     onBackground = Color.Black,
     onSurface = Color.Black, // text on non-special elements
