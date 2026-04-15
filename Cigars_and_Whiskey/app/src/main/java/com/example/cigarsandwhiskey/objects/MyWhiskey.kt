@@ -11,12 +11,14 @@ data class MyWhiskey(
 
     var brand: String,
     var name: String,
-    var proof: Float
+    var proof: String,
+    // Do I add quantity of bottles?
+    // People commonly get more than one bottle at a time
 )
 
 @Composable
 // param proof = the proof of the chosen whiskey to be converted
 // When entering a float, remember to add `f` at the end if a hard int or `.toFloat()` if val/var
-fun proofToPercent(proof: Float): Float {
-    return (proof / 2);
+fun proofToPercent(proof: String): Float {
+    return (proof.toFloat() / 2);
 }
