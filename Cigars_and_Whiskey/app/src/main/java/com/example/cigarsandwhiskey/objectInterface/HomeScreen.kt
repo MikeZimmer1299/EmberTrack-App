@@ -1,11 +1,11 @@
 package com.example.cigarsandwhiskey.objectInterface
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -15,18 +15,18 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.cigarsandwhiskey.objects.MyCigars
-import com.example.cigarsandwhiskey.objects.MyWhiskey
-import com.example.cigarsandwhiskey.objects.filterList
-import com.example.cigarsandwhiskey.objects.proofToPercent
+
+import com.example.cigarsandwhiskey.AppDatabase
 import com.example.cigarsandwhiskey.ui.theme.*
 
 
@@ -37,10 +37,14 @@ import com.example.cigarsandwhiskey.ui.theme.*
 //  onClick: Card does not *usually* accept click events. This implementation is to overload
 
 @Composable
-@Preview
-fun HomeScreen(){
+fun HomeScreen(database: AppDatabase){
 
-    // TODO: Need to think about what type of information should be on the home screen
+    // Allows access to the most recent cigar/whiskey review for the first elevated card
+    val mostRecentCigarReview by remember(database) {
+        database.cigarReviewDao().getMostRecentCigarReview()}.collectAsState(initial = null)
+    val mostRecentWhiskeyReview by remember(database) {
+        database.myWhiskeyReviewDao().getMostRecentWhiskeyReview()}.collectAsState(initial = null)
+
 
     // TODO: Within Card, since I plan to be able to scroll, I will need
     //  to use the `.verticalScroll(rememberScrollState())` modifier
@@ -53,17 +57,12 @@ fun HomeScreen(){
         colors = CardDefaults.cardColors(
             containerColor = lushForestGreenDark
         )
-        // TODO: look at Theme.kt to figure out what each color is getting its params from
     ){
-        //  Within this card, I think, is where the content for all pages
-        //  should end up going.
 
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
-
-//        colors = CardDefaults.cardColors()
         ) {
             Text(text = "Home", fontSize = 40.sp,
                 modifier = Modifier
@@ -76,10 +75,12 @@ fun HomeScreen(){
                             end = Offset(size.width, size.height)
                         )
                     },
-//                color = lushForestGrassLight,
                 fontWeight = FontWeight.Bold
             )
         }
+
+        /////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////
 
         // Row for each object desired on the home screen
         // TODO: May make these, instead of rows, as other cards? Example below of elevated card
@@ -93,37 +94,12 @@ fun HomeScreen(){
                     10.dp, // right
                     5.dp
                 )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 200.dp),
+                .fillMaxWidth()
+                .heightIn(200.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
         ) {
-//            Text(text = "Your Most Recent Cigar Reviews")
-
-            // TODO: Examples for refreshing memory below on how objects and things are made/used
-            //  with their content. Things like this will be moved into their own functions later on
-//            var temp1 = MyCigars("Tatuaje", "Boris Karloff", "Nicaragua", 5.75f, 52)
-//            var temp2 = MyCigars("Tatuaje", "PCA 2025","Nicaragua", 5.62f, 54)
-//            var temp3 = MyCigars("Cavalier Geneve", "Green Jacket 2025", "Honduras", 7.00f, 47)
-//            val tempList = listOf<MyCigars>(
-//                temp1, temp2, temp3
-//            )
-//            filterList(tempList)
-
-//            var tempWhiskey = MyWhiskey("Maker's Mark", "46", 94f)
-//            val proofNumber = proofToPercent(tempWhiskey.proof)
-
-//            Text(text = "The most recent review was for $temp1")
-//            Text(text = "The second most recent review is $temp2")
-//            Text(text = "Will this work? Ring gauge: ${temp1.ringGauge}")
-//            Text(text = "Favorite cigar is $temp3")
-
-//            for (cigar in tempList){
-//                Text( text = "The cigar of choice is the: ${cigar.cigarName}\n")
-//            }
-
-
             Row(
                 modifier = Modifier
                     .padding(
@@ -140,46 +116,81 @@ fun HomeScreen(){
                         .padding(
                             5.dp, // left
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
-                        containerColor = lushForestGreenDark
+                        containerColor = earthForestMediumDark
                     )
                 ) {
-                    Text(text = "This is test text")
+                    mostRecentCigarReview?.let { review ->
+                        Text(
+                            text = review.brand,
+                            fontSize = 33.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 5.dp)
+                        )
+                        Text(
+                            text = review.cigarName,
+                            fontSize = 33.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 0.dp)
+                        )
+                        Text(
+                            text = "Score: ${"%.1f".format(review.finalScore)}",
+                            fontSize = 33.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 5.dp)
+                        )
+
+                    } ?: Text(text = "Time to add your first review!")
+
                 }
                 Card(
 //                    onClick = {},
                     modifier = Modifier
                         .size(width = 225.dp, height = 180.dp)
                         .padding(
-                            5.dp, // left
+                            5.dp,
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
                     )
-                ) { Text(text = "This is a test") }
-//                Card(
-////                    onClick = {},
-//                    modifier = Modifier
-//                        .size(width = 155.dp, height = 180.dp)
-//                        .padding(
-//                            5.dp, // left
-//                            0.dp,
-////                            0.dp, // right
-////                            0.dp
-//                        ),
-//                    colors = CardDefaults.cardColors(
-//                        containerColor = earthForestMediumDark
-//                    )
-//                ) { }
+                ) {
+                    mostRecentWhiskeyReview?.let { review ->
+                        Text(
+                            text = review.brand,
+                            fontSize = 33.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 5.dp)
+                        )
+                        Text(
+                            text = review.whiskeyName,
+                            fontSize = 33.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 0.dp)
+                        )
+                        Text(
+                            text = "Score: ${review.overallScore}",
+                            fontSize = 33.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 5.dp)
+                        )
+
+                    } ?: Text(text = "Time to add your first review!")
+                }
             }
-
-
         }
 
         ElevatedCard(
@@ -191,14 +202,12 @@ fun HomeScreen(){
                     10.dp, // right
                     5.dp
                 )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 200.dp),
+                .fillMaxWidth()
+                .heightIn(200.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
         ) {
-//            Text(text = "This is where the most recent whiskey review is going")
-
             Row(
                 modifier = Modifier
                     .padding(
@@ -262,8 +271,8 @@ fun HomeScreen(){
                     10.dp, // right
                     5.dp
                 )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 200.dp),
+                .fillMaxWidth()
+                .heightIn(200.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -334,8 +343,8 @@ fun HomeScreen(){
                     10.dp, // right
                     5.dp
                 )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 260.dp),
+                .fillMaxWidth()
+                .heightIn(260.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
