@@ -16,12 +16,12 @@
 - List of highest rated cigar and whiskey reviews from user
 - Random cigar and whiskey brand to give user option to read about the brand
 ### My Cigars
-~~#### If 2+ Humidors~~
-~~- Initial screen will display 3+ options:~~
-  ~~- View All Cigars (across all humidors)~~
-	~~- View Humidor *name1* Cigars~~
-	~~- View Humidor *name2* Cigars~~
-	~~- Continue trend for every other humidor~~
+#### ~~If 2+ Humidors~~
+  - ~~Initial screen will display 3+ options:~~
+  - ~~View All Cigars (across all humidors)~~
+	- ~~View Humidor *name1* Cigars~~
+	- ~~View Humidor *name2* Cigars~~
+	- ~~Continue trend for every other humidor~~
 #### If 1 Humidor or looking inside chosen Humidor
 - Initially show all cigars
 - Allow user to view cigars through filters:
