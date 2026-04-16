@@ -16,12 +16,12 @@
 - List of highest rated cigar and whiskey reviews from user
 - Random cigar and whiskey brand to give user option to read about the brand
 ### My Cigars
-#### If 2+ Humidors
-- Initial screen will display 3+ options:
-	- View All Cigars (across all humidors)
-	- View Humidor *name1* Cigars
-	- View Humidor *name2* Cigars
-	- Continue trend for every other humidor
+~~#### If 2+ Humidors~~
+~~- Initial screen will display 3+ options:~~
+  ~~- View All Cigars (across all humidors)~~
+	~~- View Humidor *name1* Cigars~~
+	~~- View Humidor *name2* Cigars~~
+	~~- Continue trend for every other humidor~~
 #### If 1 Humidor or looking inside chosen Humidor
 - Initially show all cigars
 - Allow user to view cigars through filters:
@@ -80,6 +80,7 @@
 - The app is using Room, which implements an SQLite database
 	- The main types of Entities are `MyCigars`, `MyWhiskey`, `CigarReviews`, `WhiskeyReviews`, and `MyHumidor`
 ## Long Term Plan
+- Currently, the humidor objects are put on standby, until the app is in a closer state of completion. I was having a difficult time initializing the first `humidor` object and adding cigars to it. The humidor itself is not a requirement for the app to server its intended purpose, so I am leaving it for the time being.
 - Once the app is in a fully working state, I plan to use an AWS instance to allow users to attach their collections to a cloud environment.
 - With this cloud environment, they would be able to add friends and view those friends' collection of cigars and whiskey, along with viewing their friends' reviews of cigars smoked and whiskey drank
 - I am also planning on building a website, which would have access to the cloud and give users the option to view/add to their collections or reviews through their web browser.
