@@ -45,38 +45,36 @@ fun MyWhiskeyScreen(
             containerColor = lushForestGreenDark
         )
     ){
-//        Text(text = "Welcome to the My Whiskey Page")
-    }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(15.dp, 30.dp, 0.dp, 0.dp),
-
-//        colors = CardDefaults.cardColors()
-    ) {
-        Text(text = "My Whiskey", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+        Column(
             modifier = Modifier
-                .drawBehind{
-                    val strokeWidthPx = 3.dp.toPx()
-                    drawLine(
-                        color = Color.Black,
-                        strokeWidth = strokeWidthPx,
-                        start = Offset(0f, size.height),
-                        end = Offset(size.width, size.height)
-                    )
-                }
-        )
-
-
-        ElevatedCard(modifier = Modifier
-            .padding(20.dp)
-            .height(20.dp)
+                .fillMaxWidth()
+                .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            // TIPS: Intentionally left blank. A terrible way to add spacing below the last
-            //  card in the list. But it works, so ¯\_(ツ)_/¯
+            Text(text = "My Whiskey", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .drawBehind{
+                        val strokeWidthPx = 3.dp.toPx()
+                        drawLine(
+                            color = Color.Black,
+                            strokeWidth = strokeWidthPx,
+                            start = Offset(0f, size.height),
+                            end = Offset(size.width, size.height)
+                        )
+                    }
+            )
+
+
+
+            ElevatedCard(modifier = Modifier
+                .padding(20.dp)
+                .height(20.dp)
+            ) {
+                // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+                //  card in the list. But it works, so ¯\_(ツ)_/¯
+            }
         }
     }
+
 
     // TODO: This will allow the user to add whiskey to their collection
     ExtendedFloatingActionButton(

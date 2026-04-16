@@ -77,7 +77,7 @@ fun MyCigarsScreen(
 
         Log.d("Output", "myCigarsDao.getAllCigars() success")
 
-        myCigarsList.forEachIndexed { index, cigars ->
+        myCigarsList.forEach { cigars ->
             ElevatedCard(
                 modifier = Modifier
                     .padding(
@@ -118,7 +118,7 @@ fun MyCigarsScreen(
                     modifier = Modifier.padding(10.dp, 0.dp)
                 ) {
                     Text(
-                        text = "${cigars.sizeLength} x ${cigars.ringGauge}",
+                        text = "Size: ${cigars.sizeLength} x ${cigars.ringGauge}",
                         fontSize = 40.sp,
                         fontWeight = FontWeight.Bold,
                         lineHeight = 45.sp,
