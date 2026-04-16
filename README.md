@@ -13,7 +13,8 @@
 ## The Primary App Screens
 ### Home Screen
 - Most recent cigar and whiskey review
-- List of highest rated cigar and whiskey reviews from user
+- 3 most recently added cigars to user's collection
+- 3 most recently added whiskeys to user's collection
 - Random cigar and whiskey brand to give user option to read about the brand
 ### My Cigars
 #### ~~If 2+ Humidors~~
