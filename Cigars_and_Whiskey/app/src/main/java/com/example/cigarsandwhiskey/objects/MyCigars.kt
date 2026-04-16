@@ -27,7 +27,8 @@ data class MyCigars(
     var cigarName: String = "",
     var countryOfOrigin: String = "",
     var sizeLength: String = "",
-    var ringGauge: String = ""
+    var ringGauge: String = "",
+    var quantity: String = ""
 ){
 
 }
