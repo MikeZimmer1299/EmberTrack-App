@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -147,7 +148,15 @@ fun HomeScreen(database: AppDatabase){
                             modifier = Modifier.padding(10.dp, 5.dp)
                         )
 
-                    } ?: Text(text = "Time to add your first review!")
+                    } ?: Text(
+                        text = "Time to add your first cigar review!",
+                        fontSize = 33.sp,
+                        lineHeight = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        softWrap = true,
+                        modifier = Modifier.padding(10.dp, 10.dp),
+                        textAlign = TextAlign.Center
+                    )
 
                 }
                 Card(
@@ -188,7 +197,15 @@ fun HomeScreen(database: AppDatabase){
                             modifier = Modifier.padding(10.dp, 5.dp)
                         )
 
-                    } ?: Text(text = "Time to add your first review!")
+                    } ?: Text(
+                        text = "Time to add your first whiskey review!",
+                        fontSize = 33.sp,
+                        lineHeight = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        softWrap = true,
+                        modifier = Modifier.padding(10.dp, 10.dp),
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
