@@ -2,6 +2,7 @@ package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
 import android.util.Log
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -85,13 +86,32 @@ fun NewWhiskeyReview(
             containerColor = lushForestGreenDark
         )
     ) {
+        // TIPS: Card to display screen title
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp, 30.dp, 0.dp, 0.dp),
+        ) {
+            Text(text = "New Whiskey Review", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .drawBehind{
+                        val strokeWidthPx = 3.dp.toPx()
+                        drawLine(
+                            color = Color.Black,
+                            strokeWidth = strokeWidthPx,
+                            start = Offset(0f, size.height),
+                            end = Offset(size.width, size.height)
+                        )
+                    }
+            )
+        }
 
         // TIPS: Card for Distillery and Whiskey Name
         ElevatedCard(
             modifier = Modifier
                 .padding(
                     10.dp, // left
-                    45.dp,
+                    15.dp,
                     10.dp, // right
                     0.dp
                 )
