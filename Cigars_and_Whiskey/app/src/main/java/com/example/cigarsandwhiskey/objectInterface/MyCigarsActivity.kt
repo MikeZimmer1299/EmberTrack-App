@@ -1,11 +1,13 @@
 package com.example.cigarsandwhiskey.objectInterface
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -17,6 +19,7 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -24,31 +27,19 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.dataAccessObjects.MyCigarsDao
+import com.example.cigarsandwhiskey.dataAccessObjects.MyHumidorDao
+import com.example.cigarsandwhiskey.dataAccessObjects.MyHumidorDao.*
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
-
-// it has the ` ` around object because my naming convention is NOT good for now
-//class MyCigarsActivity : ComponentActivity() {
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
-//
-//        setContent {
-//            CigarsAndWhiskeyTheme{
-//                MyCigarsScreen()
-//            }
-//        }
-//    }
-//}
 
 @Composable
 fun MyCigarsScreen(
     navController: NavController,
     myCigarsDao: MyCigarsDao
 ){
-
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -59,14 +50,10 @@ fun MyCigarsScreen(
         )
 
     ){
-//        Text(text = "Welcome to the My Cigars Page")
-
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
-
-//        colors = CardDefaults.cardColors()
         ) {
             Text(text = "My Cigars", fontSize = 40.sp, fontWeight = FontWeight.Bold,
                 modifier = Modifier
@@ -85,23 +72,71 @@ fun MyCigarsScreen(
         // TODO: First starting off as if the user only has one humidor, will implement
         //  more than one humidor once the single humidor object is in working order
 
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    15.dp,
-                    10.dp, // right
-                    5.dp
+        val myCigarsList by myCigarsDao.getAllCigars()
+            .collectAsStateWithLifecycle(emptyList())
+
+        Log.d("Output", "myCigarsDao.getAllCigars() success")
+
+        myCigarsList.forEachIndexed { index, cigars ->
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(
+                        10.dp, // left
+                        15.dp,
+                        10.dp, // right
+                        5.dp
+                    )
+                    .fillMaxWidth()
+                    .heightIn(160.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
                 )
-//                .background(color = Color.Green)
-                .size(width = 480.dp, height = 200.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            Text(text = "This is where the most recent cigar added to the humidor will go" +
-                    " or it will be the option to choose which humidor you wish to view." +
-                    " This is entirely dependent on if the user has one or more humidors.")
+            ) {
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ) {
+                    Text(
+                        text = cigars.cigarBrand,
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp,
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ){
+                    Text(
+                        text = cigars.cigarName,
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp,
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ) {
+                    Text(
+                        text = "${cigars.sizeLength} x ${cigars.ringGauge}",
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp,
+                        softWrap = true
+                    )
+                }
+                Row(
+                    modifier = Modifier.padding(10.dp, 0.dp)
+                ) {
+                    Text(
+                        text = "Quantity: ${cigars.quantity}",
+                        fontSize = 40.sp,
+                        fontWeight = FontWeight.Bold,
+                        lineHeight = 45.sp,
+                        softWrap = true
+                    )
+                }
+            }
         }
 
     }
@@ -124,9 +159,7 @@ fun MyCigarsScreen(
     )
 
     // TODO: Also need to think about how to add a humidor to be tracked
-
-
-
+    //  This has been added to "later"
 
     ElevatedCard(modifier = Modifier
         .padding(20.dp)
