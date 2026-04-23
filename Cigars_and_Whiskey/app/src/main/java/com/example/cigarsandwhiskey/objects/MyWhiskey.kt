@@ -12,6 +12,10 @@ data class MyWhiskey(
     var brand: String,
     var name: String,
     var proof: String,
+    var type: String,
+    var origin: String,
+    var ageStatement: String,
+    var bottleSize: String
     // Do I add quantity of bottles?
     // People commonly get more than one bottle at a time
 )
