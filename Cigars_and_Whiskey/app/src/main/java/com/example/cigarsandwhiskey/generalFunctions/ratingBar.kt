@@ -1,5 +1,7 @@
 package com.example.cigarsandwhiskey.generalFunctions
 
+import android.R.attr.maxWidth
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -15,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun ratingBar(
     rating: Float,
@@ -26,7 +29,7 @@ fun ratingBar(
 
             val isFilled = i <= rating
 
-            Box(
+            BoxWithConstraints(
                 modifier = Modifier
                     .padding(
                         2.dp,
@@ -34,10 +37,11 @@ fun ratingBar(
                         2.dp,
                         2.dp
                     )
-                    .size(width = 42.dp, height = 86.dp)
+                    .weight(1f)
+                    .aspectRatio(0.5f)
                     .background(
                         if (isFilled) Color(0xFF4CAF50)
-                        else Color(0xFF7A4343),
+                            else Color(0xFF7A4343),
                         shape = RoundedCornerShape(10.dp)
                     )
                     .clickable {
@@ -45,7 +49,8 @@ fun ratingBar(
                     },
                 contentAlignment = Alignment.Center,
             ){
-                Text(text = i.toString(), fontWeight = FontWeight.Bold, fontSize = 30.sp)
+                val dynamicFontSize = (maxWidth.value * 0.5f).sp
+                Text(text = i.toString(), fontWeight = FontWeight.Bold, fontSize = dynamicFontSize)
             }
         }
     }
