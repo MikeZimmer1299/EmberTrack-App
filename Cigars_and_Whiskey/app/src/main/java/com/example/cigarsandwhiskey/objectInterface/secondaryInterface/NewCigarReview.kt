@@ -154,8 +154,8 @@ fun NewCigarReview(
                 var cigarBrandList = cigarBrandsList()
                 DropdownMenu(
                     cigarBrandList,
-//                    selectedIndex, // this may be unnecessary
                     "Choose a Brand",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = { cigarBrand = cigarBrandList[it] }
                 )
 //                Log.d("Output", "Viewing the brand: $chosenBrand")
@@ -189,6 +189,7 @@ fun NewCigarReview(
                 InputTextField(
                     cigarName,
                     onTextChange = { cigarName = it },
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     placeholder = "Enter Cigar Name"
                 )
             }
@@ -220,8 +221,8 @@ fun NewCigarReview(
                 var cigarOriginList = cigarOriginList()
                 DropdownMenu(
                     cigarOriginList,
-//                    selectedIndex, // this may be unnecessary
                     "Country of Origin",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = { cigarCountry = cigarOriginList[it] }
                 )
             }
@@ -275,6 +276,7 @@ fun NewCigarReview(
                     cigarLength,
                     onTextChange = { cigarLength = it },
                     placeholder = "Enter Cigar Length",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     KeyboardType.Number
                 )
             }
@@ -308,6 +310,7 @@ fun NewCigarReview(
                     cigarRingGauge,
                     onTextChange = { cigarRingGauge = it },
                     placeholder = "Enter Ring Gauge",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     KeyboardType.Number
                 )
             }

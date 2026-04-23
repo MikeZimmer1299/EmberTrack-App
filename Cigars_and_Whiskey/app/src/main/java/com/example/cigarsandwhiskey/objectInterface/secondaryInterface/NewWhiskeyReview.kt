@@ -148,6 +148,7 @@ fun NewWhiskeyReview(
                 DropdownMenu(
                     whiskeyBrandsList,
                     "Choose a Brand",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = {whiskeyBrand = whiskeyBrandsList[it]}
                 )
             }
@@ -177,6 +178,7 @@ fun NewWhiskeyReview(
                 InputTextField(
                     whiskeyName,
                     onTextChange = {whiskeyName = it},
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     placeholder = "Enter Whiskey Name"
                 )
             }
@@ -231,6 +233,7 @@ fun NewWhiskeyReview(
                 DropdownMenu(
                     whiskeyTypeList,
                     "Choose a Type",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = {whiskeyType = whiskeyTypeList[it]}
                 )
             }
@@ -261,6 +264,7 @@ fun NewWhiskeyReview(
                 DropdownMenu(
                     whiskeyOriginList,
                     "Choose an Origin",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = {whiskeyOrigin = whiskeyOriginList[it]}
                 )
             }
@@ -291,6 +295,7 @@ fun NewWhiskeyReview(
                 DropdownMenu(
                     whiskeyAgeList,
                     "Age Statement",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = {whiskeyAge = whiskeyAgeList[it]}
                 )
             }
@@ -321,6 +326,7 @@ fun NewWhiskeyReview(
                     whiskeyProof,
                     onTextChange = {whiskeyProof = it},
                     placeholder = "Enter the Proof",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     KeyboardType.Number
                 )
             }
