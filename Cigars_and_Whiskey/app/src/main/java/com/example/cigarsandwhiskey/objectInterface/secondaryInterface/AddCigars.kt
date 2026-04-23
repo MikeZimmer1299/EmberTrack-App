@@ -143,6 +143,7 @@ fun AddCigars(
                     cigarBrandList,
 //                    selectedIndex, // this may be unnecessary
                     "Choose a Brand",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = { cigarBrand = cigarBrandList[it] }
                 )
 //                Log.d("Output", "Viewing the brand: $chosenBrand")
@@ -175,6 +176,7 @@ fun AddCigars(
                 InputTextField(
                     cigarName,
                     onTextChange = { cigarName = it },
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     placeholder = "Enter Cigar Name"
                 )
             }
@@ -207,6 +209,7 @@ fun AddCigars(
                     cigarOriginList,
 //                    selectedIndex, // this may be unnecessary
                     "Country of Origin",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     onItemClick = { cigarOrigin = cigarOriginList[it] }
                 )
             }
@@ -261,6 +264,7 @@ fun AddCigars(
                     cigarLength,
                     onTextChange = { cigarLength = it },
                     placeholder = "Enter Cigar Length",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     KeyboardType.Number
                 )
             }
@@ -294,6 +298,7 @@ fun AddCigars(
                     cigarRingGauge,
                     onTextChange = { cigarRingGauge = it },
                     placeholder = "Enter Ring Gauge",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     KeyboardType.Number
                 )
             }
@@ -324,6 +329,7 @@ fun AddCigars(
                     cigarQuantity,
                     onTextChange = { cigarQuantity = it },
                     placeholder = "Enter # of Cigars",
+                    modifier = Modifier.weight(1f).padding(end = 12.dp),
                     KeyboardType.Number
                 )
             }
