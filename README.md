@@ -1,4 +1,4 @@
-# CigarWhiskey-KotlinApp
+# EmberTrack
 ## The Purpose
 - In my free time, I find joy in smoking premium cigars and drinking fine spirits in good company. The cigars I smoke, and buy, and the whiskey I collect is all stored in my phone's photo gallery.
 - While all photos are in a single folder, it becomes time consuming to scroll through the few thousand photos to find a specific cigar or whiskey that may only have one photo referencing it. This app will fix this problem.
