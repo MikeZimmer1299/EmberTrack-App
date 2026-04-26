@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -65,7 +66,7 @@ fun HomeScreen(database: AppDatabase){
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "Home", fontSize = 40.sp,
+            Text(text = "Home", fontSize = 45.sp,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -102,6 +103,31 @@ fun HomeScreen(database: AppDatabase){
             )
         ) {
             Row(
+                modifier = Modifier.padding(
+                    15.dp,
+                    5.dp,
+                    0.dp,
+                    0.dp,
+                )
+            ){
+                Text(
+                    text = "Most Recent Reviews",
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .drawBehind{
+                            val strokeWidthPx = 3.dp.toPx()
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, size.height),
+                                end = Offset(size.width, size.height)
+                            )
+                        },
+                )
+            }
+
+            Row(
                 modifier = Modifier
                     .padding(
                         5.dp, // left
@@ -113,10 +139,14 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 225.dp, height = 180.dp)
+//                        .size(width = 225.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(225.dp)
                         .padding(
                             5.dp, // left
                             0.dp,
+                            5.dp, // right
+                            10.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
@@ -125,7 +155,7 @@ fun HomeScreen(database: AppDatabase){
                     mostRecentCigarReview?.let { review ->
                         Text(
                             text = review.brand,
-                            fontSize = 33.sp,
+                            fontSize = 30.sp,
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
@@ -133,7 +163,7 @@ fun HomeScreen(database: AppDatabase){
                         )
                         Text(
                             text = review.cigarName,
-                            fontSize = 33.sp,
+                            fontSize = 30.sp,
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
@@ -141,7 +171,7 @@ fun HomeScreen(database: AppDatabase){
                         )
                         Text(
                             text = "Score: ${"%.1f".format(review.finalScore)}",
-                            fontSize = 33.sp,
+                            fontSize = 30.sp,
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
@@ -162,10 +192,14 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 225.dp, height = 180.dp)
+//                        .size(width = 225.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(225.dp)
                         .padding(
-                            5.dp,
+                            5.dp, // left
                             0.dp,
+                            5.dp, // right
+                            10.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
@@ -174,7 +208,7 @@ fun HomeScreen(database: AppDatabase){
                     mostRecentWhiskeyReview?.let { review ->
                         Text(
                             text = review.brand,
-                            fontSize = 33.sp,
+                            fontSize = 30.sp,
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
@@ -182,7 +216,7 @@ fun HomeScreen(database: AppDatabase){
                         )
                         Text(
                             text = review.whiskeyName,
-                            fontSize = 33.sp,
+                            fontSize = 30.sp,
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
@@ -190,7 +224,7 @@ fun HomeScreen(database: AppDatabase){
                         )
                         Text(
                             text = "Score: ${review.overallScore}",
-                            fontSize = 33.sp,
+                            fontSize = 30.sp,
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
@@ -237,12 +271,13 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 150.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(150.dp)
                         .padding(
                             5.dp, // left
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
+                            5.dp, // right
+                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
@@ -251,12 +286,13 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 150.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(150.dp)
                         .padding(
                             5.dp, // left
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
+                            5.dp, // right
+                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
@@ -265,12 +301,13 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 150.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(150.dp)
                         .padding(
                             5.dp, // left
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
+                            5.dp, // right
+                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
@@ -308,12 +345,13 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 150.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(150.dp)
                         .padding(
                             5.dp, // left
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
+                            5.dp, // right
+                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
@@ -322,12 +360,13 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 150.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(150.dp)
                         .padding(
                             5.dp, // left
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
+                            5.dp, // right
+                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
@@ -336,12 +375,13 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .size(width = 155.dp, height = 180.dp)
+                        .heightIn(180.dp)
+                        .width(150.dp)
                         .padding(
                             5.dp, // left
                             0.dp,
-//                            0.dp, // right
-//                            0.dp
+                            5.dp, // right
+                            0.dp
                         ),
                     colors = CardDefaults.cardColors(
                         containerColor = earthForestMediumDark
