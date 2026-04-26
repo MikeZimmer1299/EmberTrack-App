@@ -83,5 +83,9 @@
 ## Long Term Plan
 - Currently, the humidor objects are put on standby, until the app is in a closer state of completion. I was having a difficult time initializing the first `humidor` object and adding cigars to it. The humidor itself is not a requirement for the app to server its intended purpose, so I am leaving it for the time being.
 - Once the app is in a fully working state, I plan to use an AWS instance to allow users to attach their collections to a cloud environment.
+  - I am deciding on Prisma or Drizzle ORM for the database management. Prisma seems to be the most popular option while doing research, so I may decide on Prisma.
+  - For frontend/backend communication, I will be using Axios library for making API calls.
 - With this cloud environment, they would be able to add friends and view those friends' collection of cigars and whiskey, along with viewing their friends' reviews of cigars smoked and whiskey drank
 - I am also planning on building a website, which would have access to the cloud and give users the option to view/add to their collections or reviews through their web browser.
+  - For the website's access to the database, I will be using Express.js to connect the frontend to the SQLite database. For a simple project like this, Express is the best option to work alongside Node.js.
+  - Because I am also utilizing Vite, I will be utilizing Tailwind CSS as well.
