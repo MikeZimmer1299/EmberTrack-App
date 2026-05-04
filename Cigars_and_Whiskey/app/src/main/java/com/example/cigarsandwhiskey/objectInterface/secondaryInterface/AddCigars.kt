@@ -64,6 +64,9 @@ fun AddCigars(
     var cigarBrand by remember { mutableStateOf("") }
     var cigarName by remember { mutableStateOf("") }
     var cigarOrigin by remember { mutableStateOf("") }
+    var cigarLength by remember { mutableStateOf("") }
+    var cigarRingGauge by remember { mutableStateOf("") }
+    var cigarQuantity by remember { mutableStateOf("") }
 
     var openAlertDialog by remember { mutableStateOf(false) }
 
@@ -218,10 +221,6 @@ fun AddCigars(
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
 
-        var cigarLength by remember { mutableStateOf("") }
-        var cigarRingGauge by remember { mutableStateOf("") }
-        var cigarQuantity by remember { mutableStateOf("") }
-
         ElevatedCard(
             modifier = Modifier
                 .padding(
@@ -230,7 +229,6 @@ fun AddCigars(
                     10.dp, // right
                     5.dp
                 )
-//                .background(color = Color.Green)
                 .fillMaxWidth()
                 .heightIn(130.dp),
             colors = CardDefaults.cardColors(

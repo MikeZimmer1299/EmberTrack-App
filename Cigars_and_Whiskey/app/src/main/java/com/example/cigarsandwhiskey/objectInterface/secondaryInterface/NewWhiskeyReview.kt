@@ -68,6 +68,14 @@ fun NewWhiskeyReview(
     // TIPS: Whiskey params for review
     var whiskeyBrand by remember { mutableStateOf("") }
     var whiskeyName by remember { mutableStateOf("") }
+    var whiskeyType by remember { mutableStateOf("") }
+    var whiskeyOrigin by remember { mutableStateOf("") }
+    var whiskeyAge by remember { mutableStateOf("") }
+    var whiskeyProof by remember { mutableStateOf("") }
+    var whiskeyFlavors by remember { mutableStateOf("") }
+    var whiskeyAroma by remember { mutableStateOf("") }
+    var mouthFeel by remember { mutableStateOf("") }
+    var score by remember { mutableFloatStateOf(0f) }
 
     var openAlertDialog by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
@@ -186,11 +194,6 @@ fun NewWhiskeyReview(
 
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
-
-        var whiskeyType by remember { mutableStateOf("") }
-        var whiskeyOrigin by remember { mutableStateOf("") }
-        var whiskeyAge by remember { mutableStateOf("") }
-        var whiskeyProof by remember { mutableStateOf("") }
 
         // TIPS: Card for Type, Proof, and Age Statement
         ElevatedCard(
@@ -334,10 +337,6 @@ fun NewWhiskeyReview(
 
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
-
-        var whiskeyFlavors by remember { mutableStateOf("") }
-        var whiskeyAroma by remember { mutableStateOf("") }
-        var mouthFeel by remember { mutableStateOf("") }
 
         // TIPS: Card for Flavors
         ElevatedCard(
@@ -491,8 +490,6 @@ fun NewWhiskeyReview(
 
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
-
-        var score by remember { mutableFloatStateOf(0f) }
 
         // TIPS: Card for Overall Score
         ElevatedCard(

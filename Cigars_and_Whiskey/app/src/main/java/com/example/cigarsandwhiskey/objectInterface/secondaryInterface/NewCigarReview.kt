@@ -73,9 +73,26 @@ fun NewCigarReview(
     var cigarBrand by remember { mutableStateOf("") }
     var cigarName by remember { mutableStateOf("") }
     var cigarCountry by remember { mutableStateOf("") }
+    var cigarLength by remember { mutableStateOf("") }
+    var cigarRingGauge by remember { mutableStateOf("") }
+    val ratings = remember {
+        mutableStateListOf(
+            0f, // Draw
+            0f, // Burn
+            0f, // Construction
+            0f, // Flavor
+            0f, // Aroma
+            0f, // Smoke Production
+            0f  // Experience
+        )
+    }
+    val finalScore by remember {
+        derivedStateOf {
+            ratings.average().toFloat()
+        }
+    }
 
     var openAlertDialog by remember { mutableStateOf(false) }
-
     val focusManager = LocalFocusManager.current
 
     Card(
@@ -230,9 +247,6 @@ fun NewCigarReview(
 
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
-        // TIPS: Cigar Length and Ring Gauge objects
-        var cigarLength by remember { mutableStateOf("") }
-        var cigarRingGauge by remember { mutableStateOf("") }
 
         // TIPS: Card for length and ring gauge
         ElevatedCard(
@@ -321,23 +335,7 @@ fun NewCigarReview(
         ///////////////////////////////////////////////////////////////////////////////
 
         // TIPS: Score Sheet Begins Here
-        val ratings = remember {
-            mutableStateListOf(
-                0f, // Draw
-                0f, // Burn
-                0f, // Construction
-                0f, // Flavor
-                0f, // Aroma
-                0f, // Smoke Production
-                0f  // Experience
-            )
-        }
 
-        val finalScore by remember {
-            derivedStateOf {
-                ratings.average().toFloat()
-            }
-        }
 
         val categories = listOf(
             "Draw",
