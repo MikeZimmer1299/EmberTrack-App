@@ -28,6 +28,9 @@ interface MyCigarsDao {
     @Query("SELECT * FROM my_cigars WHERE cigarBrand = :brand LIMIT 1")
     fun getAllCigarsBrand(brand: String): MyCigars?
 
+    @Query("SELECT * FROM my_cigars ORDER BY id DESC LIMIT 3")
+    fun getNewestAddedCigars(): Flow<List<MyCigars?>>
+
     @Delete
     suspend fun deleteCigar(cigar: MyCigars)
 
