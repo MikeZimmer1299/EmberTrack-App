@@ -49,11 +49,11 @@ fun whiskeyReviewCompletion(reviewCheck: WhiskeyReviews): Boolean{
         reviewCheck.ageStatement,
         reviewCheck.flavors,
         reviewCheck.aroma,
-        reviewCheck.mouthFeel,
-        reviewCheck.overallScore.toString()
+        reviewCheck.mouthFeel
     )
+    val intField = listOf(reviewCheck.overallScore)
 
-    return textFields.none { it.isBlank() }
+    return textFields.none { it.isBlank() } && intField.none { it == 0 }
 }
 
 
@@ -77,8 +77,12 @@ fun addNewWhiskeyCompletion(additionCheck: MyWhiskey): Boolean{
     val textFields = listOf(
         additionCheck.brand,
         additionCheck.name,
-        additionCheck.proof
+        additionCheck.type,
+        additionCheck.origin,
+        additionCheck.ageStatement,
+        additionCheck.proof,
+        additionCheck.bottleSize
     )
-
-    return false;
+    Log.d("Completion Check", "Completion")
+    return textFields.none{it.isBlank()}
 }
