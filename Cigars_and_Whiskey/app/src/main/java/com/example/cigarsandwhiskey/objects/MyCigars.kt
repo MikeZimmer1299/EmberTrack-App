@@ -20,7 +20,7 @@ import com.example.cigarsandwhiskey.MainActivity
 )
 data class MyCigars(
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 1,
+    var id: Int = 0,
 
 //    var humidorId: Int = 0, // default to "Main Humidor"
     var cigarBrand: String = "",
