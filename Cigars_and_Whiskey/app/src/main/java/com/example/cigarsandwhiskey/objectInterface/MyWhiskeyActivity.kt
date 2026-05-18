@@ -1,15 +1,17 @@
 package com.example.cigarsandwhiskey.objectInterface
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
@@ -17,14 +19,15 @@ import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.dataAccessObjects.MyWhiskeyDao
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
@@ -35,7 +38,6 @@ fun MyWhiskeyScreen(
     navController: NavController,
     myWhiskeyDao: MyWhiskeyDao
 ){
-
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -50,9 +52,10 @@ fun MyWhiskeyScreen(
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "My Whiskey", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+            Text(
+                text = "My Whiskey", fontSize = 40.sp, fontWeight = FontWeight.Bold,
                 modifier = Modifier
-                    .drawBehind{
+                    .drawBehind {
                         val strokeWidthPx = 3.dp.toPx()
                         drawLine(
                             color = Color.Black,
@@ -62,8 +65,73 @@ fun MyWhiskeyScreen(
                         )
                     }
             )
+        }
 
+            val myWhiskeyList by myWhiskeyDao.getAllWhiskey()
+                .collectAsStateWithLifecycle(emptyList())
+            Log.d("Output", "myWhiskeyDao.getAllWhiskey() success")
 
+            myWhiskeyList.forEach { whiskey ->
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(
+                            10.dp, // left
+                            15.dp,
+                            10.dp, // right
+                            5.dp
+                        )
+                        .fillMaxWidth()
+                        .heightIn(160.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = lushForestGrassLight
+                    )
+                ){
+                    Row(
+                        modifier = Modifier.padding(10.dp,0.dp)
+                    ) {
+                        Text(
+                            text = whiskey.brand,
+                            fontSize = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 45.sp,
+                            softWrap = true
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.padding(10.dp,0.dp)
+                    ) {
+                        Text(
+                            text = whiskey.name,
+                            fontSize = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 45.sp,
+                            softWrap = true
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.padding(10.dp,0.dp)
+                    ) {
+                        Text(
+                            text = "Proof: ${whiskey.proof}",
+                            fontSize = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 45.sp,
+                            softWrap = true
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.padding(10.dp,0.dp)
+                    ) {
+                        Text(
+                            text = "Age Statement: ${whiskey.ageStatement}",
+                            fontSize = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = 45.sp,
+                            softWrap = true
+                        )
+                    }
+                }
+            }
 
             ElevatedCard(modifier = Modifier
                 .padding(20.dp)
@@ -73,10 +141,9 @@ fun MyWhiskeyScreen(
                 //  card in the list. But it works, so ¯\_(ツ)_/¯
             }
         }
-    }
 
 
-    // TODO: This will allow the user to add whiskey to their collection
+    // TIPS: Allows the user to add whiskey to their collection
     ExtendedFloatingActionButton(
         modifier = Modifier
             .padding(
@@ -87,14 +154,9 @@ fun MyWhiskeyScreen(
             ),
         containerColor = lushForestGrassLight,
         onClick = {
-            navController.navigate("add_new_whiskey"){
-                popUpTo(navController.graph.startDestinationId){saveState = true}
-                launchSingleTop = true
-                restoreState = true
-            }
+            navController.navigate("add_new_whiskey")
         },
         icon = { Icon(Icons.Filled.Add, "Add Whiskey Button") },
         text = { Text(text = "Add Whiskey")}
     )
-
 }
