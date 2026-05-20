@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
@@ -58,12 +59,15 @@ fun DropdownMenu(
                 .clickable{ showDropdown = !showDropdown}
                 .fillMaxWidth()
                 .height(45.dp)
-                .border(1.dp, Color.Black)
-                .onSizeChanged{ parentWidth = it.width}
+                .border(3.dp, Color.Black)
+                .onSizeChanged{it.width}
                 .padding(0.dp, 0.dp, 0.dp, 0.dp),
             contentAlignment = Alignment.Center
         ) {
-            Text(text = selectedText, modifier = Modifier.padding(5.dp), fontSize = 20.sp)
+            Text(text = selectedText, modifier = Modifier.padding(5.dp),
+//                fontSize = 20.sp,
+                fontSize = (LocalConfiguration.current.screenWidthDp * 0.043f).sp
+            )
         }
 
 
@@ -111,7 +115,7 @@ fun DropdownMenu(
 
 // Temporary use. Eventually, this will return a better implemented list of brands.
 //  This will eventually be grabbing the list from seed data, instead of below.
-//  Probably. Depends what I decide is best implementation, but I think seeding is better
+//  Probably. Depends what I decide is the best implementation, but I think seeding is better
 fun cigarBrandsList(): List<String>{
 
     val brandList = listOf<String>(

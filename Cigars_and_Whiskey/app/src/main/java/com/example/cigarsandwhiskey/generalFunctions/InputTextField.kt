@@ -18,6 +18,7 @@ import androidx.compose.ui.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
@@ -45,16 +46,11 @@ fun InputTextField(
     val density = LocalDensity.current
     Box(modifier = modifier) {
         Box(
-//        modifier = Modifier
-//            .background(Color.White)
-//            .width(220.dp)
-//            .height(40.dp)
-//            .padding(0.dp, 0.dp, 0.dp, 0.dp),
             modifier = Modifier
                 .background(Color.White, RoundedCornerShape(4.dp))
                 .fillMaxWidth()
                 .height(45.dp)
-                .border(1.dp, Color.Black)
+                .border(3.dp, Color.Black)
                 .onSizeChanged { parentWidth = it.width }
                 .padding(0.dp, 0.dp, 0.dp, 0.dp),
             contentAlignment = Alignment.Center
@@ -79,7 +75,10 @@ fun InputTextField(
             )
 
             if (text.isEmpty()) {
-                Text(text = placeholder, color = Color.Black, fontSize = 20.sp)
+                Text(text = placeholder, color = Color.Black,
+//                    fontSize = 20.sp
+                    fontSize = (LocalConfiguration.current.screenWidthDp * 0.043f).sp
+                )
             }
         }
     }

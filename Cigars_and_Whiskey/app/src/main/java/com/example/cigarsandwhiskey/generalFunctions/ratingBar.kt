@@ -1,10 +1,8 @@
 package com.example.cigarsandwhiskey.generalFunctions
 
-import android.R.attr.maxWidth
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -35,7 +33,7 @@ fun ratingBar(
                         2.dp,
                         10.dp,
                         2.dp,
-                        2.dp
+                        8.dp
                     )
                     .weight(1f)
                     .aspectRatio(0.5f)
