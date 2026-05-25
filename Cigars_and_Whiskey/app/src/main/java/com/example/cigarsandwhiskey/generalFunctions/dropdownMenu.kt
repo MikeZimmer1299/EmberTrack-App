@@ -177,7 +177,7 @@ fun whiskeyBrandsList(): List<String>{
         "Connemara", "Coppercraft", "Crown Royal", "Dalmore", "Dalwhinnie", "Deanston", "Dickel",
         "Eagle Rare", "Elijah Craig", "Evan Williams", "Four Roses", "Garrison Brothers", "George Dickel",
         "GlenDronach", "Glenfiddich", "Glenfarclas", "GlenGrant", "Glenlivet", "Glenmorangie",
-        "Green Spot", "Hakushu", "Hibiki", "High West", "Highland Park", "Hudson",
+        "Glenrothes", "Green Spot", "Hakushu", "Hibiki", "High West", "Highland Park", "Hudson",
         "I.W. Harper", "Jack Daniel's", "Jameson", "Jefferson's", "Jim Beam", "Johnnie Walker",
         "Jura", "Kaiyo", "Kilchoman", "Knappogue Castle", "Knob Creek", "Lagavulin",
         "Laphroaig", "Larceny", "Leopold Bros.", "Little Book", "Lot No. 40", "Maker's Mark",
