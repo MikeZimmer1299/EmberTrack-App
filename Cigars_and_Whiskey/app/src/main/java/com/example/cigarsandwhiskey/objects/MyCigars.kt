@@ -7,17 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.cigarsandwhiskey.MainActivity
 
-@Entity(tableName = "my_cigars",
-//    foreignKeys = [
-//        ForeignKey(
-//            entity = MyHumidor::class,
-//            parentColumns = ["id"],
-//            childColumns = ["humidorId"],
-//            onDelete = ForeignKey.CASCADE // Deletes all cigars if humidor is deleted
-//        )
-//    ],
-//    indices = [Index(value = ["humidorId"])]
-)
+@Entity(tableName = "my_cigars")
 data class MyCigars(
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
