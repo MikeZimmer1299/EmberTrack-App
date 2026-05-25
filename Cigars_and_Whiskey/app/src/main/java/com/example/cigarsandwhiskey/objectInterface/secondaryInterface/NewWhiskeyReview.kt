@@ -33,6 +33,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -80,6 +81,10 @@ fun NewWhiskeyReview(
     var openAlertDialog by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
+
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -100,7 +105,7 @@ fun NewWhiskeyReview(
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "New Whiskey Review", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+            Text(text = "New Whiskey Review", fontSize = dynamicFontSize * 1.2f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -129,66 +134,75 @@ fun NewWhiskeyReview(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row( // TIPS: Row for stating Whiskey Brand
-                modifier = Modifier.padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Distillery:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(65.dp))
+                Row( // TIPS: Row for stating Whiskey Brand
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Distillery:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(60.dp))
 
-                // TODO: Whiskey Brand (Dropdown menu)
-                var whiskeyBrandsList = whiskeyBrandsList()
-                DropdownMenu(
-                    whiskeyBrandsList,
-                    "Choose a Brand",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    onItemClick = {whiskeyBrand = whiskeyBrandsList[it]}
-                )
+                    val menuWeight = screenWidth * .0011f
+                    val whiskeyBrandsList = whiskeyBrandsList()
+                    DropdownMenu(
+                        whiskeyBrandsList,
+                        "Choose a Brand",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        onItemClick = {whiskeyBrand = whiskeyBrandsList[it]}
+                    )
+                }
             }
 
-            Row( // TIPS: Row for whiskey name
-                modifier = Modifier.padding(0.dp, 12.dp)
-            ){
-                Text(
-                    text = "Name:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(116.dp))
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row( // TIPS: Row for whiskey name
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ){
+                    Text(
+                        text = "Name:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(110.dp))
 
-                InputTextField(
-                    whiskeyName,
-                    onTextChange = {whiskeyName = it},
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    placeholder = "Enter Whiskey Name"
-                )
+                    val menuWeight = screenWidth * .0011f
+                    InputTextField(
+                        whiskeyName,
+                        onTextChange = {whiskeyName = it},
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        placeholder = "Enter Whiskey Name"
+                    )
+                }
             }
         }
 
@@ -210,128 +224,148 @@ fun NewWhiskeyReview(
                 containerColor = lushForestGrassLight
             )
         ){
-            Row( // TIPS: Row for whiskey name
-                modifier = Modifier.padding(0.dp, 12.dp)
-            ){
-                Text(
-                    text = "Type:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(132.dp))
-
-                var whiskeyTypeList = whiskeyTypesList()
-                DropdownMenu(
-                    whiskeyTypeList,
-                    "Choose a Type",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    onItemClick = {whiskeyType = whiskeyTypeList[it]}
-                )
-            }
-
-            Row( // TIPS: Dropdown Menu for Origin
-                modifier = Modifier.padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Origin:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(113.dp))
+                Row( // TIPS: Row for whiskey name
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ){
+                    Text(
+                        text = "Type:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(125.dp))
 
-                var whiskeyOriginList = whiskeyOriginList()
-                DropdownMenu(
-                    whiskeyOriginList,
-                    "Choose an Origin",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    onItemClick = {whiskeyOrigin = whiskeyOriginList[it]}
-                )
+                    val menuWeight = screenWidth * .0011f
+                    val whiskeyTypeList = whiskeyTypesList()
+                    DropdownMenu(
+                        whiskeyTypeList,
+                        "Choose a Type",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        onItemClick = {whiskeyType = whiskeyTypeList[it]}
+                    )
+                }
             }
 
-            Row( // TIPS: Dropdown Menu for Age Statement
-                modifier = Modifier.padding(0.dp, 12.dp)
-            ){
-                Text(
-                    text = "Aging:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(115.dp))
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row( // TIPS: Dropdown Menu for Origin
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Origin:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(106.dp))
 
-                var whiskeyAgeList = whiskeyAgeList()
-                DropdownMenu(
-                    whiskeyAgeList,
-                    "Age Statement",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    onItemClick = {whiskeyAge = whiskeyAgeList[it]}
-                )
+                    val menuWeight = screenWidth * .0011f
+                    val whiskeyOriginList = whiskeyOriginList()
+                    DropdownMenu(
+                        whiskeyOriginList,
+                        "Choose an Origin",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        onItemClick = {whiskeyOrigin = whiskeyOriginList[it]}
+                    )
+                }
             }
 
-            Row( // TIPS: Text box for Proof
-                modifier = Modifier.padding(0.dp, 12.dp)
-            ){
-                Text(
-                    text = "Proof:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(120.dp))
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row( // TIPS: Dropdown Menu for Age Statement
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ){
+                    Text(
+                        text = "Aging:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(110.dp))
 
-                InputTextField(
-                    whiskeyProof,
-                    onTextChange = {whiskeyProof = it},
-                    placeholder = "Enter the Proof",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    KeyboardType.Number
-                )
+                    val menuWeight = screenWidth * .0011f
+                    val whiskeyAgeList = whiskeyAgeList()
+                    DropdownMenu(
+                        whiskeyAgeList,
+                        "Age Statement",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        onItemClick = {whiskeyAge = whiskeyAgeList[it]}
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row( // TIPS: Text box for Proof
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ){
+                    Text(
+                        text = "Proof:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(116.dp))
+
+                    val menuWeight = screenWidth * .0011f
+                    InputTextField(
+                        whiskeyProof,
+                        onTextChange = {whiskeyProof = it},
+                        placeholder = "Enter the Proof",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        KeyboardType.Number
+                    )
+                }
             }
         }
 
@@ -348,42 +382,46 @@ fun NewWhiskeyReview(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row{
-                Text(
-                    text = "Flavors",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
-            Row{
-                TextField(
-                    value = whiskeyFlavors,
-                    onValueChange = {whiskeyFlavors = it},
-                    placeholder = {Text("What are the flavors?")},
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedContainerColor = Color.White,
-                        focusedContainerColor = Color.White,
-                        unfocusedTextColor = Color.Black,
-                        focusedTextColor = Color.Black,
-                        unfocusedPlaceholderColor = Color.Black
-                    ),
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                )
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row{
+                    Text(
+                        text = "Flavors",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                }
+                Row{
+                    TextField(
+                        value = whiskeyFlavors,
+                        onValueChange = {whiskeyFlavors = it},
+                        placeholder = {Text("What are the flavors?")},
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = Color.White,
+                            focusedContainerColor = Color.White,
+                            unfocusedTextColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedPlaceholderColor = Color.Black
+                        ),
+                        modifier = Modifier
+                            .padding(4.dp, 12.dp)
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                    )
+                }
             }
         }
 
@@ -398,42 +436,46 @@ fun NewWhiskeyReview(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row{
-                Text(
-                    text = "Aromas",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
-            Row{
-                TextField(
-                    value = whiskeyAroma,
-                    onValueChange = {whiskeyAroma = it},
-                    placeholder = {Text("What are the aromas?")},
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedContainerColor = Color.White,
-                        focusedContainerColor = Color.White,
-                        unfocusedTextColor = Color.Black,
-                        focusedTextColor = Color.Black,
-                        unfocusedPlaceholderColor = Color.Black
-                    ),
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                )
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row{
+                    Text(
+                        text = "Aromas",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                }
+                Row{
+                    TextField(
+                        value = whiskeyAroma,
+                        onValueChange = {whiskeyAroma = it},
+                        placeholder = {Text("What are the aromas?")},
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = Color.White,
+                            focusedContainerColor = Color.White,
+                            unfocusedTextColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedPlaceholderColor = Color.Black
+                        ),
+                        modifier = Modifier
+                            .padding(4.dp, 12.dp)
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                    )
+                }
             }
         }
 
@@ -448,42 +490,46 @@ fun NewWhiskeyReview(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row{
-                Text(
-                    text = "Mouthfeel",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-            }
-            Row{
-                TextField(
-                    value = mouthFeel,
-                    onValueChange = {mouthFeel = it},
-                    placeholder = {Text("What is the mouthfeel?")},
-                    colors = OutlinedTextFieldDefaults.colors(
-                        unfocusedContainerColor = Color.White,
-                        focusedContainerColor = Color.White,
-                        unfocusedTextColor = Color.Black,
-                        focusedTextColor = Color.Black,
-                        unfocusedPlaceholderColor = Color.Black
-                    ),
-                    modifier = Modifier
-                        .padding(12.dp)
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                )
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row{
+                    Text(
+                        text = "Mouthfeel",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                }
+                Row{
+                    TextField(
+                        value = mouthFeel,
+                        onValueChange = {mouthFeel = it},
+                        placeholder = {Text("What is the mouthfeel?")},
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = Color.White,
+                            focusedContainerColor = Color.White,
+                            unfocusedTextColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedPlaceholderColor = Color.Black
+                        ),
+                        modifier = Modifier
+                            .padding(4.dp, 12.dp)
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                    )
+                }
             }
         }
 
@@ -509,7 +555,7 @@ fun NewWhiskeyReview(
             Row {
                 Text(
                     text = "Overall Score",
-                    fontSize = 35.sp,
+                    fontSize = dynamicFontSize * 1.2f,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .padding(10.dp, 5.dp, 30.dp, 0.dp)
@@ -557,82 +603,84 @@ fun NewWhiskeyReview(
                 containerColor = lushForestGrassLight
             )
         ){
-            Row{
-                Text(
-                    text = "Finish Review:",
-                    fontSize = 45.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 0.dp, 8.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                            color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Button(
-                    onClick = {
-                        // TODO: Add `newReview = newReview.copy()`
-                        newReview = newReview.copy(
-                            brand = whiskeyBrand,
-                            whiskeyName = whiskeyName,
-                            type = whiskeyType,
-                            origin = whiskeyOrigin,
-                            proof = whiskeyProof,
-                            ageStatement = whiskeyAge,
-                            flavors = whiskeyFlavors,
-                            aroma = whiskeyAroma,
-                            mouthFeel = mouthFeel,
-                            overallScore = score.toInt()
-                        )
-                        if(!whiskeyReviewCompletion(newReview)){
-                            openAlertDialog = true
-                            Log.d("Review", "Review is NOT complete")
-                        } else {
-                            scope.launch {
-                                try {
-                                    whiskeyReviewDao.insertReview(newReview)
-                                    Log.d("Review", "Review is added")
-
-                                    // returns to previous screen after successful save
-                                    navController.popBackStack()
-                                } catch (e: Exception){
-                                    Log.d("Database Error", "Unable to save review")
-                                }
-
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row{
+                    Text(
+                        text = "Finish Review:",
+                        fontSize = dynamicFontSize * 1.3f,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(10.dp, 5.dp, 0.dp, 8.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
                             }
-                        }
-                    },
-                    modifier = Modifier
-                        .padding(10.dp, 10.dp, 0.dp, 0.dp)
-                        .height(45.dp)
-//                        .width(115.dp)
-                    ,
-                    colors = ButtonDefaults.buttonColors(lushForestGreenDark)
-                ) {
-                    Text(text = "Add Review")
-                }
-
-                /*
-                 * If not filled, have popup or some notification for user to
-                 * finish the review before they are able to add the review
-                 */
-                if(openAlertDialog){
-                    ReviewWarning(
-                        onDismissRequest = { openAlertDialog = false },
-                        onConfirmation = {
-                            openAlertDialog = false
-                            println("Confirmation Registered")
-                        },
-                        dialogTitle = "Warning!",
-                        dialogText = "You have not finished your review!"
                     )
+                    Button(
+                        onClick = {
+                            // TODO: Add `newReview = newReview.copy()`
+                            newReview = newReview.copy(
+                                brand = whiskeyBrand,
+                                whiskeyName = whiskeyName,
+                                type = whiskeyType,
+                                origin = whiskeyOrigin,
+                                proof = whiskeyProof,
+                                ageStatement = whiskeyAge,
+                                flavors = whiskeyFlavors,
+                                aroma = whiskeyAroma,
+                                mouthFeel = mouthFeel,
+                                overallScore = score.toInt()
+                            )
+                            if(!whiskeyReviewCompletion(newReview)){
+                                openAlertDialog = true
+                                Log.d("Review", "Review is NOT complete")
+                            } else {
+                                scope.launch {
+                                    try {
+                                        whiskeyReviewDao.insertReview(newReview)
+                                        Log.d("Review", "Review is added")
+
+                                        // returns to previous screen after successful save
+                                        navController.popBackStack()
+                                    } catch (e: Exception){
+                                        Log.d("Database Error", "Unable to save review")
+                                    }
+
+                                }
+                            }
+                        },
+                        modifier = Modifier
+                            .padding(10.dp, 10.dp, 0.dp, 0.dp)
+                            .height(45.dp)
+                        ,
+                        colors = ButtonDefaults.buttonColors(lushForestGreenDark)
+                    ) {
+                        Text(text = "Add Review")
+                    }
                 }
+            }
+            /*
+             * If not filled, have popup or some notification for user to
+             * finish the review before they are able to add the review
+             */
+            if(openAlertDialog){
+                ReviewWarning(
+                    onDismissRequest = { openAlertDialog = false },
+                    onConfirmation = {
+                        openAlertDialog = false
+                        println("Confirmation Registered")
+                    },
+                    dialogTitle = "Warning!",
+                    dialogText = "You have not finished your review!"
+                )
             }
         }
     }
