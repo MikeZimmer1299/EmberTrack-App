@@ -27,6 +27,9 @@ interface MyWhiskeyDao {
     @Query("SELECT * FROM my_whiskey WHERE brand = :brand LIMIT 1")
     fun getAllBrandWhiskey(brand: String): MyWhiskey?
 
+    @Query("select * from my_whiskey ORDER BY id DESC LIMIT 3")
+    fun getNewestAddedWhiskey(): Flow<List<MyWhiskey>>
+
     @Delete
     suspend fun deleteWhiskey(review: MyWhiskey)
 }
