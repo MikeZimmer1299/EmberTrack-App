@@ -31,6 +31,7 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -69,8 +70,12 @@ fun AddCigars(
     var cigarQuantity by remember { mutableStateOf("") }
 
     var openAlertDialog by remember { mutableStateOf(false) }
-
     val focusManager = LocalFocusManager.current
+
+    // TIPS: Dynamic Screen Size Variables
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
 
     Card(
         modifier = Modifier
@@ -91,7 +96,7 @@ fun AddCigars(
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "Add Cigar to Collection", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+            Text(text = "Add Cigar to Collection", fontSize = dynamicFontSize * 1.2f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -114,107 +119,120 @@ fun AddCigars(
                     5.dp
                 )
                 .fillMaxWidth()
-                .height(200.dp),
+                .heightIn(200.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row( // TIPS: Row for stating CIGAR BRAND
-                modifier = Modifier.padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Cigar Brand:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(20.dp))
+                Row( // TIPS: Row for stating CIGAR BRAND
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Cigar Brand:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(20.dp))
 
-                var cigarBrandList = cigarBrandsList()
-                DropdownMenu(
-                    cigarBrandList,
+                    val menuWeight = screenWidth * .0011f
+                    val cigarBrandList = cigarBrandsList()
+                    DropdownMenu(
+                        cigarBrandList,
 //                    selectedIndex, // this may be unnecessary
-                    "Choose a Brand",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    onItemClick = { cigarBrand = cigarBrandList[it] }
-                )
+                        "Choose a Brand",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        onItemClick = { cigarBrand = cigarBrandList[it] }
+                    )
 //                Log.d("Output", "Viewing the brand: $chosenBrand")
+                }
             }
 
-            Row( // TIPS: Row for stating CIGAR NAME
-                modifier = Modifier
-                    .padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Cigar Name:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
+                Row( // TIPS: Row for stating CIGAR NAME
                     modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(20.dp))
+                        .padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Cigar Name:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(20.dp))
 
-                // TIPS: Text Box to enter cigar name
-                InputTextField(
-                    cigarName,
-                    onTextChange = { cigarName = it },
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    placeholder = "Enter Cigar Name"
-                )
+                    val menuWeight = screenWidth * .0011f
+                    // TIPS: Text Box to enter cigar name
+                    InputTextField(
+                        cigarName,
+                        onTextChange = { cigarName = it },
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        placeholder = "Enter Cigar Name"
+                    )
+                }
             }
 
-            Row( // TIPS: Row for stating COUNTRY OF ORIGIN
-                modifier = Modifier.padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Cigar Origin:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(17.dp))
+                Row( // TIPS: Row for stating COUNTRY OF ORIGIN
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Cigar Origin:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(17.dp))
 
-                // TIPS: Dropdown menu of countries
-                var cigarOriginList = cigarOriginList()
-                DropdownMenu(
-                    cigarOriginList,
-//                    selectedIndex, // this may be unnecessary
-                    "Country of Origin",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    onItemClick = { cigarOrigin = cigarOriginList[it] }
-                )
+                    val menuWeight = screenWidth * .0011f
+                    val cigarOriginList = cigarOriginList()
+                    DropdownMenu(
+                        cigarOriginList,
+                        "Country of Origin",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        onItemClick = { cigarOrigin = cigarOriginList[it] }
+                    )
+                }
             }
         }
 
@@ -235,101 +253,113 @@ fun AddCigars(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row( // Row for stating CIGAR LENGTH
-                modifier = Modifier.padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Cigar Length:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(8.dp))
+                Row( // Row for stating CIGAR LENGTH
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Cigar Length:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
 
-                // TIPS: Text box for cigar length
-                InputTextField(
-                    cigarLength,
-                    onTextChange = { cigarLength = it },
-                    placeholder = "Enter Cigar Length",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    KeyboardType.Number
-                )
+                    val menuWeight = screenWidth * .0011f
+                    InputTextField(
+                        cigarLength,
+                        onTextChange = { cigarLength = it },
+                        placeholder = "Enter Cigar Length",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        KeyboardType.Number
+                    )
+                }
             }
 
-
-            Row( // TIPS: Row for stating CIGAR RING GAUGE
-                modifier = Modifier.padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Ring Gauge:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
+                Row( // TIPS: Row for stating CIGAR RING GAUGE
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Ring Gauge:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
 
-                Spacer(modifier = Modifier.width(30.dp))
+                    Spacer(modifier = Modifier.width(30.dp))
 
-                // TIPS: Text box for cigar length
-                InputTextField(
-                    cigarRingGauge,
-                    onTextChange = { cigarRingGauge = it },
-                    placeholder = "Enter Ring Gauge",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    KeyboardType.Number
-                )
+                    val menuWeight = screenWidth * .0011f
+                    InputTextField(
+                        cigarRingGauge,
+                        onTextChange = { cigarRingGauge = it },
+                        placeholder = "Enter Ring Gauge",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        KeyboardType.Number
+                    )
+                }
             }
 
-            Row(
-                modifier = Modifier.padding(0.dp, 12.dp)
+            Column(
+                modifier = Modifier.padding(5.dp)
             ) {
-                Text(
-                    text = "Quantity:",
-                    fontSize = 35.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height + 2.sp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Spacer(modifier = Modifier.width(79.dp))
+                Row(
+                    modifier = Modifier.padding(0.dp, 6.dp)
+                ) {
+                    Text(
+                        text = "Quantity:",
+                        fontSize = dynamicFontSize,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height + 2.sp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.width(79.dp))
 
-                InputTextField(
-                    cigarQuantity,
-                    onTextChange = { cigarQuantity = it },
-                    placeholder = "Enter # of Cigars",
-                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-                    KeyboardType.Number
-                )
+                    val menuWeight = screenWidth * .0011f
+                    InputTextField(
+                        cigarQuantity,
+                        onTextChange = { cigarQuantity = it },
+                        placeholder = "Enter # of Cigars",
+                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                        KeyboardType.Number
+                    )
+                }
             }
         }
 
@@ -347,63 +377,67 @@ fun AddCigars(
                     60.dp
                 )
                 .fillMaxWidth()
-                .height(65.dp),
+                .heightIn(65.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row {
-                Text(
-                    text = "Add to Humidor:",
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 7.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row {
+                    Text(
+                        text = "Add Collection:",
+                        fontSize = dynamicFontSize * 1.17f,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 15.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Button(
+                        onClick = {
+                            newToCollection = newToCollection.copy(
+                                cigarBrand = cigarBrand,
+                                cigarName = cigarName,
+                                countryOfOrigin = cigarOrigin,
+                                sizeLength = cigarLength,
+                                ringGauge = cigarRingGauge,
+                                quantity = cigarQuantity
                             )
-                        }
-                )
-                Button(
-                    onClick = {
-                        newToCollection = newToCollection.copy(
-                            cigarBrand = cigarBrand,
-                            cigarName = cigarName,
-                            countryOfOrigin = cigarOrigin,
-                            sizeLength = cigarLength,
-                            ringGauge = cigarRingGauge,
-                            quantity = cigarQuantity
-                        )
-                        if (!addNewCigarCompletion(newToCollection)) {
-                            openAlertDialog = true
-                            Log.d("Review", "Review is NOT complete")
-                            // TIPS: unable to call Composable from within here, made
-                            //  a mutableStateOf boolean. cigarReviewCompletion called below
-                        } else {
-                            scope.launch {
-                                try {
-                                    myCigarsDao.insertCigar(newToCollection)
-                                    Log.d("CigarCollection", "Cigars added to collection")
+                            if (!addNewCigarCompletion(newToCollection)) {
+                                openAlertDialog = true
+                                Log.d("Review", "Cigar is NOT added")
+                                // TIPS: unable to call Composable from within here, made
+                                //  a mutableStateOf boolean. cigarReviewCompletion called below
+                            } else {
+                                scope.launch {
+                                    try {
+                                        myCigarsDao.insertCigar(newToCollection)
+                                        Log.d("CigarCollection", "Cigars added to collection")
 
-                                    navController.popBackStack()
-                                } catch (e: Exception){
-                                    Log.d("Database Error", "Unable to save to collection")
+                                        navController.popBackStack()
+                                    } catch (e: Exception){
+                                        Log.d("Database Error", "Unable to save to collection")
+                                    }
                                 }
                             }
-                        }
-                    },
-                    modifier = Modifier
-                        .padding(10.dp, 10.dp, 0.dp, 0.dp)
-                        .height(45.dp),
-                    colors = ButtonDefaults.buttonColors(lushForestGreenDark)
-                ) {
-                    Text(text = "Add Cigars")
+                        },
+                        modifier = Modifier
+                            .padding(10.dp, 5.dp, 0.dp, 0.dp)
+                            .height(45.dp),
+                        colors = ButtonDefaults.buttonColors(lushForestGreenDark)
+                    ) {
+                        Text(text = "Add Cigars")
+                    }
                 }
             }
             if(openAlertDialog){
