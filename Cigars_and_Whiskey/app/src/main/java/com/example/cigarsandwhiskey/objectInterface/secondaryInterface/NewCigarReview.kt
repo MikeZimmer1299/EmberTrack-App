@@ -74,7 +74,7 @@ fun NewCigarReview(
     scope: CoroutineScope
 ) {
 
-    // TIPS: Cigar Brand, Name, and Origin objects
+    // TIPS: Cigar Brand, Name, Origin, Length, and Ring Gauge objects
     var cigarBrand by remember { mutableStateOf("") }
     var cigarName by remember { mutableStateOf("") }
     var cigarCountry by remember { mutableStateOf("") }
@@ -100,6 +100,7 @@ fun NewCigarReview(
     var openAlertDialog by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
+    // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
@@ -125,7 +126,7 @@ fun NewCigarReview(
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "New Cigar Review", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+            Text(text = "New Cigar Review", fontSize = dynamicFontSize * 1.2f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -158,7 +159,7 @@ fun NewCigarReview(
             Column(
                 modifier = Modifier.padding(5.dp)
             ) {
-                Row(
+                Row( // TIPS: Row for stating CIGAR BRAND
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp, 6.dp),
@@ -190,9 +191,8 @@ fun NewCigarReview(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     val menuWeight = screenWidth * .0011f
-
                     val cigarBrandList = cigarBrandsList()
-                    DropdownMenu(
+                    DropdownMenu( // TIPS: Dropdown menu of cigar brands
                         cigarBrandList,
                         "Choose a Brand",
                         modifier = Modifier.weight(menuWeight).padding(end = 7.dp),
@@ -204,7 +204,7 @@ fun NewCigarReview(
             Column(
                 modifier = Modifier.padding(5.dp)
             ) {
-                Row(
+                Row( // TIPS: Row for stating CIGAR NAME
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp, 6.dp),
@@ -220,7 +220,6 @@ fun NewCigarReview(
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
-//                                .padding(0.dp, 0.dp, 0.dp,0.dp)
                                 .drawBehind{
                                     val strokeWidthPx = 3.dp.toPx()
                                     val verticalOffset = size.height + 2.sp.toPx()
@@ -237,7 +236,7 @@ fun NewCigarReview(
 
                     val menuWeight = screenWidth * .0011f
 
-                    InputTextField(
+                    InputTextField( // TIPS: Text Box to enter cigar name
                         cigarName,
                         onTextChange = { cigarName = it },
                         modifier = Modifier.weight(menuWeight).padding(end = 7.dp),
@@ -249,7 +248,7 @@ fun NewCigarReview(
             Column(
                 modifier = Modifier.padding(5.dp)
             ) {
-                Row(
+                Row( // TIPS: Row for stating COUNTRY OF ORIGIN
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp, 6.dp),
@@ -265,7 +264,6 @@ fun NewCigarReview(
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
-//                                .padding(0.dp, 0.dp, 0.dp,0.dp)
                                 .drawBehind{
                                     val strokeWidthPx = 3.dp.toPx()
                                     val verticalOffset = size.height + 2.sp.toPx()
@@ -281,9 +279,8 @@ fun NewCigarReview(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     val menuWeight = screenWidth * .0011f
-
                     val cigarOriginList = cigarOriginList()
-                    DropdownMenu(
+                    DropdownMenu( // TIPS: Dropdown menu of countries
                         cigarOriginList,
                         "Country of Origin",
                         modifier = Modifier.weight(menuWeight).padding(end = 7.dp),
@@ -291,106 +288,6 @@ fun NewCigarReview(
                     )
                 }
             }
-
-//            Row( // TIPS: Row for stating CIGAR BRAND
-//                modifier = Modifier.padding(0.dp, 12.dp)
-//            ) {
-//                Text(
-//                    text = "Cigar Brand:",
-//                    fontSize = 35.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    modifier = Modifier
-//                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-//                        .drawBehind {
-//                            val strokeWidthPx = 3.dp.toPx()
-//                            val verticalOffset = size.height + 2.sp.toPx()
-//                            drawLine(
-//                                color = Color.Black,
-//                                strokeWidth = strokeWidthPx,
-//                                start = Offset(0f, verticalOffset),
-//                                end = Offset(size.width, verticalOffset)
-//                            )
-//                        }
-//                )
-//                Spacer(modifier = Modifier.width(23.dp))
-////                 this ^^^ is possible going to replace the end padding in the text above
-//
-//                // TIPS: mutableStateOf changed to mutableIntStateOf
-//                var cigarBrandList = cigarBrandsList()
-//                DropdownMenu(
-//                    cigarBrandList,
-//                    "Choose a Brand",
-//                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-//                    onItemClick = { cigarBrand = cigarBrandList[it] }
-//                )
-////                Log.d("Output", "Viewing the brand: $chosenBrand")
-//            }
-//
-//
-//            Row( // TIPS: Row for stating CIGAR NAME
-//                modifier = Modifier
-//                    .padding(0.dp, 12.dp)
-//            ) {
-//                Text(
-//                    text = "Cigar Name:",
-//                    fontSize = 35.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    modifier = Modifier
-//                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-//                        .drawBehind {
-//                            val strokeWidthPx = 3.dp.toPx()
-//                            val verticalOffset = size.height + 2.sp.toPx()
-//                            drawLine(
-//                                color = Color.Black,
-//                                strokeWidth = strokeWidthPx,
-//                                start = Offset(0f, verticalOffset),
-//                                end = Offset(size.width, verticalOffset)
-//                            )
-//                        }
-//                )
-//                Spacer(modifier = Modifier.width(24.dp))
-//
-//                // TIPS: Text Box to enter cigar name
-//                InputTextField(
-//                    cigarName,
-//                    onTextChange = { cigarName = it },
-//                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-//                    placeholder = "Enter Cigar Name"
-//                )
-//            }
-//
-//
-//            Row( // TIPS: Row for stating COUNTRY OF ORIGIN
-//                modifier = Modifier.padding(0.dp, 12.dp)
-//            ) {
-//                Text(
-//                    text = "Cigar Origin:",
-//                    fontSize = 35.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    modifier = Modifier
-//                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-//                        .drawBehind {
-//                            val strokeWidthPx = 3.dp.toPx()
-//                            val verticalOffset = size.height + 2.sp.toPx()
-//                            drawLine(
-//                                color = Color.Black,
-//                                strokeWidth = strokeWidthPx,
-//                                start = Offset(0f, verticalOffset),
-//                                end = Offset(size.width, verticalOffset)
-//                            )
-//                        }
-//                )
-//                Spacer(modifier = Modifier.width(20.dp))
-//
-//                // TIPS: Dropdown menu of countries
-//                var cigarOriginList = cigarOriginList()
-//                DropdownMenu(
-//                    cigarOriginList,
-//                    "Country of Origin",
-//                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-//                    onItemClick = { cigarCountry = cigarOriginList[it] }
-//                )
-//            }
         }
 
         ///////////////////////////////////////////////////////////////////////////////
@@ -415,7 +312,7 @@ fun NewCigarReview(
             Column(
                 modifier = Modifier.padding(5.dp)
             ) {
-                Row(
+                Row( // TIPS: Row for stating CIGAR LENGTH
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp, 6.dp),
@@ -431,7 +328,6 @@ fun NewCigarReview(
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
-//                                .padding(0.dp, 0.dp, 0.dp,0.dp)
                                 .drawBehind{
                                     val strokeWidthPx = 3.dp.toPx()
                                     val verticalOffset = size.height + 2.sp.toPx()
@@ -447,7 +343,7 @@ fun NewCigarReview(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     val menuWeight = screenWidth * .0011f
-
+                    // TIPS: Text box for cigar length
                     InputTextField(
                         cigarLength,
                         onTextChange = { cigarLength = it },
@@ -461,7 +357,7 @@ fun NewCigarReview(
             Column(
                 modifier = Modifier.padding(5.dp)
             ) {
-                Row(
+                Row( // TIPS: Row for stating CIGAR RING GAUGE
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp, 6.dp),
@@ -477,7 +373,6 @@ fun NewCigarReview(
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
-//                                .padding(0.dp, 0.dp, 0.dp,0.dp)
                                 .drawBehind{
                                     val strokeWidthPx = 3.dp.toPx()
                                     val verticalOffset = size.height + 2.sp.toPx()
@@ -493,82 +388,16 @@ fun NewCigarReview(
                     Spacer(modifier = Modifier.width(8.dp))
 
                     val menuWeight = screenWidth * .0011f
-
+                    // TIPS: Text box for cigar length
                     InputTextField(
                         cigarRingGauge,
                         onTextChange = { cigarRingGauge = it },
                         placeholder = "Enter Ring Gauge",
-                        modifier = Modifier.weight(menuWeight).padding(end = 12.dp),
+                        modifier = Modifier.weight(menuWeight).padding(end = 7.dp),
                         KeyboardType.Number
                     )
                 }
             }
-
-//            Row( // TIPS: Row for stating CIGAR LENGTH
-//                modifier = Modifier.padding(0.dp, 12.dp)
-//            ) {
-//                Text(
-//                    text = "Cigar Length:",
-//                    fontSize = 35.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    modifier = Modifier
-//                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-//                        .drawBehind {
-//                            val strokeWidthPx = 3.dp.toPx()
-//                            val verticalOffset = size.height + 2.sp.toPx()
-//                            drawLine(
-//                                color = Color.Black,
-//                                strokeWidth = strokeWidthPx,
-//                                start = Offset(0f, verticalOffset),
-//                                end = Offset(size.width, verticalOffset)
-//                            )
-//                        }
-//                )
-//                Spacer(modifier = Modifier.width(8.dp))
-//
-//                // TIPS: Text box for cigar length
-//                InputTextField(
-//                    cigarLength,
-//                    onTextChange = { cigarLength = it },
-//                    placeholder = "Enter Cigar Length",
-//                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-//                    KeyboardType.Number
-//                )
-//            }
-//
-//
-//            Row( // TIPS: Row for stating CIGAR RING GAUGE
-//                modifier = Modifier.padding(0.dp, 12.dp)
-//            ) {
-//                Text(
-//                    text = "Ring Gauge:",
-//                    fontSize = 35.sp,
-//                    fontWeight = FontWeight.Bold,
-//                    modifier = Modifier
-//                        .padding(5.dp, 0.dp, 0.dp, 0.dp)
-//                        .drawBehind {
-//                            val strokeWidthPx = 3.dp.toPx()
-//                            val verticalOffset = size.height + 2.sp.toPx()
-//                            drawLine(
-//                                color = Color.Black,
-//                                strokeWidth = strokeWidthPx,
-//                                start = Offset(0f, verticalOffset),
-//                                end = Offset(size.width, verticalOffset)
-//                            )
-//                        }
-//                )
-//
-//                Spacer(modifier = Modifier.width(29.dp))
-//
-//                // TIPS: Text box for cigar length
-//                InputTextField(
-//                    cigarRingGauge,
-//                    onTextChange = { cigarRingGauge = it },
-//                    placeholder = "Enter Ring Gauge",
-//                    modifier = Modifier.weight(1f).padding(end = 12.dp),
-//                    KeyboardType.Number
-//                )
-//            }
         }
 
 
@@ -653,33 +482,37 @@ fun NewCigarReview(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row {
-                Text(
-                    text = "Final Score:",
-                    fontSize = 56.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
-                            )
-                        }
-                )
-                Text(
-                    text = "%.1f".format(finalScore),
-                    fontSize = 70.sp,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.End, // TODO: Work on this text align
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(0.dp, 0.dp, 1.dp, 0.dp)
-                )
+            Column(
+                modifier = Modifier.padding(0.dp)
+            ) {
+                Row {
+                    Text(
+                        text = "Final Score:",
+                        fontSize = dynamicFontSize * 1.59f,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(10.dp, 5.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Text(
+                        text = "%.1f".format(finalScore),
+                        fontSize = dynamicFontSize * 2f,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.End, // TODO: Work on this text align
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(0.dp, 0.dp, 5.dp, 0.dp)
+                    )
+                }
             }
         }
 
@@ -711,87 +544,90 @@ fun NewCigarReview(
                 containerColor = lushForestGrassLight
             )
         ) {
-            Row {
-                Text(
-                    text = "Finish Review:",
-                    fontSize = 45.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .padding(10.dp, 5.dp, 0.dp, 0.dp)
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            val verticalOffset = size.height
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, verticalOffset),
-                                end = Offset(size.width, verticalOffset)
+            Column(
+                modifier = Modifier.padding(5.dp)
+            ) {
+                Row {
+                    Text(
+                        text = "Finish Review:",
+                        fontSize = dynamicFontSize * 1.31f,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                    Button( // TODO: Add a date slot to the review, will autofill when made
+                        onClick = {
+                            newReview = newReview.copy(
+                                brand = cigarBrand,
+                                cigarName = cigarName,
+                                origin = cigarCountry,
+                                sizeLength = cigarLength,
+                                ringGauge = cigarRingGauge,
+                                draw = ratings[0].toInt(),
+                                burn = ratings[1].toInt(),
+                                construction = ratings[2].toInt(),
+                                flavors = ratings[3].toInt(),
+                                aroma = ratings[4].toInt(),
+                                smokeProduction = ratings[5].toInt(),
+                                experience = ratings[6].toInt(),
+                                finalScore = finalScore,
                             )
-                        }
-                )
-                Button( // TODO: Add a date slot to the review, will autofill when made
-                    onClick = {
-                        newReview = newReview.copy(
-                            brand = cigarBrand,
-                            cigarName = cigarName,
-                            origin = cigarCountry,
-                            sizeLength = cigarLength,
-                            ringGauge = cigarRingGauge,
-                            draw = ratings[0].toInt(),
-                            burn = ratings[1].toInt(),
-                            construction = ratings[2].toInt(),
-                            flavors = ratings[3].toInt(),
-                            aroma = ratings[4].toInt(),
-                            smokeProduction = ratings[5].toInt(),
-                            experience = ratings[6].toInt(),
-                            finalScore = finalScore,
-                        )
-                        if (!cigarReviewCompletion(newReview)) {
-                            openAlertDialog = true
-                            Log.d("Review", "Review is NOT complete")
-                            // TIPS: unable to call Composable from within here, made
-                            //  a mutableStateOf boolean. cigarReviewCompletion called below
-                        } else {
-                            scope.launch {
-                                try {
-                                    // saves review to local storage/database
-                                    cigarDao.insertReview((newReview))
-                                    Log.d("Review", "Final Score: ${newReview.finalScore}")
+                            if (!cigarReviewCompletion(newReview)) {
+                                openAlertDialog = true
+                                Log.d("Review", "Review is NOT complete")
+                                // TIPS: unable to call Composable from within here, made
+                                //  a mutableStateOf boolean. cigarReviewCompletion called below
+                            } else {
+                                scope.launch {
+                                    try {
+                                        // saves review to local storage/database
+                                        cigarDao.insertReview((newReview))
+                                        Log.d("Review", "Final Score: ${newReview.finalScore}")
 
-                                    // returns to previous screen after successful save
-                                    navController.popBackStack()
-                                } catch (e: Exception){
-                                    Log.d("Database Error", "Unable to save review")
+                                        // returns to previous screen after successful save
+                                        navController.popBackStack()
+                                    } catch (e: Exception){
+                                        Log.d("Database Error", "Unable to save review")
+                                    }
                                 }
                             }
-                        }
 
 //                        Log.d("Review", "Review Final Score: ${newReview.finalScore}")
-                    },
-                    modifier = Modifier
-                        .padding(10.dp, 10.dp, 0.dp, 0.dp)
-                        .heightIn(45.dp)
-                    ,
-                    colors = ButtonDefaults.buttonColors(lushForestGreenDark)
-                ) {
-                    Text(text = "Add Review")
-                }
-
-                /*
-                 * If not filled, have popup or some notification for user to
-                 * finish the review before they are able to add the review
-                 */
-                if(openAlertDialog){
-                    ReviewWarning(
-                        onDismissRequest = { openAlertDialog = false },
-                        onConfirmation = {
-                            openAlertDialog = false
-                            println("Confirmation Registered")
                         },
-                        dialogTitle = "Warning!",
-                        dialogText = "You have not finished your review!"
-                    )
+                        modifier = Modifier
+                            .padding(10.dp, 10.dp, 0.dp, 0.dp)
+                            .heightIn(45.dp)
+                        ,
+                        colors = ButtonDefaults.buttonColors(lushForestGreenDark)
+                    ) {
+                        Text(text = "Add Review")
+                    }
                 }
+            }
+            /*
+             * If not filled, have popup or some notification for user to
+             * finish the review before they are able to add the review
+             */
+            if(openAlertDialog){
+                ReviewWarning(
+                    onDismissRequest = { openAlertDialog = false },
+                    onConfirmation = {
+                        openAlertDialog = false
+                        println("Confirmation Registered")
+                    },
+                    dialogTitle = "Warning!",
+                    dialogText = "You have not finished your review!"
+                )
             }
         }
     }
