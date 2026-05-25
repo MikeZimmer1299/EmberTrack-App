@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,6 +41,11 @@ fun WhiskeyReviewsScreen(
     whiskeyReviewDao: WhiskeyReviewDao
     ){
 
+    // TIPS: Dynamic Screen Size Variables
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
+
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -54,7 +60,7 @@ fun WhiskeyReviewsScreen(
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "Whiskey Reviews", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+            Text(text = "Whiskey Reviews", fontSize = dynamicFontSize * 1.4f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -77,7 +83,7 @@ fun WhiskeyReviewsScreen(
 
         Log.d("Output", "whiskeyReviewDao.getAllWhiskeyReviews() success")
 
-        reviewList.forEachIndexed { index, reviews ->
+        reviewList.forEach { reviews ->
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -94,9 +100,9 @@ fun WhiskeyReviewsScreen(
                 ) {
                     Text(
                         text = reviews.brand,
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.2f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
                         softWrap = true
                     )
                 }
@@ -105,9 +111,9 @@ fun WhiskeyReviewsScreen(
                 ) {
                     Text(
                         text = reviews.whiskeyName,
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.2f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
                         softWrap = true
                     )
                 }
@@ -116,9 +122,9 @@ fun WhiskeyReviewsScreen(
                 ){
                     Text(
                         text = "Proof: ${reviews.proof} / " + reviews.proof.toFloat() / 2 + "%",
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.1f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
                         softWrap = true
                     )
                 }
@@ -127,9 +133,9 @@ fun WhiskeyReviewsScreen(
                 ){
                     Text(
                         text = "Overall Score: ${reviews.overallScore}",
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.1f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
                         softWrap = true
                     )
                 }
@@ -160,7 +166,7 @@ fun WhiskeyReviewsScreen(
         containerColor = lushForestGrassLight,
         onClick = { navController.navigate("new_whiskey_review")},
         icon = { Icon(Icons.Filled.Edit, "Add Whiskey Review Button") },
-        text = { Text(text = "Add Review")}
+        text = { Text(text = "Add Review", fontSize = dynamicFontSize * .47f)}
     )
 
 }

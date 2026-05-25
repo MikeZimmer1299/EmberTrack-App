@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,7 +36,15 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 
 @Composable
-fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
+fun CigarReviewsScreen(
+    navController: NavController,
+    cigarDao: CigarReviewDao
+    ){
+
+    // TIPS: Dynamic Screen Size Variables
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
 
     Card(
         modifier = Modifier
@@ -53,7 +62,7 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "Cigar Reviews", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+            Text(text = "Cigar Reviews", fontSize = dynamicFontSize * 1.4f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -76,7 +85,7 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
         
         Log.d("Output", "cigarDao.getAllCigarReviews() success")
 
-        reviewList.forEachIndexed { index, reviews ->
+        reviewList.forEach { reviews ->
             ElevatedCard(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -93,9 +102,9 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
                 ) {
                     Text(
                         text = reviews.brand,
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.2f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
                         softWrap = true
                     )
                 }
@@ -104,9 +113,9 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
                 ) {
                     Text(
                         text = reviews.cigarName,
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.2f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp, // prevents text overlap when wrapping text
+                        lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
                         softWrap = true
                     )
                 }
@@ -115,9 +124,9 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
                 ) {
                     Text(
                         text = "Size: ${reviews.sizeLength} x ${reviews.ringGauge}",
-                        fontSize = 35.sp,
+                        fontSize = dynamicFontSize * 1.1f,
                         fontWeight = FontWeight.SemiBold,
-                        lineHeight = 35.sp
+                        lineHeight = dynamicFontSize * 1.2f
                     )
                 }
                 Row(
@@ -125,9 +134,9 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
                 ) {
                     Text(
                         text = "Final Score: ${"%.1f".format(reviews.finalScore)}",
-                        fontSize = 35.sp,
+                        fontSize = dynamicFontSize * 1.1f,
                         fontWeight = FontWeight.SemiBold,
-                        lineHeight = 35.sp
+                        lineHeight = dynamicFontSize * 1.2f
                     )
                 }
             }
@@ -159,6 +168,6 @@ fun CigarReviewsScreen(navController: NavController, cigarDao: CigarReviewDao){
         containerColor = lushForestGrassLight,
         onClick = { navController.navigate("new_cigar_review") },
         icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
-        text = { Text(text = "Add Review")}
+        text = { Text(text = "Add Review", fontSize = dynamicFontSize * .47f)}
     )
 }

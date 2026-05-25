@@ -24,14 +24,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.dataAccessObjects.MyCigarsDao
-import com.example.cigarsandwhiskey.dataAccessObjects.MyHumidorDao
-import com.example.cigarsandwhiskey.dataAccessObjects.MyHumidorDao.*
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 
@@ -40,6 +39,12 @@ fun MyCigarsScreen(
     navController: NavController,
     myCigarsDao: MyCigarsDao
 ){
+
+    // TIPS: Dynamic Screen Size Variables
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
+
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -55,7 +60,7 @@ fun MyCigarsScreen(
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "My Cigars", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+            Text(text = "My Cigars", fontSize = dynamicFontSize * 1.4f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -97,9 +102,9 @@ fun MyCigarsScreen(
                 ) {
                     Text(
                         text = cigars.cigarBrand,
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.2f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp,
+                        lineHeight = dynamicFontSize * 1.2f,
                         softWrap = true
                     )
                 }
@@ -108,9 +113,9 @@ fun MyCigarsScreen(
                 ){
                     Text(
                         text = cigars.cigarName,
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.2f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp,
+                        lineHeight = dynamicFontSize * 1.2f,
                         softWrap = true
                     )
                 }
@@ -119,9 +124,9 @@ fun MyCigarsScreen(
                 ) {
                     Text(
                         text = "Size: ${cigars.sizeLength} x ${cigars.ringGauge}",
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.1f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp,
+                        lineHeight = dynamicFontSize * 1.2f,
                         softWrap = true
                     )
                 }
@@ -130,15 +135,14 @@ fun MyCigarsScreen(
                 ) {
                     Text(
                         text = "Quantity: ${cigars.quantity}",
-                        fontSize = 40.sp,
+                        fontSize = dynamicFontSize * 1.1f,
                         fontWeight = FontWeight.Bold,
-                        lineHeight = 45.sp,
+                        lineHeight = dynamicFontSize * 1.2f,
                         softWrap = true
                     )
                 }
             }
         }
-
     }
 
     // TODO: This button will allow a user to add a new cigar(s) to their collection
@@ -155,7 +159,7 @@ fun MyCigarsScreen(
             navController.navigate("add_new_cigar")
         },
         icon = { Icon(Icons.Filled.Add, "Add Cigar Button") },
-        text = { Text(text = "Add Cigar(s)")}
+        text = { Text(text = "Add Cigar(s)", fontSize = dynamicFontSize * .47f)}
     )
 
     // TODO: Also need to think about how to add a humidor to be tracked

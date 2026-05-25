@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,6 +39,12 @@ fun MyWhiskeyScreen(
     navController: NavController,
     myWhiskeyDao: MyWhiskeyDao
 ){
+
+    // TIPS: Dynamic Screen Size Variables
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
+
     Card(
         modifier = Modifier
             .fillMaxSize()
@@ -53,7 +60,7 @@ fun MyWhiskeyScreen(
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
             Text(
-                text = "My Whiskey", fontSize = 40.sp, fontWeight = FontWeight.Bold,
+                text = "My Whiskey", fontSize = dynamicFontSize * 1.4f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind {
                         val strokeWidthPx = 3.dp.toPx()
@@ -91,9 +98,9 @@ fun MyWhiskeyScreen(
                     ) {
                         Text(
                             text = whiskey.brand,
-                            fontSize = 40.sp,
+                            fontSize = dynamicFontSize * 1.2f,
                             fontWeight = FontWeight.Bold,
-                            lineHeight = 45.sp,
+                            lineHeight = dynamicFontSize * 1.2f,
                             softWrap = true
                         )
                     }
@@ -102,9 +109,9 @@ fun MyWhiskeyScreen(
                     ) {
                         Text(
                             text = whiskey.name,
-                            fontSize = 40.sp,
+                            fontSize = dynamicFontSize * 1.2f,
                             fontWeight = FontWeight.Bold,
-                            lineHeight = 45.sp,
+                            lineHeight = dynamicFontSize * 1.2f,
                             softWrap = true
                         )
                     }
@@ -113,9 +120,9 @@ fun MyWhiskeyScreen(
                     ) {
                         Text(
                             text = "Proof: ${whiskey.proof}",
-                            fontSize = 40.sp,
+                            fontSize = dynamicFontSize * 1.1f,
                             fontWeight = FontWeight.Bold,
-                            lineHeight = 45.sp,
+                            lineHeight = dynamicFontSize * 1.2f,
                             softWrap = true
                         )
                     }
@@ -124,9 +131,9 @@ fun MyWhiskeyScreen(
                     ) {
                         Text(
                             text = "Age Statement: ${whiskey.ageStatement}",
-                            fontSize = 40.sp,
+                            fontSize = dynamicFontSize * 1.1f,
                             fontWeight = FontWeight.Bold,
-                            lineHeight = 45.sp,
+                            lineHeight = dynamicFontSize * 1.2f,
                             softWrap = true
                         )
                     }
@@ -157,6 +164,6 @@ fun MyWhiskeyScreen(
             navController.navigate("add_new_whiskey")
         },
         icon = { Icon(Icons.Filled.Add, "Add Whiskey Button") },
-        text = { Text(text = "Add Whiskey")}
+        text = { Text(text = "Add Whiskey", fontSize = dynamicFontSize * .47f)}
     )
 }
