@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -23,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -41,11 +41,22 @@ import com.example.cigarsandwhiskey.ui.theme.*
 @Composable
 fun HomeScreen(database: AppDatabase){
 
+    // TIPS: Dynamic Screen Size Variables
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
+
     // Allows access to the most recent cigar/whiskey review for the first elevated card
     val mostRecentCigarReview by remember(database) {
         database.cigarReviewDao().getMostRecentCigarReview()}.collectAsState(initial = null)
     val mostRecentWhiskeyReview by remember(database) {
         database.myWhiskeyReviewDao().getMostRecentWhiskeyReview()}.collectAsState(initial = null)
+
+    // Allows access to most recently added cigars and whiskeys to collections
+    val newestCigarsAdded by remember(database) {
+        database.myCigarsDao().getNewestAddedCigars()}.collectAsState(initial = null)
+    val newestWhiskeyAdded by remember(database) {
+        database.myWhiskeyDao().getNewestAddedWhiskey()}.collectAsState(initial = null)
 
 
     // TODO: Within Card, since I plan to be able to scroll, I will need
@@ -66,7 +77,7 @@ fun HomeScreen(database: AppDatabase){
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "Home", fontSize = 45.sp,
+            Text(text = "Home", fontSize = dynamicFontSize * 1.4f,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -112,7 +123,7 @@ fun HomeScreen(database: AppDatabase){
             ){
                 Text(
                     text = "Most Recent Reviews",
-                    fontSize = 40.sp,
+                    fontSize = dynamicFontSize * 1.15f,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
                         .drawBehind{
@@ -139,7 +150,6 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-//                        .size(width = 225.dp, height = 180.dp)
                         .heightIn(180.dp)
                         .width(225.dp)
                         .padding(
@@ -192,7 +202,6 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-//                        .size(width = 225.dp, height = 180.dp)
                         .heightIn(180.dp)
                         .width(225.dp)
                         .padding(
@@ -259,60 +268,112 @@ fun HomeScreen(database: AppDatabase){
                 containerColor = lushForestGrassLight
             )
         ) {
+
+            Row(
+                modifier = Modifier.padding(
+                    15.dp,
+                    5.dp,
+                    0.dp,
+                    0.dp,
+                )
+            ){
+                Text(
+                    text = "Newest Cigars",
+                    fontSize = dynamicFontSize * 1.15f,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .drawBehind{
+                            val strokeWidthPx = 3.dp.toPx()
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, size.height),
+                                end = Offset(size.width, size.height)
+                            )
+                        },
+                )
+            }
+
             Row(
                 modifier = Modifier
                     .padding(
                         5.dp, // left
                         10.dp,
                         5.dp, // right
-                        0.dp
+                        10.dp
                     )
             ){
-                Card(
+
+                if(newestCigarsAdded.isNullOrEmpty()) {
+                    Card(
 //                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(180.dp)
-                        .width(150.dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            0.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) { }
-                Card(
+                        modifier = Modifier
+                            .heightIn(180.dp)
+                            .width(150.dp)
+                            .padding(
+                                5.dp, // left
+                                0.dp,
+                                5.dp, // right
+                                0.dp
+                            ),
+                        colors = CardDefaults.cardColors(
+                            containerColor = earthForestMediumDark
+                        )
+                    ) {
+                        Text(
+                            text = "Time to add your first cigars!",
+                            fontSize = 20.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 10.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                } else {
+                    newestCigarsAdded?.forEach { cigars ->
+                        Card(
 //                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(180.dp)
-                        .width(150.dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            0.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) { }
-                Card(
-//                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(180.dp)
-                        .width(150.dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            0.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) { }
+                            modifier = Modifier
+                                .heightIn(130.dp)
+                                .width(150.dp)
+                                .padding(
+                                    5.dp, // left
+                                    0.dp,
+                                    5.dp, // right
+                                    0.dp
+                                ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = earthForestMediumDark
+                            )
+                        ) {
+                            Text(
+                                text = cigars?.cigarBrand ?: "Time to add your first cigars!",
+                                fontSize = dynamicFontSize * .58f,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 5.dp)
+                            )
+                            Text(
+                                text = cigars?.cigarName ?: "",
+                                fontSize = dynamicFontSize * .58f,
+                                lineHeight = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 5.dp)
+                            )
+                            Text(
+                                text = "QTY: ${cigars?.quantity}" ?: "",
+                                fontSize = dynamicFontSize * .58f,
+                                lineHeight = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 0.dp)
+                            )
+                        }
+                    }
+                }
             }
         }
 
@@ -331,7 +392,30 @@ fun HomeScreen(database: AppDatabase){
                 containerColor = lushForestGrassLight
             )
         ) {
-//            Text(text = "This is where the list of the user's highest rated cigars is going")
+            Row(
+                modifier = Modifier.padding(
+                    15.dp,
+                    5.dp,
+                    0.dp,
+                    0.dp,
+                )
+            ){
+                Text(
+                    text = "Newest Whiskeys",
+                    fontSize = dynamicFontSize * 1.15f,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .drawBehind{
+                            val strokeWidthPx = 3.dp.toPx()
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, size.height),
+                                end = Offset(size.width, size.height)
+                            )
+                        },
+                )
+            }
 
             Row(
                 modifier = Modifier
@@ -339,54 +423,79 @@ fun HomeScreen(database: AppDatabase){
                         5.dp, // left
                         10.dp,
                         5.dp, // right
-                        0.dp
+                        10.dp
                     )
             ){
-                Card(
+                if(newestWhiskeyAdded.isNullOrEmpty()){
+                    Card(
 //                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(180.dp)
-                        .width(150.dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            0.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) { }
-                Card(
+                        modifier = Modifier
+                            .heightIn(130.dp)
+                            .width(150.dp)
+                            .padding(
+                                5.dp, // left
+                                0.dp,
+                                5.dp, // right
+                                0.dp
+                            ),
+                        colors = CardDefaults.cardColors(
+                            containerColor = earthForestMediumDark
+                        )
+                    ) {
+                        Text(
+                            text = "Time to add your first whiskey!",
+                            fontSize = 20.sp,
+                            lineHeight = 30.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 10.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+                } else {
+                    newestWhiskeyAdded?.forEach { whiskey ->
+                        Card(
 //                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(180.dp)
-                        .width(150.dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            0.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) { }
-                Card(
-//                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(180.dp)
-                        .width(150.dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            0.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) { }
+                            modifier = Modifier
+                                .heightIn(135.dp)
+                                .width(150.dp)
+                                .padding(
+                                    5.dp, // left
+                                    0.dp,
+                                    5.dp, // right
+                                    0.dp
+                                ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = earthForestMediumDark
+                            )
+                        ) {
+                            Text(
+                                text = whiskey.brand ?: "Time to add your first cigars!",
+                                fontSize = dynamicFontSize * .58f,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 5.dp)
+                            )
+                            Text(
+                                text = whiskey.name ?: "",
+                                fontSize = dynamicFontSize * .58f,
+                                lineHeight = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 5.dp)
+                            )
+                            Text(
+                                text = "Proof: ${whiskey.proof}" ?: "",
+                                fontSize = dynamicFontSize * .58f,
+                                lineHeight = 20.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, end = 10.dp,  bottom = 10.dp)
+                            )
+                        }
+                    }
+                }
             }
 
         }
