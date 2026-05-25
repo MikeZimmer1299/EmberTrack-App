@@ -77,7 +77,7 @@ fun InputTextField(
             if (text.isEmpty()) {
                 Text(text = placeholder, color = Color.Black,
 //                    fontSize = 20.sp
-                    fontSize = (LocalConfiguration.current.screenWidthDp * 0.043f).sp
+                    fontSize = (LocalConfiguration.current.screenWidthDp * 0.04f).sp
                 )
             }
         }
