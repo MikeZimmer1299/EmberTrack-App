@@ -1,6 +1,8 @@
 package com.example.cigarsandwhiskey.objectInterface
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -31,19 +36,28 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.dataAccessObjects.MyWhiskeyDao
+import com.example.cigarsandwhiskey.objects.MyWhiskey
+import com.example.cigarsandwhiskey.specializedFunctions.DeleteWhiskeyOption
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MyWhiskeyScreen(
     navController: NavController,
-    myWhiskeyDao: MyWhiskeyDao
+    myWhiskeyDao: MyWhiskeyDao,
+    scope: CoroutineScope
 ){
 
     // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
+
+    var deleteWhiskey by remember { mutableStateOf(false) }
+    var whiskeyToDelete by remember { mutableStateOf<MyWhiskey?>(null) }
 
     Card(
         modifier = Modifier
@@ -88,7 +102,18 @@ fun MyWhiskeyScreen(
                             5.dp
                         )
                         .fillMaxWidth()
-                        .heightIn(160.dp),
+                        .heightIn(160.dp)
+                        .combinedClickable(
+                            onClick = {
+//                                whiskeyToDelete = whiskey
+                            },
+                            onLongClick = {
+                                // TODO: This long click will allow the user to delete a whiskey
+//                                myWhiskeyDao.deleteWhiskey(whiskey)
+                                whiskeyToDelete = whiskey
+                                deleteWhiskey = true
+                            }
+                        ),
                     colors = CardDefaults.cardColors(
                         containerColor = lushForestGrassLight
                     )
@@ -148,6 +173,20 @@ fun MyWhiskeyScreen(
                 //  card in the list. But it works, so ¯\_(ツ)_/¯
             }
         }
+
+    if(deleteWhiskey){
+        DeleteWhiskeyOption(
+            onDismissRequest = {deleteWhiskey = false},
+            onConfirmation = {
+                deleteWhiskey = false
+            },
+            dialogTitle = "Delete Whiskey",
+            dialogText = "Are you sure you want to delete this whiskey from your collection?",
+            whiskeyToDelete,
+            scope,
+            myWhiskeyDao
+        )
+    }
 
 
     // TIPS: Allows the user to add whiskey to their collection
