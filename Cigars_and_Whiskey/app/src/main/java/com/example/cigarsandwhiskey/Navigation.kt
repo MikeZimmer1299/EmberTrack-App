@@ -160,7 +160,7 @@ fun Navigation(database: AppDatabase){
             composable("home"){ HomeScreen(database) }
 //            composable("my_humidors") { HumidorOptionScreen(navController, database.myHumidorsDao()) } // removed for now, may implement at a later time
             composable("my_cigars"){ MyCigarsScreen(navController, database.myCigarsDao()) } // add
-            composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao()) } // add
+            composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao(), scope) } // add
             composable("cigar_brands"){ CigarBrandsScreen() }
             composable("whiskey_brands"){ WhiskeyBrandsScreen() }
             composable("cigar_reviews"){ CigarReviewsScreen(navController, database.cigarReviewDao()) } // add
