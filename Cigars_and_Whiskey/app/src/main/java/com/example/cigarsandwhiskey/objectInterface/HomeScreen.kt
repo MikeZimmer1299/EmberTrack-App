@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -151,7 +152,7 @@ fun HomeScreen(database: AppDatabase){
 //                    onClick = {},
                     modifier = Modifier
                         .heightIn(180.dp)
-                        .width(225.dp)
+                        .widthIn((screenWidth * .46f).dp)
                         .padding(
                             5.dp, // left
                             0.dp,
@@ -203,7 +204,7 @@ fun HomeScreen(database: AppDatabase){
 //                    onClick = {},
                     modifier = Modifier
                         .heightIn(180.dp)
-                        .width(225.dp)
+                        .widthIn((screenWidth * .4645f).dp)
                         .padding(
                             5.dp, // left
                             0.dp,
@@ -263,7 +264,7 @@ fun HomeScreen(database: AppDatabase){
                     5.dp
                 )
                 .fillMaxWidth()
-                .heightIn(200.dp),
+                .heightIn(150.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -308,8 +309,8 @@ fun HomeScreen(database: AppDatabase){
                     Card(
 //                    onClick = {},
                         modifier = Modifier
-                            .heightIn(180.dp)
-                            .width(150.dp)
+                            .heightIn(100.dp)
+                            .width((screenWidth * .35f).dp)
                             .padding(
                                 5.dp, // left
                                 0.dp,
@@ -335,8 +336,8 @@ fun HomeScreen(database: AppDatabase){
                         Card(
 //                    onClick = {},
                             modifier = Modifier
-                                .heightIn(130.dp)
-                                .width(150.dp)
+                                .heightIn(110.dp)
+                                .width((screenWidth * .31f).dp)
                                 .padding(
                                     5.dp, // left
                                     0.dp,
@@ -358,7 +359,7 @@ fun HomeScreen(database: AppDatabase){
                             Text(
                                 text = cigars?.cigarName ?: "",
                                 fontSize = dynamicFontSize * .58f,
-                                lineHeight = 20.sp,
+                                lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
                                 modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 5.dp)
@@ -366,7 +367,7 @@ fun HomeScreen(database: AppDatabase){
                             Text(
                                 text = "QTY: ${cigars?.quantity}" ?: "",
                                 fontSize = dynamicFontSize * .58f,
-                                lineHeight = 20.sp,
+                                lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
                                 modifier = Modifier.padding(10.dp, 0.dp)
@@ -387,7 +388,7 @@ fun HomeScreen(database: AppDatabase){
                     5.dp
                 )
                 .fillMaxWidth()
-                .heightIn(200.dp),
+                .heightIn(160.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -431,7 +432,7 @@ fun HomeScreen(database: AppDatabase){
 //                    onClick = {},
                         modifier = Modifier
                             .heightIn(130.dp)
-                            .width(150.dp)
+                            .width(180.dp)
                             .padding(
                                 5.dp, // left
                                 0.dp,
@@ -444,8 +445,8 @@ fun HomeScreen(database: AppDatabase){
                     ) {
                         Text(
                             text = "Time to add your first whiskey!",
-                            fontSize = 20.sp,
-                            lineHeight = 30.sp,
+                            fontSize = 30.sp,
+                            lineHeight = 50.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
                             modifier = Modifier.padding(10.dp, 10.dp),
@@ -457,8 +458,8 @@ fun HomeScreen(database: AppDatabase){
                         Card(
 //                    onClick = {},
                             modifier = Modifier
-                                .heightIn(135.dp)
-                                .width(150.dp)
+                                .heightIn(110.dp)
+                                .width((screenWidth * .31f).dp)
                                 .padding(
                                     5.dp, // left
                                     0.dp,
@@ -488,7 +489,7 @@ fun HomeScreen(database: AppDatabase){
                             Text(
                                 text = "Proof: ${whiskey.proof}" ?: "",
                                 fontSize = dynamicFontSize * .58f,
-                                lineHeight = 20.sp,
+                                lineHeight = 25.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
                                 modifier = Modifier.padding(10.dp, end = 10.dp,  bottom = 10.dp)
