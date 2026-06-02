@@ -1,5 +1,6 @@
 package com.example.cigarsandwhiskey.objectInterface
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -63,71 +64,26 @@ fun HomeScreen(database: AppDatabase){
     // TODO: Within Card, since I plan to be able to scroll, I will need
     //  to use the `.verticalScroll(rememberScrollState())` modifier
     // https://developer.android.com/develop/ui/compose/touch-input/pointer-input/scroll
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(0.dp, 0.dp)
-            .verticalScroll(rememberScrollState()),
-        colors = CardDefaults.cardColors(
-            containerColor = lushForestGreenDark
-        )
-    ){
-
-        Column(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp, 30.dp, 0.dp, 0.dp),
-        ) {
-            Text(text = "Home", fontSize = dynamicFontSize * 1.4f,
-                modifier = Modifier
-                    .drawBehind{
-                        val strokeWidthPx = 3.dp.toPx()
-                        drawLine(
-                            color = Color.Black,
-                            strokeWidth = strokeWidthPx,
-                            start = Offset(0f, size.height),
-                            end = Offset(size.width, size.height)
-                        )
-                    },
-                fontWeight = FontWeight.Bold
-            )
-        }
-
-        /////////////////////////////////////////////////////////////
-        /////////////////////////////////////////////////////////////
-
-        // Row for each object desired on the home screen
-        // TODO: May make these, instead of rows, as other cards? Example below of elevated card
-        //  This is the correct move
-        ElevatedCard(
-//            onClick = {},
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    15.dp,
-                    10.dp, // right
-                    5.dp
-                )
-                .fillMaxWidth()
-                .heightIn(150.dp),
+                .fillMaxSize()
+                .padding(0.dp, 0.dp)
+                .verticalScroll(rememberScrollState()),
             colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
+                containerColor = lushForestGreenDark
             )
         ) {
-            Row(
-                modifier = Modifier.padding(
-                    15.dp,
-                    5.dp,
-                    0.dp,
-                    0.dp,
-                )
-            ){
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp, 30.dp, 0.dp, 0.dp),
+            ) {
                 Text(
-                    text = "Most Recent Reviews",
-                    fontSize = dynamicFontSize * 1.15f,
-                    fontWeight = FontWeight.Bold,
+                    text = "Home", fontSize = dynamicFontSize * 1.4f,
                     modifier = Modifier
-                        .drawBehind{
+                        .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             drawLine(
                                 color = Color.Black,
@@ -136,330 +92,228 @@ fun HomeScreen(database: AppDatabase){
                                 end = Offset(size.width, size.height)
                             )
                         },
+                    fontWeight = FontWeight.Bold
                 )
             }
 
-            Row(
-                modifier = Modifier
-                    .padding(
-                        5.dp, // left
-                        10.dp,
-                        5.dp, // right
-                        0.dp
-                    )
-            ){
-                Card(
-//                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(130.dp)
-                        .widthIn((screenWidth * .46f).dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            10.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) {
-                    mostRecentCigarReview?.let { review ->
-                        Text(
-                            text = review.brand,
-                            fontSize = 30.sp,
-                            lineHeight = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 5.dp)
-                        )
-                        Text(
-                            text = review.cigarName,
-                            fontSize = 30.sp,
-                            lineHeight = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 0.dp)
-                        )
-                        Text(
-                            text = "Score: ${"%.1f".format(review.finalScore)}",
-                            fontSize = 30.sp,
-                            lineHeight = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 0.dp)
-                        )
+            /////////////////////////////////////////////////////////////
+            /////////////////////////////////////////////////////////////
 
-                    } ?: Text(
-                        text = "Time to add your first cigar review!",
-                        fontSize = 33.sp,
-                        lineHeight = 40.sp,
-                        fontWeight = FontWeight.Bold,
-                        softWrap = true,
-                        modifier = Modifier.padding(10.dp, 10.dp),
-                        textAlign = TextAlign.Center
-                    )
-
-                }
-                Card(
-//                    onClick = {},
-                    modifier = Modifier
-                        .heightIn(130.dp)
-                        .widthIn((screenWidth * .4645f).dp)
-                        .padding(
-                            5.dp, // left
-                            0.dp,
-                            5.dp, // right
-                            10.dp
-                        ),
-                    colors = CardDefaults.cardColors(
-                        containerColor = earthForestMediumDark
-                    )
-                ) {
-                    mostRecentWhiskeyReview?.let { review ->
-                        Text(
-                            text = review.brand,
-                            fontSize = 30.sp,
-                            lineHeight = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 5.dp)
-                        )
-                        Text(
-                            text = review.whiskeyName,
-                            fontSize = 30.sp,
-                            lineHeight = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 0.dp)
-                        )
-                        Text(
-                            text = "Score: ${review.overallScore}",
-                            fontSize = 30.sp,
-                            lineHeight = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 0.dp)
-                        )
-
-                    } ?: Text(
-                        text = "Time to add your first whiskey review!",
-                        fontSize = 33.sp,
-                        lineHeight = 40.sp,
-                        fontWeight = FontWeight.Bold,
-                        softWrap = true,
-                        modifier = Modifier.padding(10.dp, 10.dp),
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
-        }
-
-        ElevatedCard(
+            // Row for each object desired on the home screen
+            // TODO: May make these, instead of rows, as other cards? Example below of elevated card
+            //  This is the correct move
+            ElevatedCard(
 //            onClick = {},
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    5.dp
-                )
-                .fillMaxWidth()
-                .heightIn(150.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-
-            Row(
-                modifier = Modifier.padding(
-                    15.dp,
-                    5.dp,
-                    0.dp,
-                    0.dp,
-                )
-            ){
-                Text(
-                    text = "Newest Cigars",
-                    fontSize = dynamicFontSize * 1.15f,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .drawBehind{
-                            val strokeWidthPx = 3.dp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, size.height),
-                                end = Offset(size.width, size.height)
-                            )
-                        },
-                )
-            }
-
-            Row(
                 modifier = Modifier
                     .padding(
-                        5.dp, // left
-                        10.dp,
-                        5.dp, // right
-                        10.dp
+                        10.dp, // left
+                        15.dp,
+                        10.dp, // right
+                        5.dp
                     )
-            ){
-
-                if(newestCigarsAdded.isNullOrEmpty()) {
-                    Card(
-//                    onClick = {},
+                    .fillMaxWidth()
+                    .heightIn(150.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
+                )
+            ) {
+                Row(
+                    modifier = Modifier.padding(
+                        15.dp,
+                        5.dp,
+                        0.dp,
+                        0.dp,
+                    )
+                ) {
+                    Text(
+                        text = "Most Recent Reviews",
+                        fontSize = dynamicFontSize * 1.15f,
+                        fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .heightIn(90.dp)
-                            .width((screenWidth * .35f).dp)
-                            .padding(
-                                5.dp, // left
-                                0.dp,
-                                5.dp, // right
-                                0.dp
-                            ),
-                        colors = CardDefaults.cardColors(
-                            containerColor = earthForestMediumDark
-                        )
-                    ) {
-                        Text(
-                            text = "Time to add your first cigars!",
-                            fontSize = 20.sp,
-                            lineHeight = 30.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 10.dp),
-                            textAlign = TextAlign.Center
-                        )
-                    }
-                } else {
-                    newestCigarsAdded?.forEach { cigars ->
-                        Card(
-//                    onClick = {},
-                            modifier = Modifier
-                                .heightIn(9.dp)
-                                .width((screenWidth * .31f).dp)
-                                .padding(
-                                    5.dp, // left
-                                    0.dp,
-                                    5.dp, // right
-                                    0.dp
-                                ),
-                            colors = CardDefaults.cardColors(
-                                containerColor = earthForestMediumDark
-                            )
-                        ) {
-                            Text(
-                                text = cigars?.cigarBrand ?: "Time to add your first cigars!",
-                                fontSize = dynamicFontSize * .6f,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(10.dp, 5.dp, end = 0.dp)
-                            )
-                            Text(
-                                text = cigars?.cigarName ?: "",
-                                fontSize = dynamicFontSize * .6f,
-                                lineHeight = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 0.dp)
-                            )
-                            Text(
-                                text = "QTY: ${cigars?.quantity}" ?: "",
-                                fontSize = dynamicFontSize * .6f,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 2.dp)
-                            )
-                        }
-                    }
-                }
-            }
-        }
-
-        ElevatedCard(
-//            onClick = {},
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    5.dp
-                )
-                .fillMaxWidth()
-                .heightIn(150.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            Row(
-                modifier = Modifier.padding(
-                    15.dp,
-                    5.dp,
-                    0.dp,
-                    0.dp,
-                )
-            ){
-                Text(
-                    text = "Newest Whiskeys",
-                    fontSize = dynamicFontSize * 1.15f,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .drawBehind{
-                            val strokeWidthPx = 3.dp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, size.height),
-                                end = Offset(size.width, size.height)
-                            )
-                        },
-                )
-            }
-
-            Row(
-                modifier = Modifier
-                    .padding(
-                        5.dp, // left
-                        10.dp,
-                        5.dp, // right
-                        10.dp
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, size.height),
+                                    end = Offset(size.width, size.height)
+                                )
+                            },
                     )
-            ){
-                if(newestWhiskeyAdded.isNullOrEmpty()){
+                }
+
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            5.dp, // left
+                            10.dp,
+                            5.dp, // right
+                            0.dp
+                        )
+                ) {
                     Card(
 //                    onClick = {},
                         modifier = Modifier
                             .heightIn(130.dp)
-                            .width(180.dp)
+                            .weight(1f)
                             .padding(
                                 5.dp, // left
                                 0.dp,
                                 5.dp, // right
-                                0.dp
+                                10.dp
                             ),
                         colors = CardDefaults.cardColors(
                             containerColor = earthForestMediumDark
                         )
                     ) {
-                        Text(
-                            text = "Time to add your first whiskey!",
-                            fontSize = 30.sp,
-                            lineHeight = 50.sp,
+                        mostRecentCigarReview?.let { review ->
+                            Text(
+                                text = review.brand,
+                                fontSize = 30.sp,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 5.dp)
+                            )
+                            Text(
+                                text = review.cigarName,
+                                fontSize = 30.sp,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 0.dp)
+                            )
+                            Text(
+                                text = "Score: ${"%.1f".format(review.finalScore)}",
+                                fontSize = 30.sp,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 0.dp)
+                            )
+
+                        } ?: Text(
+                            text = "Time to add your first cigar review!",
+                            fontSize = 33.sp,
+                            lineHeight = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 10.dp),
+                            textAlign = TextAlign.Center
+                        )
+
+                    }
+                    Card(
+//                    onClick = {},
+                        modifier = Modifier
+                            .heightIn(130.dp)
+                            .weight(1f)
+                            .padding(
+                                5.dp, // left
+                                0.dp,
+                                5.dp, // right
+                                10.dp
+                            ),
+                        colors = CardDefaults.cardColors(
+                            containerColor = earthForestMediumDark
+                        )
+                    ) {
+                        mostRecentWhiskeyReview?.let { review ->
+                            Text(
+                                text = review.brand,
+                                fontSize = 30.sp,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 5.dp)
+                            )
+                            Text(
+                                text = review.whiskeyName,
+                                fontSize = 30.sp,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 0.dp)
+                            )
+                            Text(
+                                text = "Score: ${review.overallScore}",
+                                fontSize = 30.sp,
+                                lineHeight = 30.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 0.dp)
+                            )
+
+                        } ?: Text(
+                            text = "Time to add your first whiskey review!",
+                            fontSize = 33.sp,
+                            lineHeight = 40.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
                             modifier = Modifier.padding(10.dp, 10.dp),
                             textAlign = TextAlign.Center
                         )
                     }
-                } else {
-                    newestWhiskeyAdded?.forEach { whiskey ->
+                }
+            }
+
+            ElevatedCard(
+//            onClick = {},
+                modifier = Modifier
+                    .padding(
+                        10.dp, // left
+                        10.dp,
+                        10.dp, // right
+                        5.dp
+                    )
+                    .fillMaxWidth()
+                    .heightIn(150.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
+                )
+            ) {
+
+                Row(
+                    modifier = Modifier.padding(
+                        15.dp,
+                        5.dp,
+                        0.dp,
+                        0.dp,
+                    )
+                ) {
+                    Text(
+                        text = "Newest Cigars",
+                        fontSize = dynamicFontSize * 1.15f,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, size.height),
+                                    end = Offset(size.width, size.height)
+                                )
+                            },
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            5.dp, // left
+                            10.dp,
+                            5.dp, // right
+                            10.dp
+                        )
+                ) {
+
+                    if (newestCigarsAdded.isNullOrEmpty()) {
                         Card(
 //                    onClick = {},
                             modifier = Modifier
                                 .heightIn(90.dp)
-                                .width((screenWidth * .31f).dp)
+                                .width((screenWidth * .35f).dp)
                                 .padding(
                                     5.dp, // left
                                     0.dp,
@@ -471,65 +325,217 @@ fun HomeScreen(database: AppDatabase){
                             )
                         ) {
                             Text(
-                                text = whiskey.brand ?: "Time to add your first cigars!",
-                                fontSize = dynamicFontSize * .6f,
+                                text = "Time to add your first cigars!",
+                                fontSize = 20.sp,
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 5.dp, end = 0.dp)
+                                modifier = Modifier.padding(10.dp, 10.dp),
+                                textAlign = TextAlign.Center
                             )
-                            Text(
-                                text = whiskey.name ?: "",
-                                fontSize = dynamicFontSize * .6f,
-                                lineHeight = 20.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 0.dp)
-                            )
-                            Text(
-                                text = "Proof: ${whiskey.proof}" ?: "",
-                                fontSize = dynamicFontSize * .5f,
-                                lineHeight = 25.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(10.dp, end = 10.dp,  bottom = 5.dp)
-                            )
+                        }
+                    } else {
+                        newestCigarsAdded?.forEach { cigars ->
+                            Card(
+//                    onClick = {},
+                                modifier = Modifier
+                                    .heightIn(9.dp)
+                                    .width((screenWidth * .31f).dp)
+                                    .padding(
+                                        5.dp, // left
+                                        0.dp,
+                                        5.dp, // right
+                                        0.dp
+                                    ),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = earthForestMediumDark
+                                )
+                            ) {
+                                Text(
+                                    text = cigars?.cigarBrand ?: "Time to add your first cigars!",
+                                    fontSize = dynamicFontSize * .6f,
+                                    lineHeight = 30.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, 5.dp, end = 0.dp)
+                                )
+                                Text(
+                                    text = cigars?.cigarName ?: "",
+                                    fontSize = dynamicFontSize * .6f,
+                                    lineHeight = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 0.dp)
+                                )
+                                Text(
+                                    text = "QTY: ${cigars?.quantity}" ?: "",
+                                    fontSize = dynamicFontSize * .6f,
+                                    lineHeight = 30.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 2.dp)
+                                )
+                            }
                         }
                     }
                 }
             }
 
-        }
-
-        ElevatedCard(
+            ElevatedCard(
 //            onClick = {},
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    10.dp,
-                    10.dp, // right
-                    5.dp
+                modifier = Modifier
+                    .padding(
+                        10.dp, // left
+                        10.dp,
+                        10.dp, // right
+                        5.dp
+                    )
+                    .fillMaxWidth()
+                    .heightIn(150.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
                 )
-                .fillMaxWidth()
-                .heightIn(260.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            Text(text = "This is potentially where a random whiskey/cigar brand will " +
-                    "go, to give option for user to learn", color = Color.Black)
-            // TODO: This text is currently the same color at "lushForestGrassLight"
-            //  until I changed the color manually. Will need to keep in mind for future
-        }
+            ) {
+                Row(
+                    modifier = Modifier.padding(
+                        15.dp,
+                        5.dp,
+                        0.dp,
+                        0.dp,
+                    )
+                ) {
+                    Text(
+                        text = "Newest Whiskeys",
+                        fontSize = dynamicFontSize * 1.15f,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, size.height),
+                                    end = Offset(size.width, size.height)
+                                )
+                            },
+                    )
+                }
+
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            5.dp, // left
+                            10.dp,
+                            5.dp, // right
+                            10.dp
+                        )
+                ) {
+                    if (newestWhiskeyAdded.isNullOrEmpty()) {
+                        Card(
+//                    onClick = {},
+                            modifier = Modifier
+                                .heightIn(130.dp)
+                                .width(180.dp)
+                                .padding(
+                                    5.dp, // left
+                                    0.dp,
+                                    5.dp, // right
+                                    0.dp
+                                ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = earthForestMediumDark
+                            )
+                        ) {
+                            Text(
+                                text = "Time to add your first whiskey!",
+                                fontSize = 30.sp,
+                                lineHeight = 50.sp,
+                                fontWeight = FontWeight.Bold,
+                                softWrap = true,
+                                modifier = Modifier.padding(10.dp, 10.dp),
+                                textAlign = TextAlign.Center
+                            )
+                        }
+                    } else {
+                        newestWhiskeyAdded?.forEach { whiskey ->
+                            Card(
+//                    onClick = {},
+                                modifier = Modifier
+                                    .heightIn(90.dp)
+                                    .width((screenWidth * .31f).dp)
+                                    .padding(
+                                        5.dp, // left
+                                        0.dp,
+                                        5.dp, // right
+                                        0.dp
+                                    ),
+                                colors = CardDefaults.cardColors(
+                                    containerColor = earthForestMediumDark
+                                )
+                            ) {
+                                Text(
+                                    text = whiskey.brand ?: "Time to add your first cigars!",
+                                    fontSize = dynamicFontSize * .6f,
+                                    lineHeight = 30.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, 5.dp, end = 0.dp)
+                                )
+                                Text(
+                                    text = whiskey.name ?: "",
+                                    fontSize = dynamicFontSize * .6f,
+                                    lineHeight = 20.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 0.dp)
+                                )
+                                Text(
+                                    text = "Proof: ${whiskey.proof}" ?: "",
+                                    fontSize = dynamicFontSize * .5f,
+                                    lineHeight = 25.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 5.dp)
+                                )
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            ElevatedCard(
+//            onClick = {},
+                modifier = Modifier
+                    .padding(
+                        10.dp, // left
+                        10.dp,
+                        10.dp, // right
+                        5.dp
+                    )
+                    .fillMaxWidth()
+                    .heightIn(260.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
+                )
+            ) {
+                Text(
+                    text = "This is potentially where a random whiskey/cigar brand will " +
+                            "go, to give option for user to learn", color = Color.Black
+                )
+                // TODO: This text is currently the same color at "lushForestGrassLight"
+                //  until I changed the color manually. Will need to keep in mind for future
+            }
 
 
-        ElevatedCard(modifier = Modifier
-            .padding(20.dp)
-            .height(20.dp)
-        ) {
-            // TIPS: Intentionally left blank. A terrible way to add spacing below the last
-            //  card in the list. But it works, so ¯\_(ツ)_/¯
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .height(20.dp)
+            ) {
+                // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+                //  card in the list. But it works, so ¯\_(ツ)_/¯
+            }
         }
     }
-
 }
