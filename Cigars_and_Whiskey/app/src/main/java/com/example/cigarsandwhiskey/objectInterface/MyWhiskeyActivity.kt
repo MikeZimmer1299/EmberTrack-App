@@ -3,6 +3,7 @@ package com.example.cigarsandwhiskey.objectInterface
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -49,7 +51,7 @@ fun MyWhiskeyScreen(
     navController: NavController,
     myWhiskeyDao: MyWhiskeyDao,
     scope: CoroutineScope
-){
+) {
 
     // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
@@ -59,34 +61,37 @@ fun MyWhiskeyScreen(
     var deleteWhiskey by remember { mutableStateOf(false) }
     var whiskeyToDelete by remember { mutableStateOf<MyWhiskey?>(null) }
 
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(0.dp, 0.dp)
-            .verticalScroll(rememberScrollState()),
-        colors = CardDefaults.cardColors(
-            containerColor = lushForestGreenDark
-        )
-    ){
-        Column(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp, 30.dp, 0.dp, 0.dp),
-        ) {
-            Text(
-                text = "My Whiskey", fontSize = dynamicFontSize * 1.4f, fontWeight = FontWeight.Bold,
-                modifier = Modifier
-                    .drawBehind {
-                        val strokeWidthPx = 3.dp.toPx()
-                        drawLine(
-                            color = Color.Black,
-                            strokeWidth = strokeWidthPx,
-                            start = Offset(0f, size.height),
-                            end = Offset(size.width, size.height)
-                        )
-                    }
+                .fillMaxSize()
+                .padding(0.dp, 0.dp)
+                .verticalScroll(rememberScrollState()),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGreenDark
             )
-        }
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp, 30.dp, 0.dp, 0.dp),
+            ) {
+                Text(
+                    text = "My Whiskey",
+                    fontSize = dynamicFontSize * 1.4f,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, size.height),
+                                end = Offset(size.width, size.height)
+                            )
+                        }
+                )
+            }
 
             val myWhiskeyList by myWhiskeyDao.getAllWhiskey()
                 .collectAsStateWithLifecycle(emptyList())
@@ -102,7 +107,7 @@ fun MyWhiskeyScreen(
                             5.dp
                         )
                         .fillMaxWidth()
-                        .heightIn(160.dp)
+                        .heightIn(140.dp)
                         .combinedClickable(
                             onClick = {
 //                                whiskeyToDelete = whiskey
@@ -117,9 +122,9 @@ fun MyWhiskeyScreen(
                     colors = CardDefaults.cardColors(
                         containerColor = lushForestGrassLight
                     )
-                ){
+                ) {
                     Row(
-                        modifier = Modifier.padding(10.dp,0.dp)
+                        modifier = Modifier.padding(10.dp, 0.dp)
                     ) {
                         Text(
                             text = whiskey.brand,
@@ -130,7 +135,7 @@ fun MyWhiskeyScreen(
                         )
                     }
                     Row(
-                        modifier = Modifier.padding(10.dp,0.dp)
+                        modifier = Modifier.padding(10.dp, 0.dp)
                     ) {
                         Text(
                             text = whiskey.name,
@@ -141,7 +146,7 @@ fun MyWhiskeyScreen(
                         )
                     }
                     Row(
-                        modifier = Modifier.padding(10.dp,0.dp)
+                        modifier = Modifier.padding(10.dp, 0.dp)
                     ) {
                         Text(
                             text = "Proof: ${whiskey.proof}",
@@ -152,7 +157,7 @@ fun MyWhiskeyScreen(
                         )
                     }
                     Row(
-                        modifier = Modifier.padding(10.dp,0.dp)
+                        modifier = Modifier.padding(10.dp, 0.dp)
                     ) {
                         Text(
                             text = "Age Statement: ${whiskey.ageStatement}",
@@ -165,44 +170,48 @@ fun MyWhiskeyScreen(
                 }
             }
 
-            ElevatedCard(modifier = Modifier
-                .padding(20.dp)
-                .height(20.dp)
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .height(20.dp)
             ) {
                 // TIPS: Intentionally left blank. A terrible way to add spacing below the last
                 //  card in the list. But it works, so ¯\_(ツ)_/¯
             }
         }
 
-    if(deleteWhiskey){
-        DeleteWhiskeyOption(
-            onDismissRequest = {deleteWhiskey = false},
-            onConfirmation = {
-                deleteWhiskey = false
+        if (deleteWhiskey) {
+            DeleteWhiskeyOption(
+                onDismissRequest = { deleteWhiskey = false },
+                onConfirmation = {
+                    deleteWhiskey = false
+                },
+                dialogTitle = "Delete Whiskey",
+                dialogText = "Are you sure you want to delete this whiskey from your collection?",
+                whiskeyToDelete,
+                scope,
+                myWhiskeyDao
+            )
+        }
+
+
+        // TIPS: Allows the user to add whiskey to their collection
+        ExtendedFloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(15.dp, 15.dp, 10.dp, 55.dp),
+//                .padding(
+//                    303.dp, // left
+//                    920.dp,
+//                    0.dp, // right
+//                    0.dp
+//                ),
+            containerColor = lushForestGrassLight,
+            onClick = {
+                navController.navigate("add_new_whiskey")
             },
-            dialogTitle = "Delete Whiskey",
-            dialogText = "Are you sure you want to delete this whiskey from your collection?",
-            whiskeyToDelete,
-            scope,
-            myWhiskeyDao
+            icon = { Icon(Icons.Filled.Add, "Add Whiskey Button") },
+            text = { Text(text = "Add Whiskey", fontSize = dynamicFontSize * .47f) }
         )
     }
-
-
-    // TIPS: Allows the user to add whiskey to their collection
-    ExtendedFloatingActionButton(
-        modifier = Modifier
-            .padding(
-                303.dp, // left
-                920.dp,
-                0.dp, // right
-                0.dp
-            ),
-        containerColor = lushForestGrassLight,
-        onClick = {
-            navController.navigate("add_new_whiskey")
-        },
-        icon = { Icon(Icons.Filled.Add, "Add Whiskey Button") },
-        text = { Text(text = "Add Whiskey", fontSize = dynamicFontSize * .47f)}
-    )
 }

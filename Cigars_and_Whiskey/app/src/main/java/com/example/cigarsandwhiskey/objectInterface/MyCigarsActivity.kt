@@ -1,6 +1,7 @@
 package com.example.cigarsandwhiskey.objectInterface
 
 import android.util.Log
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -38,139 +40,146 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 fun MyCigarsScreen(
     navController: NavController,
     myCigarsDao: MyCigarsDao
-){
+) {
 
     // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
 
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(0.dp, 0.dp)
-            .verticalScroll(rememberScrollState()),
-        colors = CardDefaults.cardColors(
-            containerColor = lushForestGreenDark
-        )
-
-    ){
-        Column(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp, 30.dp, 0.dp, 0.dp),
+                .fillMaxSize()
+                .padding(0.dp, 0.dp)
+                .verticalScroll(rememberScrollState()),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGreenDark
+            )
+
         ) {
-            Text(text = "My Cigars", fontSize = dynamicFontSize * 1.4f, fontWeight = FontWeight.Bold,
+            Column(
                 modifier = Modifier
-                    .drawBehind{
-                        val strokeWidthPx = 3.dp.toPx()
-                        drawLine(
-                            color = Color.Black,
-                            strokeWidth = strokeWidthPx,
-                            start = Offset(0f, size.height),
-                            end = Offset(size.width, size.height)
+                    .fillMaxWidth()
+                    .padding(15.dp, 30.dp, 0.dp, 0.dp),
+            ) {
+                Text(
+                    text = "My Cigars",
+                    fontSize = dynamicFontSize * 1.4f,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, size.height),
+                                end = Offset(size.width, size.height)
+                            )
+                        }
+                )
+            }
+
+            // TODO: First starting off as if the user only has one humidor, will implement
+            //  more than one humidor once the single humidor object is in working order
+
+            val myCigarsList by myCigarsDao.getAllCigars()
+                .collectAsStateWithLifecycle(emptyList())
+
+            Log.d("Output", "myCigarsDao.getAllCigars() success")
+
+            myCigarsList.forEach { cigars ->
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(
+                            10.dp, // left
+                            15.dp,
+                            10.dp, // right
+                            5.dp
+                        )
+                        .fillMaxWidth()
+                        .heightIn(150.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = lushForestGrassLight
+                    )
+                ) {
+                    Row(
+                        modifier = Modifier.padding(10.dp, 0.dp)
+                    ) {
+                        Text(
+                            text = cigars.cigarBrand,
+                            fontSize = dynamicFontSize * 1.2f,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = dynamicFontSize * 1.2f,
+                            softWrap = true
                         )
                     }
-            )
-        }
-
-        // TODO: First starting off as if the user only has one humidor, will implement
-        //  more than one humidor once the single humidor object is in working order
-
-        val myCigarsList by myCigarsDao.getAllCigars()
-            .collectAsStateWithLifecycle(emptyList())
-
-        Log.d("Output", "myCigarsDao.getAllCigars() success")
-
-        myCigarsList.forEach { cigars ->
-            ElevatedCard(
-                modifier = Modifier
-                    .padding(
-                        10.dp, // left
-                        15.dp,
-                        10.dp, // right
-                        5.dp
-                    )
-                    .fillMaxWidth()
-                    .heightIn(160.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = lushForestGrassLight
-                )
-            ) {
-                Row(
-                    modifier = Modifier.padding(10.dp, 0.dp)
-                ) {
-                    Text(
-                        text = cigars.cigarBrand,
-                        fontSize = dynamicFontSize * 1.2f,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = dynamicFontSize * 1.2f,
-                        softWrap = true
-                    )
-                }
-                Row(
-                    modifier = Modifier.padding(10.dp, 0.dp)
-                ){
-                    Text(
-                        text = cigars.cigarName,
-                        fontSize = dynamicFontSize * 1.2f,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = dynamicFontSize * 1.2f,
-                        softWrap = true
-                    )
-                }
-                Row(
-                    modifier = Modifier.padding(10.dp, 0.dp)
-                ) {
-                    Text(
-                        text = "Size: ${cigars.sizeLength} x ${cigars.ringGauge}",
-                        fontSize = dynamicFontSize * 1.1f,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = dynamicFontSize * 1.2f,
-                        softWrap = true
-                    )
-                }
-                Row(
-                    modifier = Modifier.padding(10.dp, 0.dp)
-                ) {
-                    Text(
-                        text = "Quantity: ${cigars.quantity}",
-                        fontSize = dynamicFontSize * 1.1f,
-                        fontWeight = FontWeight.Bold,
-                        lineHeight = dynamicFontSize * 1.2f,
-                        softWrap = true
-                    )
+                    Row(
+                        modifier = Modifier.padding(10.dp, 0.dp)
+                    ) {
+                        Text(
+                            text = cigars.cigarName,
+                            fontSize = dynamicFontSize * 1.2f,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = dynamicFontSize * 1.2f,
+                            softWrap = true
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.padding(10.dp, 0.dp)
+                    ) {
+                        Text(
+                            text = "Size: ${cigars.sizeLength} x ${cigars.ringGauge}",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = dynamicFontSize * 1.2f,
+                            softWrap = true
+                        )
+                    }
+                    Row(
+                        modifier = Modifier.padding(10.dp, 0.dp)
+                    ) {
+                        Text(
+                            text = "Quantity: ${cigars.quantity}",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            lineHeight = dynamicFontSize * 1.2f,
+                            softWrap = true
+                        )
+                    }
                 }
             }
         }
+
+        // TODO: This button will allow a user to add a new cigar(s) to their collection
+        ExtendedFloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(15.dp, 15.dp, 10.dp, 55.dp),
+//                .padding(
+//                    305.dp, // left
+//                    920.dp,
+//                    0.dp, // right
+//                    0.dp
+//                ),
+            containerColor = lushForestGrassLight,
+            onClick = {
+                navController.navigate("add_new_cigar")
+            },
+            icon = { Icon(Icons.Filled.Add, "Add Cigar Button") },
+            text = { Text(text = "Add Cigar(s)", fontSize = dynamicFontSize * .47f) }
+        )
+
+        // TODO: Also need to think about how to add a humidor to be tracked
+        //  This has been added to "later"
+
+        ElevatedCard(
+            modifier = Modifier
+                .padding(20.dp)
+                .height(20.dp)
+        ) {
+            // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+            //  card in the list. But it works, so ¯\_(ツ)_/¯
+        }
     }
-
-    // TODO: This button will allow a user to add a new cigar(s) to their collection
-    ExtendedFloatingActionButton(
-        modifier = Modifier
-            .padding(
-                305.dp, // left
-                920.dp,
-                0.dp, // right
-                0.dp
-            ),
-        containerColor = lushForestGrassLight,
-        onClick = {
-            navController.navigate("add_new_cigar")
-        },
-        icon = { Icon(Icons.Filled.Add, "Add Cigar Button") },
-        text = { Text(text = "Add Cigar(s)", fontSize = dynamicFontSize * .47f)}
-    )
-
-    // TODO: Also need to think about how to add a humidor to be tracked
-    //  This has been added to "later"
-
-    ElevatedCard(modifier = Modifier
-        .padding(20.dp)
-        .height(20.dp)
-    ) {
-        // TIPS: Intentionally left blank. A terrible way to add spacing below the last
-        //  card in the list. But it works, so ¯\_(ツ)_/¯
-    }
-
 }
