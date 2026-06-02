@@ -109,7 +109,7 @@ fun HomeScreen(database: AppDatabase){
                     5.dp
                 )
                 .fillMaxWidth()
-                .heightIn(200.dp),
+                .heightIn(150.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -151,7 +151,7 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .heightIn(180.dp)
+                        .heightIn(130.dp)
                         .widthIn((screenWidth * .46f).dp)
                         .padding(
                             5.dp, // left
@@ -186,7 +186,7 @@ fun HomeScreen(database: AppDatabase){
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
-                            modifier = Modifier.padding(10.dp, 5.dp)
+                            modifier = Modifier.padding(10.dp, 0.dp)
                         )
 
                     } ?: Text(
@@ -203,7 +203,7 @@ fun HomeScreen(database: AppDatabase){
                 Card(
 //                    onClick = {},
                     modifier = Modifier
-                        .heightIn(180.dp)
+                        .heightIn(130.dp)
                         .widthIn((screenWidth * .4645f).dp)
                         .padding(
                             5.dp, // left
@@ -238,7 +238,7 @@ fun HomeScreen(database: AppDatabase){
                             lineHeight = 30.sp,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
-                            modifier = Modifier.padding(10.dp, 5.dp)
+                            modifier = Modifier.padding(10.dp, 0.dp)
                         )
 
                     } ?: Text(
@@ -309,7 +309,7 @@ fun HomeScreen(database: AppDatabase){
                     Card(
 //                    onClick = {},
                         modifier = Modifier
-                            .heightIn(100.dp)
+                            .heightIn(90.dp)
                             .width((screenWidth * .35f).dp)
                             .padding(
                                 5.dp, // left
@@ -336,7 +336,7 @@ fun HomeScreen(database: AppDatabase){
                         Card(
 //                    onClick = {},
                             modifier = Modifier
-                                .heightIn(110.dp)
+                                .heightIn(9.dp)
                                 .width((screenWidth * .31f).dp)
                                 .padding(
                                     5.dp, // left
@@ -350,27 +350,27 @@ fun HomeScreen(database: AppDatabase){
                         ) {
                             Text(
                                 text = cigars?.cigarBrand ?: "Time to add your first cigars!",
-                                fontSize = dynamicFontSize * .58f,
+                                fontSize = dynamicFontSize * .6f,
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 5.dp)
+                                modifier = Modifier.padding(10.dp, 5.dp, end = 0.dp)
                             )
                             Text(
                                 text = cigars?.cigarName ?: "",
-                                fontSize = dynamicFontSize * .58f,
-                                lineHeight = 30.sp,
+                                fontSize = dynamicFontSize * .6f,
+                                lineHeight = 25.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 5.dp)
+                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 0.dp)
                             )
                             Text(
                                 text = "QTY: ${cigars?.quantity}" ?: "",
-                                fontSize = dynamicFontSize * .58f,
+                                fontSize = dynamicFontSize * .6f,
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 0.dp)
+                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 2.dp)
                             )
                         }
                     }
@@ -388,7 +388,7 @@ fun HomeScreen(database: AppDatabase){
                     5.dp
                 )
                 .fillMaxWidth()
-                .heightIn(160.dp),
+                .heightIn(150.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -458,7 +458,7 @@ fun HomeScreen(database: AppDatabase){
                         Card(
 //                    onClick = {},
                             modifier = Modifier
-                                .heightIn(110.dp)
+                                .heightIn(90.dp)
                                 .width((screenWidth * .31f).dp)
                                 .padding(
                                     5.dp, // left
@@ -472,27 +472,27 @@ fun HomeScreen(database: AppDatabase){
                         ) {
                             Text(
                                 text = whiskey.brand ?: "Time to add your first cigars!",
-                                fontSize = dynamicFontSize * .58f,
+                                fontSize = dynamicFontSize * .6f,
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 5.dp)
+                                modifier = Modifier.padding(10.dp, 5.dp, end = 0.dp)
                             )
                             Text(
                                 text = whiskey.name ?: "",
-                                fontSize = dynamicFontSize * .58f,
+                                fontSize = dynamicFontSize * .6f,
                                 lineHeight = 20.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 5.dp)
+                                modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 0.dp)
                             )
                             Text(
                                 text = "Proof: ${whiskey.proof}" ?: "",
-                                fontSize = dynamicFontSize * .58f,
+                                fontSize = dynamicFontSize * .5f,
                                 lineHeight = 25.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, end = 10.dp,  bottom = 10.dp)
+                                modifier = Modifier.padding(10.dp, end = 10.dp,  bottom = 5.dp)
                             )
                         }
                     }
