@@ -2,6 +2,7 @@ package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
 import android.util.Log
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -72,416 +73,433 @@ fun AddWhiskey(
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
 
-    Card(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(0.dp, 0.dp)
-            .verticalScroll(rememberScrollState())
-            .pointerInput(Unit) {
-                detectTapGestures(onTap = {
-                    focusManager.clearFocus()
-                })
-            },
-        colors = CardDefaults.cardColors(
-            containerColor = lushForestGreenDark
-        )
-    ){
-        // TIPS: Card to display screen title
-        Column(
+    Box(modifier = Modifier.fillMaxSize()) {
+        Card(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(15.dp, 30.dp, 0.dp, 0.dp),
+                .fillMaxSize()
+                .padding(0.dp, 0.dp)
+                .verticalScroll(rememberScrollState())
+                .pointerInput(Unit) {
+                    detectTapGestures(onTap = {
+                        focusManager.clearFocus()
+                    })
+                },
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGreenDark
+            )
         ) {
-            Text(text = "Add Whiskey to Collect.", fontSize = dynamicFontSize * 1.2f, fontWeight = FontWeight.Bold,
+            // TIPS: Card to display screen title
+            Column(
                 modifier = Modifier
-                    .drawBehind{
-                        val strokeWidthPx = 3.dp.toPx()
-                        drawLine(
-                            color = Color.Black,
-                            strokeWidth = strokeWidthPx,
-                            start = Offset(0f, size.height),
-                            end = Offset(size.width, size.height)
+                    .fillMaxWidth()
+                    .padding(15.dp, 30.dp, 0.dp, 0.dp),
+            ) {
+                Text(
+                    text = "Add Whiskey to Collect.",
+                    fontSize = dynamicFontSize * 1.2f,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier
+                        .drawBehind {
+                            val strokeWidthPx = 3.dp.toPx()
+                            drawLine(
+                                color = Color.Black,
+                                strokeWidth = strokeWidthPx,
+                                start = Offset(0f, size.height),
+                                end = Offset(size.width, size.height)
+                            )
+                        }
+                )
+            }
+
+            ///////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////
+
+            // TIPS: Card for Distillery and Whiskey Name
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(
+                        10.dp,
+                        15.dp,
+                        10.dp,
+                        0.dp
+                    )
+                    .fillMaxWidth()
+                    .heightIn(105.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.padding(0.dp, 3.dp)
+                    ) {
+                        Text(
+                            text = "Distillery:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+//                        Spacer(modifier = Modifier.width(73.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .095f).dp))
+
+                        val menuWeight = screenWidth * .0011f
+                        val whiskeyBrandList = whiskeyBrandsList()
+                        DropdownMenu(
+                            whiskeyBrandList,
+                            initialText = "Choose a Brand",
+                            modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                            onItemClick = { whiskeyBrand = whiskeyBrandList[it] }
                         )
                     }
-            )
-        }
+                }
 
-        ///////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////
 
-        // TIPS: Card for Distillery and Whiskey Name
-        ElevatedCard(
-            modifier = Modifier
-                .padding(10.dp,
-                    15.dp,
-                    10.dp,
-                    0.dp
-                )
-                .fillMaxWidth()
-                .heightIn(135.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row(
-                    modifier = Modifier.padding(0.dp, 6.dp)
+                Column(
+                    modifier = Modifier.padding(5.dp)
                 ) {
-                    Text(
-                        text = "Distillery:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width(65.dp))
-
-                    val menuWeight = screenWidth * .0011f
-                    val whiskeyBrandList = whiskeyBrandsList()
-                    DropdownMenu(
-                        whiskeyBrandList,
-                        initialText = "Choose a Brand",
-                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
-                        onItemClick = { whiskeyBrand = whiskeyBrandList[it]}
-                    )
-                }
-            }
-
-
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row(
-                    modifier = Modifier.padding(0.dp, 6.dp)
-                ) {
-                    Text(
-                        text = "Name:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width(116.dp))
-
-                    val menuWeight = screenWidth * .0011f
-                    InputTextField(
-                        whiskeyName,
-                        onTextChange = {whiskeyName = it},
-                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
-                        placeholder = "Enter Whiskey Name"
-                    )
-                }
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////
-
-        // TIPS: Card for Type, Proof, and Age Statement
-        ElevatedCard(
-            modifier = Modifier
-                .padding(
-                    10.dp, // left
-                    15.dp,
-                    10.dp, // right
-                    0.dp
-                )
-                .fillMaxWidth()
-                .heightIn(155.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row( // TIPS: Row for whiskey name
-                    modifier = Modifier.padding(0.dp, 6.dp)
-                ){
-                    Text(
-                        text = "Type:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width(132.dp))
-
-                    val menuWeight = screenWidth * .0011f
-                    val whiskeyTypeList = whiskeyTypesList()
-                    DropdownMenu(
-                        whiskeyTypeList,
-                        "Choose a Type",
-                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
-                        onItemClick = {whiskeyType = whiskeyTypeList[it]}
-                    )
-                }
-            }
-
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row( // TIPS: Dropdown Menu for Origin
-                    modifier = Modifier.padding(0.dp, 6.dp)
-                ) {
-                    Text(
-                        text = "Origin:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width(113.dp))
-
-                    val menuWeight = screenWidth * .0011f
-                    val whiskeyOriginList = whiskeyOriginList()
-                    DropdownMenu(
-                        whiskeyOriginList,
-                        "Choose an Origin",
-                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
-                        onItemClick = {whiskeyOrigin = whiskeyOriginList[it]}
-                    )
-                }
-            }
-
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row( // TIPS: Dropdown Menu for Age Statement
-                    modifier = Modifier.padding(0.dp, 6.dp)
-                ){
-                    Text(
-                        text = "Aging:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width(115.dp))
-
-                    val menuWeight = screenWidth * .0011f
-                    val whiskeyAgeList = whiskeyAgeList()
-                    DropdownMenu(
-                        whiskeyAgeList,
-                        "Age Statement",
-                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
-                        onItemClick = {whiskeyAge = whiskeyAgeList[it]}
-                    )
-                }
-            }
-
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row( // TIPS: Text box for Proof
-                    modifier = Modifier.padding(0.dp, 6.dp)
-                ){
-                    Text(
-                        text = "Proof:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width(120.dp))
-
-                    val menuWeight = screenWidth * .0011f
-                    InputTextField(
-                        whiskeyProof,
-                        onTextChange = {whiskeyProof = it},
-                        placeholder = "Enter the Proof",
-                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
-                        KeyboardType.Number
-                    )
-                }
-            }
-        }
-
-        ///////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////
-
-        // TIPS: Card for bottle size and adding
-        ElevatedCard(
-            modifier = Modifier
-                .padding(10.dp, 10.dp, 10.dp, 0.dp)
-                .fillMaxWidth()
-                .heightIn(130.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGrassLight
-            )
-        ) {
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row( // TIPS: Text field for bottle size
-                    modifier = Modifier.padding(0.dp, 6.dp)
-                ) {
-                    Text(
-                        text = "Size:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-
-                    Spacer(modifier = Modifier.width(140.dp))
-
-                    val menuWeight = screenWidth * .0011f
-                    InputTextField(
-                        bottleSize,
-                        onTextChange = {bottleSize = it},
-                        placeholder = "Enter Bottle Size",
-                        modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
-                        KeyboardType.Number
-                    )
-                }
-            }
-
-            var newToCollection by remember { mutableStateOf(MyWhiskey()) }
-
-            Column(
-                modifier = Modifier.padding(5.dp)
-            ) {
-                Row( // TIPS: Button to add whiskey to collection
-                    modifier = Modifier.padding(0.dp, 6.dp)
-                ){
-                    Text(
-                        text = "Add Whiskey:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-
-                    Spacer(modifier = Modifier.width(80.dp))
-
-                    Button(
-                        onClick = {
-                            newToCollection = newToCollection.copy(
-                                brand = whiskeyBrand,
-                                name = whiskeyName,
-                                proof = whiskeyProof,
-                                type = whiskeyType,
-                                origin = whiskeyOrigin,
-                                ageStatement = whiskeyAge,
-                                bottleSize = bottleSize
-                            )
-                            if(!addNewWhiskeyCompletion(newToCollection)){
-                                openAlertDialog = true
-                                Log.d("Review", "Whiskey is NOT added")
-                            } else {
-                                scope.launch {
-                                    try {
-                                        myWhiskeyDao.insertWhiskey(newToCollection)
-                                        Log.d("WhiskeyCollection", "Whiskey added to collection")
-
-                                        navController.popBackStack()
-                                    } catch (e: Exception){
-                                        Log.d("Database Error", "Unable to save to collection")
-                                    }
-                                }
-                            }
-                        },
-                        colors = ButtonDefaults.buttonColors(lushForestGreenDark)
+                    Row(
+                        modifier = Modifier.padding(0.dp, 3.dp)
                     ) {
-                        Text(text = "Add Whiskey")
+                        Text(
+                            text = "Name:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+//                        Spacer(modifier = Modifier.width(116.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .21f).dp))
+
+                        val menuWeight = screenWidth * .0011f
+                        InputTextField(
+                            whiskeyName,
+                            onTextChange = { whiskeyName = it },
+                            modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                            placeholder = "Enter Whiskey Name"
+                        )
                     }
                 }
             }
-            if(openAlertDialog){
-                ReviewWarning(
-                    onDismissRequest = { openAlertDialog = false },
-                    onConfirmation = {
-                        openAlertDialog = false
-                        println("Confirmation Registered")
-                    },
-                    dialogTitle = "Warning!",
-                    dialogText = "You have not finished adding the necessary information!"
+
+            ///////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////
+
+            // TIPS: Card for Type, Proof, and Age Statement
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(
+                        10.dp, // left
+                        15.dp,
+                        10.dp, // right
+                        0.dp
+                    )
+                    .fillMaxWidth()
+                    .heightIn(155.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
                 )
+            ) {
+                Column(
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Row( // TIPS: Row for whiskey name
+                        modifier = Modifier.padding(0.dp, 6.dp)
+                    ) {
+                        Text(
+                            text = "Type:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+//                        Spacer(modifier = Modifier.width(130.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .249f).dp))
+
+                        val menuWeight = screenWidth * .0011f
+                        val whiskeyTypeList = whiskeyTypesList()
+                        DropdownMenu(
+                            whiskeyTypeList,
+                            "Choose a Type",
+                            modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                            onItemClick = { whiskeyType = whiskeyTypeList[it] }
+                        )
+                    }
+                }
+
+                Column(
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Row( // TIPS: Dropdown Menu for Origin
+                        modifier = Modifier.padding(0.dp, 6.dp)
+                    ) {
+                        Text(
+                            text = "Origin:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+//                        Spacer(modifier = Modifier.width(113.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .206f).dp))
+
+                        val menuWeight = screenWidth * .0011f
+                        val whiskeyOriginList = whiskeyOriginList()
+                        DropdownMenu(
+                            whiskeyOriginList,
+                            "Choose an Origin",
+                            modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                            onItemClick = { whiskeyOrigin = whiskeyOriginList[it] }
+                        )
+                    }
+                }
+
+                Column(
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Row( // TIPS: Dropdown Menu for Age Statement
+                        modifier = Modifier.padding(0.dp, 6.dp)
+                    ) {
+                        Text(
+                            text = "Aging:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+//                        Spacer(modifier = Modifier.width(115.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .213f).dp))
+
+                        val menuWeight = screenWidth * .0011f
+                        val whiskeyAgeList = whiskeyAgeList()
+                        DropdownMenu(
+                            whiskeyAgeList,
+                            "Age Statement",
+                            modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                            onItemClick = { whiskeyAge = whiskeyAgeList[it] }
+                        )
+                    }
+                }
+
+                Column(
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Row( // TIPS: Text box for Proof
+                        modifier = Modifier.padding(0.dp, 6.dp)
+                    ) {
+                        Text(
+                            text = "Proof:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+//                        Spacer(modifier = Modifier.width(120.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .227f).dp))
+
+                        val menuWeight = screenWidth * .0011f
+                        InputTextField(
+                            whiskeyProof,
+                            onTextChange = { whiskeyProof = it },
+                            placeholder = "Enter the Proof",
+                            modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                            KeyboardType.Number
+                        )
+                    }
+                }
+            }
+
+            ///////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////
+
+            // TIPS: Card for bottle size and adding
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(10.dp, 10.dp, 10.dp, 0.dp)
+                    .fillMaxWidth()
+                    .heightIn(120.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGrassLight
+                )
+            ) {
+                Column(
+                    modifier = Modifier.padding(5.dp)
+                ) {
+                    Row( // TIPS: Text field for bottle size
+                        modifier = Modifier.padding(0.dp, 6.dp)
+                    ) {
+                        Text(
+                            text = "Size:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+
+//                        Spacer(modifier = Modifier.width(136.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .273f).dp))
+
+                        val menuWeight = screenWidth * .0011f
+                        InputTextField(
+                            bottleSize,
+                            onTextChange = { bottleSize = it },
+                            placeholder = "Enter Bottle Size",
+                            modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
+                            KeyboardType.Number
+                        )
+                    }
+                }
+
+                var newToCollection by remember { mutableStateOf(MyWhiskey()) }
+
+                Column(
+                    modifier = Modifier.padding(5.dp, 0.dp, bottom = 5.dp)
+                ) {
+                    Row( // TIPS: Button to add whiskey to collection
+                        modifier = Modifier.padding(0.dp, 0.dp)
+                    ) {
+                        Text(
+                            text = "Add Whiskey:",
+                            fontSize = dynamicFontSize * 1.1f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+
+//                        Spacer(modifier = Modifier.width(56.dp))
+                        Spacer(modifier = Modifier.width((screenWidth * .09f).dp))
+
+                        Button(
+                            onClick = {
+                                newToCollection = newToCollection.copy(
+                                    brand = whiskeyBrand,
+                                    name = whiskeyName,
+                                    proof = whiskeyProof,
+                                    type = whiskeyType,
+                                    origin = whiskeyOrigin,
+                                    ageStatement = whiskeyAge,
+                                    bottleSize = bottleSize
+                                )
+                                if (!addNewWhiskeyCompletion(newToCollection)) {
+                                    openAlertDialog = true
+                                    Log.d("Review", "Whiskey is NOT added")
+                                } else {
+                                    scope.launch {
+                                        try {
+                                            myWhiskeyDao.insertWhiskey(newToCollection)
+                                            Log.d(
+                                                "WhiskeyCollection",
+                                                "Whiskey added to collection"
+                                            )
+
+                                            navController.popBackStack()
+                                        } catch (e: Exception) {
+                                            Log.d("Database Error", "Unable to save to collection")
+                                        }
+                                    }
+                                }
+                            },
+                            colors = ButtonDefaults.buttonColors(lushForestGreenDark),
+//                            modifier = Modifier.align(Alignment.End)
+                        ) {
+                            Text(text = "Add Whiskey", fontSize = dynamicFontSize * 0.5f)
+                        }
+                    }
+                }
+                if (openAlertDialog) {
+                    ReviewWarning(
+                        onDismissRequest = { openAlertDialog = false },
+                        onConfirmation = {
+                            openAlertDialog = false
+                            println("Confirmation Registered")
+                        },
+                        dialogTitle = "Warning!",
+                        dialogText = "You have not finished adding the necessary information!"
+                    )
+                }
             }
         }
     }
-
 }

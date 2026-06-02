@@ -171,7 +171,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Brand:",
-                            fontSize = dynamicFontSize,
+                            fontSize = dynamicFontSize * 1.1f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -188,7 +188,8 @@ fun NewCigarReview(
                                 }
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+//                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val cigarBrandList = cigarBrandsList()
@@ -216,7 +217,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Name:",
-                            fontSize = dynamicFontSize,
+                            fontSize = dynamicFontSize * 1.1f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -232,7 +233,8 @@ fun NewCigarReview(
                                 }
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+//                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
 
                     val menuWeight = screenWidth * .0011f
 
@@ -260,7 +262,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Origin:",
-                            fontSize = dynamicFontSize,
+                            fontSize = dynamicFontSize * 1.1f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -276,7 +278,8 @@ fun NewCigarReview(
                                 }
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+//                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val cigarOriginList = cigarOriginList()
@@ -340,7 +343,8 @@ fun NewCigarReview(
                                 }
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+//                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     // TIPS: Text box for cigar length
@@ -369,7 +373,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Ring Gauge:",
-                            fontSize = dynamicFontSize,
+                            fontSize = dynamicFontSize * 1.1f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -385,7 +389,8 @@ fun NewCigarReview(
                                 }
                         )
                     }
-                    Spacer(modifier = Modifier.width(8.dp))
+//                    Spacer(modifier = Modifier.width(8.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .015f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     // TIPS: Text box for cigar length
@@ -477,7 +482,7 @@ fun NewCigarReview(
                     0.dp
                 )
                 .fillMaxWidth()
-                .heightIn(80.dp),
+                .heightIn(60.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -539,7 +544,7 @@ fun NewCigarReview(
                     60.dp
                 )
                 .fillMaxWidth()
-                .heightIn(65.dp),
+                .heightIn(40.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -550,7 +555,7 @@ fun NewCigarReview(
                 Row {
                     Text(
                         text = "Finish Review:",
-                        fontSize = dynamicFontSize * 1.31f,
+                        fontSize = dynamicFontSize * 1.25f,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
                             .padding(5.dp, 0.dp, 0.dp, 0.dp)
@@ -565,6 +570,9 @@ fun NewCigarReview(
                                 )
                             }
                     )
+
+                    Spacer(modifier = Modifier.width((screenWidth * .05f).dp))
+
                     Button( // TODO: Add a date slot to the review, will autofill when made
                         onClick = {
                             newReview = newReview.copy(
@@ -605,12 +613,12 @@ fun NewCigarReview(
 //                        Log.d("Review", "Review Final Score: ${newReview.finalScore}")
                         },
                         modifier = Modifier
-                            .padding(10.dp, 10.dp, 0.dp, 0.dp)
-                            .heightIn(45.dp)
+                            .padding(0.dp, 0.dp, 0.dp, 0.dp)
+                            .heightIn(40.dp)
                         ,
                         colors = ButtonDefaults.buttonColors(lushForestGreenDark)
                     ) {
-                        Text(text = "Add Review")
+                        Text(text = "Add Review", fontSize = dynamicFontSize * .40f)
                     }
                 }
             }

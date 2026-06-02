@@ -83,7 +83,7 @@ fun NewWhiskeyReview(
 
     val screenConfig = LocalConfiguration.current
     val screenWidth = screenConfig.screenWidthDp
-    val dynamicFontSize = (screenWidth * 0.072f).sp
+    val dynamicFontSize = (screenWidth * 0.08f).sp
 
     Card(
         modifier = Modifier
@@ -105,7 +105,7 @@ fun NewWhiskeyReview(
                 .fillMaxWidth()
                 .padding(15.dp, 30.dp, 0.dp, 0.dp),
         ) {
-            Text(text = "New Whiskey Review", fontSize = dynamicFontSize * 1.2f, fontWeight = FontWeight.Bold,
+            Text(text = "New Whiskey Review", fontSize = dynamicFontSize * 1.1f, fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .drawBehind{
                         val strokeWidthPx = 3.dp.toPx()
@@ -129,7 +129,7 @@ fun NewWhiskeyReview(
                     0.dp
                 )
                 .fillMaxWidth()
-                .heightIn(130.dp),
+                .heightIn(110.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -138,7 +138,7 @@ fun NewWhiskeyReview(
                 modifier = Modifier.padding(5.dp)
             ) {
                 Row( // TIPS: Row for stating Whiskey Brand
-                    modifier = Modifier.padding(0.dp, 6.dp)
+                    modifier = Modifier.padding(0.dp, 3.dp)
                 ) {
                     Text(
                         text = "Distillery:",
@@ -157,7 +157,7 @@ fun NewWhiskeyReview(
                                 )
                             }
                     )
-                    Spacer(modifier = Modifier.width(60.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .1f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyBrandsList = whiskeyBrandsList()
@@ -174,7 +174,7 @@ fun NewWhiskeyReview(
                 modifier = Modifier.padding(5.dp)
             ) {
                 Row( // TIPS: Row for whiskey name
-                    modifier = Modifier.padding(0.dp, 6.dp)
+                    modifier = Modifier.padding(0.dp, 3.dp)
                 ){
                     Text(
                         text = "Name:",
@@ -193,7 +193,7 @@ fun NewWhiskeyReview(
                                 )
                             }
                     )
-                    Spacer(modifier = Modifier.width(110.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .213f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     InputTextField(
@@ -228,7 +228,7 @@ fun NewWhiskeyReview(
                 modifier = Modifier.padding(5.dp)
             ) {
                 Row( // TIPS: Row for whiskey name
-                    modifier = Modifier.padding(0.dp, 6.dp)
+                    modifier = Modifier.padding(0.dp, 3.dp)
                 ){
                     Text(
                         text = "Type:",
@@ -247,7 +247,7 @@ fun NewWhiskeyReview(
                                 )
                             }
                     )
-                    Spacer(modifier = Modifier.width(125.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .254f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyTypeList = whiskeyTypesList()
@@ -264,7 +264,7 @@ fun NewWhiskeyReview(
                 modifier = Modifier.padding(5.dp)
             ) {
                 Row( // TIPS: Dropdown Menu for Origin
-                    modifier = Modifier.padding(0.dp, 6.dp)
+                    modifier = Modifier.padding(0.dp, 3.dp)
                 ) {
                     Text(
                         text = "Origin:",
@@ -283,7 +283,7 @@ fun NewWhiskeyReview(
                                 )
                             }
                     )
-                    Spacer(modifier = Modifier.width(106.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .212f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyOriginList = whiskeyOriginList()
@@ -300,7 +300,7 @@ fun NewWhiskeyReview(
                 modifier = Modifier.padding(5.dp)
             ) {
                 Row( // TIPS: Dropdown Menu for Age Statement
-                    modifier = Modifier.padding(0.dp, 6.dp)
+                    modifier = Modifier.padding(0.dp, 3.dp)
                 ){
                     Text(
                         text = "Aging:",
@@ -319,7 +319,7 @@ fun NewWhiskeyReview(
                                 )
                             }
                     )
-                    Spacer(modifier = Modifier.width(110.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .219f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyAgeList = whiskeyAgeList()
@@ -336,7 +336,7 @@ fun NewWhiskeyReview(
                 modifier = Modifier.padding(5.dp)
             ) {
                 Row( // TIPS: Text box for Proof
-                    modifier = Modifier.padding(0.dp, 6.dp)
+                    modifier = Modifier.padding(0.dp, 3.dp)
                 ){
                     Text(
                         text = "Proof:",
@@ -355,7 +355,7 @@ fun NewWhiskeyReview(
                                 )
                             }
                     )
-                    Spacer(modifier = Modifier.width(116.dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .23f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     InputTextField(
@@ -391,7 +391,7 @@ fun NewWhiskeyReview(
                         fontSize = dynamicFontSize,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                            .padding(6.dp, 5.dp, 0.dp, 0.dp)
                             .drawBehind {
                                 val strokeWidthPx = 3.dp.toPx()
                                 val verticalOffset = size.height
@@ -417,7 +417,7 @@ fun NewWhiskeyReview(
                             unfocusedPlaceholderColor = Color.Black
                         ),
                         modifier = Modifier
-                            .padding(4.dp, 12.dp)
+                            .padding(start = 4.dp, end = 4.dp, top = 12.dp, bottom = 5.dp)
                             .fillMaxHeight()
                             .fillMaxWidth()
                     )
@@ -445,7 +445,7 @@ fun NewWhiskeyReview(
                         fontSize = dynamicFontSize,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                            .padding(6.dp, 5.dp, 0.dp, 0.dp)
                             .drawBehind {
                                 val strokeWidthPx = 3.dp.toPx()
                                 val verticalOffset = size.height
@@ -471,7 +471,7 @@ fun NewWhiskeyReview(
                             unfocusedPlaceholderColor = Color.Black
                         ),
                         modifier = Modifier
-                            .padding(4.dp, 12.dp)
+                            .padding(start = 4.dp, end = 4.dp, top = 12.dp, bottom = 5.dp)
                             .fillMaxHeight()
                             .fillMaxWidth()
                     )
@@ -499,7 +499,7 @@ fun NewWhiskeyReview(
                         fontSize = dynamicFontSize,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                            .padding(6.dp, 5.dp, 0.dp, 0.dp)
                             .drawBehind {
                                 val strokeWidthPx = 3.dp.toPx()
                                 val verticalOffset = size.height
@@ -525,7 +525,7 @@ fun NewWhiskeyReview(
                             unfocusedPlaceholderColor = Color.Black
                         ),
                         modifier = Modifier
-                            .padding(4.dp, 12.dp)
+                            .padding(start = 4.dp, end = 4.dp, top = 12.dp, bottom = 5.dp)
                             .fillMaxHeight()
                             .fillMaxWidth()
                     )
@@ -547,7 +547,7 @@ fun NewWhiskeyReview(
                     0.dp
                 )
                 .fillMaxWidth()
-                .height(160.dp),
+                .height(140.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -558,7 +558,7 @@ fun NewWhiskeyReview(
                     fontSize = dynamicFontSize * 1.2f,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(10.dp, 5.dp, 30.dp, 0.dp)
+                        .padding(6.dp, 5.dp, 0.dp, 3.dp)
                         .drawBehind {
                             val strokeWidthPx = 3.dp.toPx()
                             val verticalOffset = size.height
@@ -609,10 +609,10 @@ fun NewWhiskeyReview(
                 Row{
                     Text(
                         text = "Finish Review:",
-                        fontSize = dynamicFontSize * 1.3f,
+                        fontSize = dynamicFontSize * 1.1f,
                         fontWeight = FontWeight.Bold,
                         modifier = Modifier
-                            .padding(10.dp, 5.dp, 0.dp, 8.dp)
+                            .padding(4.dp, 5.dp, 0.dp, 8.dp)
                             .drawBehind {
                                 val strokeWidthPx = 3.dp.toPx()
                                 val verticalOffset = size.height
@@ -624,6 +624,9 @@ fun NewWhiskeyReview(
                                 )
                             }
                     )
+
+                    Spacer(modifier = Modifier.width((screenWidth * .04f).dp))
+
                     Button(
                         onClick = {
                             // TODO: Add `newReview = newReview.copy()`
@@ -658,12 +661,12 @@ fun NewWhiskeyReview(
                             }
                         },
                         modifier = Modifier
-                            .padding(10.dp, 10.dp, 0.dp, 0.dp)
+                            .padding(0.dp, 5.dp, 0.dp, 5.dp)
                             .height(45.dp)
                         ,
                         colors = ButtonDefaults.buttonColors(lushForestGreenDark)
                     ) {
-                        Text(text = "Add Review")
+                        Text(text = "Add Review", fontSize = dynamicFontSize * .4f)
                     }
                 }
             }
