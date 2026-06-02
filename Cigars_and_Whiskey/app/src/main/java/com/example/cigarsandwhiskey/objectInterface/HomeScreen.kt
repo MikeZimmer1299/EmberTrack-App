@@ -359,7 +359,7 @@ fun HomeScreen(database: AppDatabase){
                             Text(
                                 text = cigars?.cigarName ?: "",
                                 fontSize = dynamicFontSize * .6f,
-                                lineHeight = 25.sp,
+                                lineHeight = 20.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
                                 modifier = Modifier.padding(10.dp, end = 10.dp, bottom = 0.dp)
