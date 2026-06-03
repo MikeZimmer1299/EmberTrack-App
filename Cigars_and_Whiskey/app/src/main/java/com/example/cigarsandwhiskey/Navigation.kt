@@ -159,12 +159,12 @@ fun Navigation(database: AppDatabase){
             // Drawer Screen Options
             composable("home"){ HomeScreen(database) }
 //            composable("my_humidors") { HumidorOptionScreen(navController, database.myHumidorsDao()) } // removed for now, may implement at a later time
-            composable("my_cigars"){ MyCigarsScreen(navController, database.myCigarsDao()) } // add
-            composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao(), scope) } // add
+            composable("my_cigars"){ MyCigarsScreen(navController, database.myCigarsDao(), scope) }
+            composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao(), scope) }
             composable("cigar_brands"){ CigarBrandsScreen() }
             composable("whiskey_brands"){ WhiskeyBrandsScreen() }
-            composable("cigar_reviews"){ CigarReviewsScreen(navController, database.cigarReviewDao()) } // add
-            composable("whiskey_reviews"){ WhiskeyReviewsScreen(navController, database.myWhiskeyReviewDao()) } // add
+            composable("cigar_reviews"){ CigarReviewsScreen(navController, database.cigarReviewDao(), scope) }
+            composable("whiskey_reviews"){ WhiskeyReviewsScreen(navController, database.myWhiskeyReviewDao(), scope) }
 
             // Buttons from within different screens
             composable("add_new_cigar"){ AddCigars(navController, database.myCigarsDao(), scope) }
