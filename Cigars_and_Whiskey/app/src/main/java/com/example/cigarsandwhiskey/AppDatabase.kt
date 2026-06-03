@@ -1,6 +1,7 @@
 package com.example.cigarsandwhiskey
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -19,7 +20,8 @@ import com.example.cigarsandwhiskey.objects.WhiskeyReviews
 @Database(
     entities = [CigarReviews::class, WhiskeyReviews::class, MyCigars::class, MyWhiskey::class, MyHumidor::class],
     version = 1,
-    exportSchema = false
+    exportSchema = false, // change to true when migration needs to be done at a later time
+//    autoMigrations = [AutoMigration(from = 1, to = 2)]
 )
 
 abstract class AppDatabase : RoomDatabase() {
@@ -48,5 +50,4 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
-
 }
