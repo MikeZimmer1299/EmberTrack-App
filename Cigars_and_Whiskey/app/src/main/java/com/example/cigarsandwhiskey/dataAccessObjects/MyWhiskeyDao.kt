@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface MyWhiskeyDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertWhiskey(reviews: MyWhiskey)
+    suspend fun insertWhiskey(whiskey: MyWhiskey)
 
     // TIPS: Returns all cigar reviews, which are output to display
     @Query("SELECT * FROM my_whiskey ORDER BY id DESC")
@@ -31,5 +31,5 @@ interface MyWhiskeyDao {
     fun getNewestAddedWhiskey(): Flow<List<MyWhiskey>>
 
     @Delete
-    suspend fun deleteWhiskey(review: MyWhiskey)
+    suspend fun deleteWhiskey(whiskey: MyWhiskey)
 }
