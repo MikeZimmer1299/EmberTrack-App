@@ -1,6 +1,8 @@
 package com.example.cigarsandwhiskey.objectInterface
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +23,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -36,17 +41,27 @@ import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
+import com.example.cigarsandwhiskey.objects.CigarReviews
+import com.example.cigarsandwhiskey.objects.MyCigars
+import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarOption
+import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarReviewOption
+import kotlinx.coroutines.CoroutineScope
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun CigarReviewsScreen(
     navController: NavController,
-    cigarDao: CigarReviewDao
+    cigarDao: CigarReviewDao,
+    scope: CoroutineScope
     ) {
 
     // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
+
+    var deleteReview by remember { mutableStateOf(false) }
+    var reviewToDelete by remember { mutableStateOf<CigarReviews?>(null) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Card(
@@ -101,6 +116,13 @@ fun CigarReviewsScreen(
                             20.dp,
                             10.dp, // right
                             0.dp
+                        )
+                        .combinedClickable(
+                            onClick = {},
+                            onLongClick = {
+                                deleteReview = true
+                                reviewToDelete = reviews
+                            }
                         ),
                     colors = CardDefaults.cardColors(containerColor = lushForestGrassLight)
                 ) {
@@ -157,6 +179,20 @@ fun CigarReviewsScreen(
                 // TIPS: Intentionally left blank. A terrible way to add spacing below the last
                 //  card in the list. But it works, so ¯\_(ツ)_/¯
             }
+        }
+
+        if (deleteReview) {
+            DeleteCigarReviewOption(
+                onDismissRequest = { deleteReview = false },
+                onConfirmation = {
+                    deleteReview = false
+                },
+                dialogTitle = "Delete Review",
+                dialogText = "Are you sure you want to delete this cigar review?",
+                reviewToDelete,
+                scope,
+                cigarDao
+            )
         }
 
 
