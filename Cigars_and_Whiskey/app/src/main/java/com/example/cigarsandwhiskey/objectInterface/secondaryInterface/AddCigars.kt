@@ -56,6 +56,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
+/*
+* TODO: Begin the work to make the UI for this screen better.
+*   This is built within a new branch. The app is in a good enough
+*   working state to begin working on the frontend in more detail.
+*   I will move onto other screens as I refine the new design
+*   based off of the progress made here.
+*/
+
 @Composable
 fun AddCigars(
     navController: NavController,
