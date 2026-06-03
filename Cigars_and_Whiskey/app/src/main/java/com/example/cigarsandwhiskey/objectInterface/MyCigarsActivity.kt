@@ -1,6 +1,8 @@
 package com.example.cigarsandwhiskey.objectInterface
 
 import android.util.Log
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -21,6 +23,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -33,19 +38,28 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.dataAccessObjects.MyCigarsDao
+import com.example.cigarsandwhiskey.objects.MyCigars
+import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarOption
+import com.example.cigarsandwhiskey.specializedFunctions.DeleteWhiskeyOption
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import kotlinx.coroutines.CoroutineScope
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MyCigarsScreen(
     navController: NavController,
-    myCigarsDao: MyCigarsDao
+    myCigarsDao: MyCigarsDao,
+    scope: CoroutineScope
 ) {
 
     // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
+
+    var deleteCigar by remember { mutableStateOf(false) }
+    var cigarToDelete by remember { mutableStateOf<MyCigars?>(null) }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Card(
@@ -98,7 +112,14 @@ fun MyCigarsScreen(
                             5.dp
                         )
                         .fillMaxWidth()
-                        .heightIn(150.dp),
+                        .heightIn(150.dp)
+                        .combinedClickable(
+                            onClick = {},
+                            onLongClick = {
+                                deleteCigar = true
+                                cigarToDelete = cigars
+                            }
+                        ),
                     colors = CardDefaults.cardColors(
                         containerColor = lushForestGrassLight
                     )
@@ -149,6 +170,20 @@ fun MyCigarsScreen(
                     }
                 }
             }
+        }
+
+        if (deleteCigar) {
+            DeleteCigarOption(
+                onDismissRequest = { deleteCigar = false },
+                onConfirmation = {
+                    deleteCigar = false
+                },
+                dialogTitle = "Delete Cigar",
+                dialogText = "Are you sure you want to delete this cigar from your collection?",
+                cigarToDelete,
+                scope,
+                myCigarsDao
+            )
         }
 
         // TODO: This button will allow a user to add a new cigar(s) to their collection
