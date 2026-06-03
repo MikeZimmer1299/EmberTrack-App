@@ -90,34 +90,34 @@ fun Navigation(database: AppDatabase){
                         }
                     }
                 )
-                NavigationDrawerItem(
-                    label = {Text(text = "Cigar Brands")},
-                    selected = false,
-                    onClick = {
-                        scope.launch {
-                            drawerState.close()
-                            navController.navigate("cigar_brands"){
-                                popUpTo(navController.graph.startDestinationId) { saveState = true}
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        }
-                    }
-                )
-                NavigationDrawerItem(
-                    label = {Text(text = "Whiskey Brands")},
-                    selected = false,
-                    onClick = {
-                        scope.launch {
-                            drawerState.close()
-                            navController.navigate("whiskey_brands"){
-                                popUpTo(navController.graph.startDestinationId) { saveState = true}
-                                launchSingleTop = true
-                                restoreState = true
-                            }
-                        }
-                    }
-                )
+//                NavigationDrawerItem(
+//                    label = {Text(text = "Cigar Brands")},
+//                    selected = false,
+//                    onClick = {
+//                        scope.launch {
+//                            drawerState.close()
+//                            navController.navigate("cigar_brands"){
+//                                popUpTo(navController.graph.startDestinationId) { saveState = true}
+//                                launchSingleTop = true
+//                                restoreState = true
+//                            }
+//                        }
+//                    }
+//                )
+//                NavigationDrawerItem(
+//                    label = {Text(text = "Whiskey Brands")},
+//                    selected = false,
+//                    onClick = {
+//                        scope.launch {
+//                            drawerState.close()
+//                            navController.navigate("whiskey_brands"){
+//                                popUpTo(navController.graph.startDestinationId) { saveState = true}
+//                                launchSingleTop = true
+//                                restoreState = true
+//                            }
+//                        }
+//                    }
+//                )
                 NavigationDrawerItem(
                     label = {Text(text = "Cigar Reviews")},
                     selected = false,
