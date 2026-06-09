@@ -39,9 +39,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 
 import com.example.cigarsandwhiskey.dataAccessObjects.WhiskeyReviewDao
-import com.example.cigarsandwhiskey.objects.CigarReviews
 import com.example.cigarsandwhiskey.objects.WhiskeyReviews
-import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarReviewOption
 import com.example.cigarsandwhiskey.specializedFunctions.DeleteWhiskeyReviewOption
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
