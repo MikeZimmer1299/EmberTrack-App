@@ -189,7 +189,7 @@ fun NewCigarReview(
                         )
                     }
 //                    Spacer(modifier = Modifier.width(8.dp))
-                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
+                    Spacer(modifier = Modifier.width((screenWidth * .016f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val cigarBrandList = cigarBrandsList()
