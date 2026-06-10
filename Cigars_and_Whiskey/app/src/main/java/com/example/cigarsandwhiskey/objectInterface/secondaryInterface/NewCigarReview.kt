@@ -171,7 +171,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Brand:",
-                            fontSize = dynamicFontSize * 1.1f,
+                            fontSize = dynamicFontSize * 1.05f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -217,7 +217,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Name:",
-                            fontSize = dynamicFontSize * 1.1f,
+                            fontSize = dynamicFontSize * 1.05f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -262,7 +262,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Origin:",
-                            fontSize = dynamicFontSize * 1.1f,
+                            fontSize = dynamicFontSize * 1.05f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -327,7 +327,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Length:",
-                            fontSize = dynamicFontSize,
+                            fontSize = dynamicFontSize * .99f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -373,7 +373,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Ring Gauge:",
-                            fontSize = dynamicFontSize * 1.1f,
+                            fontSize = dynamicFontSize * 1.05f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
