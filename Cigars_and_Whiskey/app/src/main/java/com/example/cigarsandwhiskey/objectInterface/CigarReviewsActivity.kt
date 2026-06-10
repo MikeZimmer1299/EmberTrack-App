@@ -205,12 +205,6 @@ fun CigarReviewsScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(15.dp, 15.dp, 10.dp, 55.dp),
-//                .padding(
-//                    310.dp, // left
-//                    920.dp,
-//                    0.dp, // right
-//                    0.dp
-//                ),
             containerColor = lushForestGrassLight,
             onClick = { navController.navigate("new_cigar_review") },
             icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
