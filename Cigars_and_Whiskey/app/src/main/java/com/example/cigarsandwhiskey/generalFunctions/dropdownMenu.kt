@@ -169,7 +169,7 @@ fun cigarOriginList(): List<String>{
 fun whiskeyBrandsList(): List<String>{
 
     val brandsList = listOf<String>(
-        "Aberfeldy", "Aberlour", "Ailsa Bay", "Akashi", "Amrut", "Angel's Envy",
+        "13th Century", "13th Colony", "Aberfeldy", "Aberlour", "Ailsa Bay", "Akashi", "Amrut", "Angel's Envy",
         "Ardbeg", "Ardmore", "Arran", "Auchentoshan", "Aultmore", "Balcones",
         "Ballantine's", "Barrel House", "Basil Hayden's", "Belle Meade", "BenRiach", "Benromach",
         "Blanton's", "Booker's", "Bowmore", "Breckenridge", "Buffalo Trace", "Bulleit", "Bushmills",
