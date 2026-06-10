@@ -24,6 +24,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalConfiguration
@@ -83,10 +85,10 @@ fun DropdownMenu(
                 ) {
                     Column(
                         modifier = Modifier
-//                            .width((with(density) {parentWidth.toDp()}))
                             .heightIn(max = 250.dp)
+                            .clip(RoundedCornerShape(25.dp))
                             .verticalScroll(state = scrollState)
-                            .border(width = 1.dp, color = Color.Gray),
+                            .alpha(.99f),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         itemList.onEachIndexed { index, item ->
