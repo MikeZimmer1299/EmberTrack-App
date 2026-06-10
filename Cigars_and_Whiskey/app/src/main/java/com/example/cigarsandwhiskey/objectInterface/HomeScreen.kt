@@ -504,28 +504,28 @@ fun HomeScreen(database: AppDatabase){
 
             }
 
-            ElevatedCard(
-//            onClick = {},
-                modifier = Modifier
-                    .padding(
-                        10.dp, // left
-                        10.dp,
-                        10.dp, // right
-                        5.dp
-                    )
-                    .fillMaxWidth()
-                    .heightIn(260.dp),
-                colors = CardDefaults.cardColors(
-                    containerColor = lushForestGrassLight
-                )
-            ) {
-                Text(
-                    text = "This is potentially where a random whiskey/cigar brand will " +
-                            "go, to give option for user to learn", color = Color.Black
-                )
-                // TODO: This text is currently the same color at "lushForestGrassLight"
-                //  until I changed the color manually. Will need to keep in mind for future
-            }
+//            ElevatedCard(
+////            onClick = {},
+//                modifier = Modifier
+//                    .padding(
+//                        10.dp, // left
+//                        10.dp,
+//                        10.dp, // right
+//                        5.dp
+//                    )
+//                    .fillMaxWidth()
+//                    .heightIn(260.dp),
+//                colors = CardDefaults.cardColors(
+//                    containerColor = lushForestGrassLight
+//                )
+//            ) {
+//                Text(
+//                    text = "This is potentially where a random whiskey/cigar brand will " +
+//                            "go, to give option for user to learn", color = Color.Black
+//                )
+//                // TODO: This text is currently the same color at "lushForestGrassLight"
+//                //  until I changed the color manually. Will need to keep in mind for future
+//            }
 
 
             ElevatedCard(
