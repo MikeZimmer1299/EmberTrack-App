@@ -102,9 +102,9 @@ fun MyWhiskeyScreen(
                     modifier = Modifier
                         .padding(
                             10.dp, // left
-                            15.dp,
+                            10.dp,
                             10.dp, // right
-                            5.dp
+                            0.dp
                         )
                         .fillMaxWidth()
                         .heightIn(140.dp)

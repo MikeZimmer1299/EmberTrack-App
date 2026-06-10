@@ -110,7 +110,7 @@ fun WhiskeyReviewsScreen(
                         .heightIn(160.dp) // min height is 160.dp
                         .padding(
                             10.dp, // left
-                            20.dp,
+                            10.dp,
                             10.dp, // right
                             0.dp
                         )
