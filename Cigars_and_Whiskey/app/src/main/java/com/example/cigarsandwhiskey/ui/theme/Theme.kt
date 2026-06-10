@@ -49,19 +49,19 @@ private val DarkColorScheme = darkColorScheme(
 
 
 private val LightColorScheme = lightColorScheme(
-//    primary = Purple40,
-//    secondary = PurpleGrey40,
-//    tertiary = Pink40
+    background = lushForestGreenDark,
+    surface = lushForestGreenDark,
 
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    primary = earthForestDark,
+    secondary = earthForestMediumDark,
+    tertiary = earthForestMedium, // special emphasis elements (such as buttons)
+
+    onPrimary = Color(0xFFECDFDF),
+    onSecondary = Color(0xFFECDFDF),
+    onTertiary = Color(0xFFECDFDF),
+
+    onBackground = Color.Black,
+    onSurface = Color.Black, // text on non-special elements
 )
 
 @Composable
@@ -83,7 +83,8 @@ fun CigarsAndWhiskeyTheme(
 //    }
 
     MaterialTheme(
-        colorScheme = DarkColorScheme,
+//        colorScheme = DarkColorScheme,
+        colorScheme = LightColorScheme,
         typography = Typography,
         content = content
     )
