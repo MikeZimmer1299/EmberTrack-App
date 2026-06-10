@@ -173,7 +173,7 @@ fun HomeScreen(database: AppDatabase){
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 5.dp)
+                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)
                             )
                             Text(
                                 text = review.cigarName,
@@ -189,7 +189,7 @@ fun HomeScreen(database: AppDatabase){
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 0.dp)
+                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 5.dp)
                             )
 
                         } ?: Text(
@@ -225,7 +225,7 @@ fun HomeScreen(database: AppDatabase){
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 5.dp)
+                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)
                             )
                             Text(
                                 text = review.whiskeyName,
@@ -241,7 +241,7 @@ fun HomeScreen(database: AppDatabase){
                                 lineHeight = 30.sp,
                                 fontWeight = FontWeight.Bold,
                                 softWrap = true,
-                                modifier = Modifier.padding(10.dp, 0.dp)
+                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 5.dp)
                             )
 
                         } ?: Text(
