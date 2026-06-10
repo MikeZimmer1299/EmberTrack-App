@@ -42,8 +42,6 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 import com.example.cigarsandwhiskey.objects.CigarReviews
-import com.example.cigarsandwhiskey.objects.MyCigars
-import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarOption
 import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarReviewOption
 import kotlinx.coroutines.CoroutineScope
 
@@ -113,7 +111,7 @@ fun CigarReviewsScreen(
                         .heightIn(160.dp) // min height is 160.dp
                         .padding(
                             10.dp, // left
-                            20.dp,
+                            10.dp,
                             10.dp, // right
                             0.dp
                         )
@@ -205,12 +203,6 @@ fun CigarReviewsScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(15.dp, 15.dp, 10.dp, 55.dp),
-//                .padding(
-//                    310.dp, // left
-//                    920.dp,
-//                    0.dp, // right
-//                    0.dp
-//                ),
             containerColor = lushForestGrassLight,
             onClick = { navController.navigate("new_cigar_review") },
             icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
