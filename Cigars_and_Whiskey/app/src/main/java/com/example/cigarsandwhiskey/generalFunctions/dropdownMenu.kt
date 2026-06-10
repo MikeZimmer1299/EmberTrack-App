@@ -66,7 +66,7 @@ fun DropdownMenu(
         ) {
             Text(text = selectedText, modifier = Modifier.padding(5.dp),
 //                fontSize = 20.sp,
-                fontSize = (LocalConfiguration.current.screenWidthDp * 0.043f).sp
+                fontSize = (LocalConfiguration.current.screenWidthDp * 0.04f).sp
             )
         }
 
