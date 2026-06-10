@@ -103,7 +103,7 @@ fun NewCigarReview(
     // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
     val screenWidth = screenConfig.screenWidthDp
-    val dynamicFontSize = (screenWidth * 0.072f).sp
+    val dynamicFontSize = (screenWidth * 0.07f).sp
     val dynamicTestSize = (400 * 0.071f).sp
 
     Card(
