@@ -114,9 +114,8 @@ fun cigarBrandsList(): List<String>{
 
     val brandList = listOf<String>(
         "Aganorsa Leaf", "Aging Room", "AJ Fernandez", "Alec Bradley",
-        "Aladino", "Arturo Fuente", "Ashton", "Atabey",
-        "AVO", "Avowed", "Bandolero", "Bellas Artes",
-        "Black Label Trading Co.", "Black Works Studio",
+        "Aladino", "Arturo Fuente", "Ashton", "Atabey", "AVO",
+        "Avowed", "Bandolero", "Black Label Trading Co.", "Black Works Studio",
         "Byron", "Caldwell", "Camacho", "Cavalier Genève", "C.L.E",
         "Casa 1910", "Cohiba", "Crowned Heads", "Crux", "Davidoff",
         "Diamond Crown", "Don Pepin Garcia", "Drew Estate",
@@ -130,9 +129,8 @@ fun cigarBrandsList(): List<String>{
         "La Flor Dominicana", "La Gloria Cubana", "La Herencia Cubana",
         "La Palina", "Leaf by Oscar", "Luciano", "Macanudo",
         "Meerapfel", "Montecristo", "My Father", "Nat Sherman",
-        "New World", "Nub", "Oliva", "One Off",
-        "Oveja Negra", "Padron", "Partagas", "Perdomo", "Plasencia",
-        "Principle Cigars", "Punch", "Quesada",
+        "New World", "Nub", "Oliva", "Oveja Negra", "Padron", "Partagas",
+        "Perdomo", "Plasencia", "Principle Cigars", "Punch", "Quesada",
         "Rocky Patel", "Romeo y Julieta", "RoMa Craft", "Room101",
         "San Cristobal", "San Lotano", "Santa Clara", "Serino Cigars",
         "Southern Draw", "Stolen Throne", "Tatuaje",
@@ -197,8 +195,13 @@ fun whiskeyTypesList(): List<String>{
         "Bourbon",
         "Rye",
         "Wheat",
-        "Single Malt",
-        "Blended"
+        "Tennessee",
+        "American",
+        "American Single Malt",
+        "Single Malt Scotch",
+        "Blended",
+        "Blended Scotch",
+        "Canadian"
     )
 
     return typeList
@@ -208,10 +211,10 @@ fun whiskeyTypesList(): List<String>{
 fun whiskeyOriginList(): List<String>{
 
     val originList = listOf<String>(
-        "Kentucky, US", "Tennessee, US", "Colorado, US",
-        "Islay, Scotland", "Highland, Scotland", "Lowland, Scotland",
-        "Speyside, Scotland", "Islands, Scotland", "Campbeltown ,Scotland",
-        "Ireland", "Japan", "Canada"
+        "Kentucky, US", "Tennessee, US", "Colorado, US", "Indiana, US",
+        "Texas, US", "Islay, Scotland", "Highland, Scotland",
+        "Lowland, Scotland", "Speyside, Scotland", "Islands, Scotland",
+        "Campbeltown ,Scotland", "Ireland", "Japan", "Canada"
     )
 
     return originList
