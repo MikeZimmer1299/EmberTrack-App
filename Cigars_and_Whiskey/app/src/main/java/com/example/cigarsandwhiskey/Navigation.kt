@@ -32,14 +32,17 @@ fun Navigation(database: AppDatabase){
 
         drawerState = drawerState,
         drawerContent = {
-            ModalDrawerSheet {
+            ModalDrawerSheet(
+                drawerContainerColor = Color.Black,
+                drawerContentColor = Color.White
+            ) {
                 Text("Menu",
                     modifier = Modifier.padding(16.dp),
                     color = Color.White
                 )
                 HorizontalDivider()
                 NavigationDrawerItem(
-                    label = {Text(text = "Home")},
+                    label = {Text(text = "Home", color = Color.White)},
                     selected = false,
                     onClick = {
                         scope.launch {
@@ -63,7 +66,7 @@ fun Navigation(database: AppDatabase){
                     }
                 )
                 NavigationDrawerItem(
-                    label = {Text(text = "My Cigars")},
+                    label = {Text(text = "My Cigars", color = Color.White)},
                     selected = false,
                     onClick = {
                         scope.launch {
@@ -77,7 +80,7 @@ fun Navigation(database: AppDatabase){
                     }
                 )
                 NavigationDrawerItem(
-                    label = {Text(text = "My Whiskey")},
+                    label = {Text(text = "My Whiskey", color = Color.White)},
                     selected = false,
                     onClick = {
                         scope.launch {
@@ -91,7 +94,7 @@ fun Navigation(database: AppDatabase){
                     }
                 )
 //                NavigationDrawerItem(
-//                    label = {Text(text = "Cigar Brands")},
+//                    label = {Text(text = "Cigar Brands", color = Color.White)},
 //                    selected = false,
 //                    onClick = {
 //                        scope.launch {
@@ -105,7 +108,7 @@ fun Navigation(database: AppDatabase){
 //                    }
 //                )
 //                NavigationDrawerItem(
-//                    label = {Text(text = "Whiskey Brands")},
+//                    label = {Text(text = "Whiskey Brands", color = Color.White)},
 //                    selected = false,
 //                    onClick = {
 //                        scope.launch {
@@ -119,7 +122,7 @@ fun Navigation(database: AppDatabase){
 //                    }
 //                )
                 NavigationDrawerItem(
-                    label = {Text(text = "Cigar Reviews")},
+                    label = {Text(text = "Cigar Reviews", color = Color.White)},
                     selected = false,
                     onClick = {
                         scope.launch {
@@ -133,7 +136,7 @@ fun Navigation(database: AppDatabase){
                     }
                 )
                 NavigationDrawerItem(
-                    label = {Text(text = "Whiskey Reviews")},
+                    label = {Text(text = "Whiskey Reviews", color = Color.White)},
                     selected = false,
                     onClick = {
                         scope.launch {
