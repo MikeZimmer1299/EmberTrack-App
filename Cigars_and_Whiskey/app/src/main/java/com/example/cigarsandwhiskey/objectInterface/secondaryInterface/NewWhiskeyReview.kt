@@ -2,6 +2,7 @@ package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
 import android.util.Log
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +29,7 @@ import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -140,24 +142,28 @@ fun NewWhiskeyReview(
                 Row( // TIPS: Row for stating Whiskey Brand
                     modifier = Modifier.padding(0.dp, 3.dp)
                 ) {
-                    Text(
-                        text = "Distillery:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width((screenWidth * .1f).dp))
+                    Box(
+                        modifier = Modifier.weight(0.44f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            text = "Distillery:",
+                            fontSize = dynamicFontSize,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+                    }
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyBrandsList = whiskeyBrandsList()
@@ -176,24 +182,28 @@ fun NewWhiskeyReview(
                 Row( // TIPS: Row for whiskey name
                     modifier = Modifier.padding(0.dp, 3.dp)
                 ){
-                    Text(
-                        text = "Name:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width((screenWidth * .213f).dp))
+                    Box(
+                        modifier = Modifier.weight(0.44f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            text = "Name:",
+                            fontSize = dynamicFontSize,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+                    }
 
                     val menuWeight = screenWidth * .0011f
                     InputTextField(
@@ -230,24 +240,28 @@ fun NewWhiskeyReview(
                 Row( // TIPS: Row for whiskey name
                     modifier = Modifier.padding(0.dp, 3.dp)
                 ){
-                    Text(
-                        text = "Type:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width((screenWidth * .254f).dp))
+                    Box(
+                        modifier = Modifier.weight(0.44f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            text = "Type:",
+                            fontSize = dynamicFontSize,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+                    }
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyTypeList = whiskeyTypesList()
@@ -266,24 +280,28 @@ fun NewWhiskeyReview(
                 Row( // TIPS: Dropdown Menu for Origin
                     modifier = Modifier.padding(0.dp, 3.dp)
                 ) {
-                    Text(
-                        text = "Origin:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width((screenWidth * .212f).dp))
+                    Box(
+                        modifier = Modifier.weight(0.44f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            text = "Origin:",
+                            fontSize = dynamicFontSize,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+                    }
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyOriginList = whiskeyOriginList()
@@ -302,24 +320,28 @@ fun NewWhiskeyReview(
                 Row( // TIPS: Dropdown Menu for Age Statement
                     modifier = Modifier.padding(0.dp, 3.dp)
                 ){
-                    Text(
-                        text = "Aging:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width((screenWidth * .219f).dp))
+                    Box(
+                        modifier = Modifier.weight(0.44f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            text = "Aging:",
+                            fontSize = dynamicFontSize,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+                    }
 
                     val menuWeight = screenWidth * .0011f
                     val whiskeyAgeList = whiskeyAgeList()
@@ -338,24 +360,28 @@ fun NewWhiskeyReview(
                 Row( // TIPS: Text box for Proof
                     modifier = Modifier.padding(0.dp, 3.dp)
                 ){
-                    Text(
-                        text = "Proof:",
-                        fontSize = dynamicFontSize,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier
-                            .padding(5.dp, 0.dp, 0.dp, 0.dp)
-                            .drawBehind {
-                                val strokeWidthPx = 3.dp.toPx()
-                                val verticalOffset = size.height + 2.sp.toPx()
-                                drawLine(
-                                    color = Color.Black,
-                                    strokeWidth = strokeWidthPx,
-                                    start = Offset(0f, verticalOffset),
-                                    end = Offset(size.width, verticalOffset)
-                                )
-                            }
-                    )
-                    Spacer(modifier = Modifier.width((screenWidth * .23f).dp))
+                    Box(
+                        modifier = Modifier.weight(0.44f),
+                        contentAlignment = Alignment.CenterStart
+                    ){
+                        Text(
+                            text = "Proof:",
+                            fontSize = dynamicFontSize,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(5.dp, 0.dp, 0.dp, 0.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height + 2.sp.toPx()
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+                    }
 
                     val menuWeight = screenWidth * .0011f
                     InputTextField(
