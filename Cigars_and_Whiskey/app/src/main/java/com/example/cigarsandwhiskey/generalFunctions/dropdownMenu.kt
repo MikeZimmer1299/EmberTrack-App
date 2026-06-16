@@ -163,14 +163,14 @@ fun whiskeyBrandsList(): List<String>{
         "13th Century", "13th Colony","Aberfeldy", "Aberlour", "Ailsa Bay", "Akashi", "Amrut", "Angel's Envy",
         "Ardbeg", "Ardmore", "Arran", "Auchentoshan", "Aultmore", "Balcones", "Ballantine's", "Balvenie",
         "Barrell Craft Spirits", "Barrel House", "Basil Hayden's", "Belle Meade", "Benn Holladay", "BenRiach",
-        "Benromach", "Big House", "Blanton's", "Booker's", "Bowmore", "Bradshaw", "Breckenridge", "Bruichladdich",
+        "Benromach", "Big House", "Blanton's", "Booker's", "Bowman Brothers", "Bowmore", "Bradshaw", "Breckenridge", "Bruichladdich",
         "Buffalo Trace", "Bulleit", "Bushmills", "Caol Ila", "Cardhu", "Caribou Crossing", "Castle & Key", "Chivas Regal",
         "Clyde Mays", "Compass Box", "Connemara", "Coppercraft", "Crown Royal", "Dalmore", "Dalwhinnie", "Dark Arts",
-        "Deanston", "Dickel", "Eagle Rare", "E.H. Taylor", "Elijah Craig", "Elmer T. Lee", "Evan Williams", "Four Roses",
-        "Frey Ranch", "Garrison Brothers", "George Dickel", "GlenDronach", "Glenfiddich", "Glenfarclas", "GlenGrant",
-        "Glenlivet", "Glenmorangie", "Glenrothes","Glen Scotia", "Green River", "Green Spot", "Hakushu", "Hazelburn",
-        "Hibiki", "High West", "Highland Park", "Hudson", "I.W. Harper", "Jack Daniel's", "Jameson", "Jefferson's", "Jim Beam",
-        "Johnnie Walker", "Jura", "Kaiyo", "Kilchoman", "Kilkerran", "Knappogue Castle", "Knob Creek", "Lagavulin",
+        "Deanston", "Dickel", "Dubliner", "Eagle Rare", "E.H. Taylor", "Elijah Craig", "Elmer T. Lee", "Evan Williams",
+        "Four Roses", "Frey Ranch", "Garrison Brothers", "George Dickel", "GlenDronach", "Glenfiddich", "Glenfarclas", 
+        "GlenGrant", "Glenlivet", "Glenmorangie", "Glenrothes","Glen Scotia", "Green River", "Green Spot", "Hakushu",
+        "Hazelburn", "Hibiki", "High West", "Highland Park", "Hudson", "I.W. Harper", "Jack Daniel's", "Jameson", "Jefferson's",
+        "Jim Beam", "Johnnie Walker", "Jura", "Kaiyo", "Kilchoman", "Kilkerran", "Knappogue Castle", "Knob Creek", "Lagavulin",
         "Lagg", "Laphroaig", "Larceny", "Ledaig", "Leopold Bros.", "Little Book", "Longrow", "Lot No. 40",
         "Maker's Mark", "Michter's", "Midleton", "Monkey Shoulder", "Mortlach", "New Riff", "Nikka", "Nulu", "Oban",
         "Old Elk", "Old Fitzgerald", "Old Forester", "Old Grand-Dad", "Old Overholt", "Old Pepper", "Old Pulteney",
@@ -211,7 +211,7 @@ fun whiskeyOriginList(): List<String>{
 
     val originList = listOf<String>(
         "Kentucky, US", "Tennessee, US", "Colorado, US", "Indiana, US",
-        "Texas, US", "Islay, Scotland", "Highland, Scotland",
+        "Texas, US", "Virginia, US", "Islay, Scotland", "Highland, Scotland",
         "Lowland, Scotland", "Speyside, Scotland", "Islands, Scotland",
         "Campbeltown ,Scotland", "Ireland", "Japan", "Canada"
     )
@@ -223,6 +223,7 @@ fun whiskeyOriginList(): List<String>{
 fun whiskeyAgeList(): List<String>{
 
     val yearsList = listOf<String>(
+        "NAS",
         "3 or Less",
         "4-6",
         "7-10",
