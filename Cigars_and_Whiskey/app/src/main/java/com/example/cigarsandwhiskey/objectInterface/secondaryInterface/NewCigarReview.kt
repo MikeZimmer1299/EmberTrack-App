@@ -150,7 +150,7 @@ fun NewCigarReview(
                     0.dp
                 )
                 .fillMaxWidth()
-                .heightIn(200.dp),
+                .heightIn(150.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -162,7 +162,7 @@ fun NewCigarReview(
                 Row( // TIPS: Row for stating CIGAR BRAND
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(0.dp, 6.dp),
+                        .padding(0.dp, 2.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -188,8 +188,6 @@ fun NewCigarReview(
                                 }
                         )
                     }
-//                    Spacer(modifier = Modifier.width(8.dp))
-                    Spacer(modifier = Modifier.width((screenWidth * .016f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val cigarBrandList = cigarBrandsList()
@@ -208,7 +206,7 @@ fun NewCigarReview(
                 Row( // TIPS: Row for stating CIGAR NAME
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(0.dp, 6.dp),
+                        .padding(0.dp, 2.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -233,8 +231,6 @@ fun NewCigarReview(
                                 }
                         )
                     }
-//                    Spacer(modifier = Modifier.width(8.dp))
-                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
 
                     val menuWeight = screenWidth * .0011f
 
@@ -253,7 +249,7 @@ fun NewCigarReview(
                 Row( // TIPS: Row for stating COUNTRY OF ORIGIN
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(0.dp, 6.dp),
+                        .padding(0.dp, 2.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -278,8 +274,6 @@ fun NewCigarReview(
                                 }
                         )
                     }
-//                    Spacer(modifier = Modifier.width(8.dp))
-                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     val cigarOriginList = cigarOriginList()
@@ -306,7 +300,7 @@ fun NewCigarReview(
                     0.dp
                 )
                 .fillMaxWidth()
-                .heightIn(135.dp),
+                .heightIn(105.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
@@ -318,7 +312,7 @@ fun NewCigarReview(
                 Row( // TIPS: Row for stating CIGAR LENGTH
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(0.dp, 6.dp),
+                        .padding(0.dp, 2.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -327,7 +321,7 @@ fun NewCigarReview(
                     ){
                         Text(
                             text = "Cigar Length:",
-                            fontSize = dynamicFontSize,
+                            fontSize = dynamicFontSize * 1.05f,
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
@@ -343,8 +337,6 @@ fun NewCigarReview(
                                 }
                         )
                     }
-//                    Spacer(modifier = Modifier.width(8.dp))
-                    Spacer(modifier = Modifier.width((screenWidth * .02f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     // TIPS: Text box for cigar length
@@ -364,7 +356,7 @@ fun NewCigarReview(
                 Row( // TIPS: Row for stating CIGAR RING GAUGE
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(0.dp, 6.dp),
+                        .padding(0.dp, 2.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Box(
@@ -389,8 +381,6 @@ fun NewCigarReview(
                                 }
                         )
                     }
-//                    Spacer(modifier = Modifier.width(8.dp))
-                    Spacer(modifier = Modifier.width((screenWidth * .015f).dp))
 
                     val menuWeight = screenWidth * .0011f
                     // TIPS: Text box for cigar length
@@ -432,7 +422,6 @@ fun NewCigarReview(
                         0.dp
                     )
                     .fillMaxWidth()
-//                    .width(200.dp)
                     .heightIn(100.dp),
                 colors = CardDefaults.cardColors(
                     containerColor = lushForestGrassLight
@@ -458,10 +447,6 @@ fun NewCigarReview(
                     )
                 }
 
-                // Initiates the rating bar click-ability
-                // TIPS: Allows each card to have its own rating bar that will
-                //  not affect the others
-//                var rating: Float by remember { mutableFloatStateOf(0f) }
                 ratingBar(
                     rating = ratings[index],
                     onRatingChanged = { ratings[index] = it }
