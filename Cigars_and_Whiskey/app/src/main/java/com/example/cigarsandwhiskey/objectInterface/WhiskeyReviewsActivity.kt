@@ -115,7 +115,10 @@ fun WhiskeyReviewsScreen(
                             0.dp
                         )
                         .combinedClickable(
-                            onClick = {},
+                            onClick = {
+                                // TODO: This will bring the user to a new screen that will
+                                //  show them all the data from their review
+                            },
                             onLongClick = {
                                 deleteReview = true
                                 reviewToDelete = reviews
