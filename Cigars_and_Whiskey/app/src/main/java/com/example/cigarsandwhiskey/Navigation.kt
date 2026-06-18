@@ -160,7 +160,6 @@ fun Navigation(database: AppDatabase){
             navController = navController,
             startDestination = "home"
         ){
-            // TODO: Need to add `database.___` as param to view info from database
             // Drawer Screen Options
             composable("home"){ HomeScreen(database) }
 //            composable("my_humidors") { HumidorOptionScreen(navController, database.myHumidorsDao()) } // removed for now, may implement at a later time
@@ -180,7 +179,7 @@ fun Navigation(database: AppDatabase){
             // Used for onClick events within cigar reviews to look at the entire review's stats
             composable(
                 "display_cigar_review/{reviewId}",
-                arguments = listOf(navArgument("reviewId") { NavType.IntType })
+                arguments = listOf(navArgument("reviewId") { type = NavType.IntType })
                 ) { backStackEntry ->
                 val reviewId = backStackEntry.arguments?.getInt("reviewId") ?: return@composable
                 DisplayCigarReview(navController, reviewId, database.cigarReviewDao())
