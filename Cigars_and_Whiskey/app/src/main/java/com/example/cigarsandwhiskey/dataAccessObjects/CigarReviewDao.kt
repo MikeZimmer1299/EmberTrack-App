@@ -33,6 +33,10 @@ interface CigarReviewDao{
     @Query("SELECT * FROM cigar_reviews ORDER BY id DESC LIMIT 1")
     fun getMostRecentCigarReview(): Flow<CigarReviews?>
 
+    // TIPS: Query to retrieve specific cigar review to view. Well
+    @Query("SELECT * FROM cigar_reviews WHERE id = :id LIMIT 1")
+    fun getDisplayCigarReview(id: Int): Flow<CigarReviews?>
+
     @Delete
     suspend fun deleteReview(review: CigarReviews)
 }
