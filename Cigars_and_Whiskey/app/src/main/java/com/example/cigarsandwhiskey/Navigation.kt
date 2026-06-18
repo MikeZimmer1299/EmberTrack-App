@@ -13,9 +13,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.cigarsandwhiskey.objectInterface.*
 import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.*
 //import com.example.cigarsandwhiskey.objects.MyHumidor.*
@@ -174,8 +176,15 @@ fun Navigation(database: AppDatabase){
             composable("add_new_whiskey") { AddWhiskey(navController, database.myWhiskeyDao(), scope) }
             composable("new_cigar_review"){ NewCigarReview(navController, database.cigarReviewDao(), scope) }
             composable("new_whiskey_review"){ NewWhiskeyReview(navController, database.myWhiskeyReviewDao(), scope) }
+
+            // Used for onClick events within cigar reviews to look at the entire review's stats
+            composable(
+                "display_cigar_review/{reviewId}",
+                arguments = listOf(navArgument("reviewId") { NavType.IntType })
+                ) { backStackEntry ->
+                val reviewId = backStackEntry.arguments?.getInt("reviewId") ?: return@composable
+                DisplayCigarReview(navController, reviewId, database.cigarReviewDao())
+            }
         }
     }
-
-
 }
