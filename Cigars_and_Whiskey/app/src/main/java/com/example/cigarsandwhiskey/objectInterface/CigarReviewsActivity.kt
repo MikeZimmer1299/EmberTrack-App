@@ -122,7 +122,7 @@ fun CigarReviewsScreen(
                             onClick = {
                                 // TODO: This will bring the user to a new screen that will
                                 //  show them all the data from their review
-                                navController.navigate("display_cigar_review/$reviews.id")
+                                navController.navigate("display_cigar_review/${reviews.id}")
                             },
                             onLongClick = {
                                 deleteReview = true
