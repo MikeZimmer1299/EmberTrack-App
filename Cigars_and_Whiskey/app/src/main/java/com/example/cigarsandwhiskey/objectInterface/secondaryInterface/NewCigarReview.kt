@@ -10,11 +10,9 @@ package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 import android.util.Log
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -175,7 +173,6 @@ fun NewCigarReview(
                             fontWeight = FontWeight.Bold,
                             maxLines = 1,
                             modifier = Modifier
-//                                .padding(0.dp, 0.dp, 0.dp,0.dp)
                                 .drawBehind{
                                     val strokeWidthPx = 3.dp.toPx()
                                     val verticalOffset = size.height + 2.sp.toPx()
