@@ -108,7 +108,7 @@ fun DisplayCigarReview(
                 ElevatedCard(
                     modifier = Modifier
                         .padding(
-                            10.dp, 15.dp, 10.dp, 0.dp
+                            10.dp, 0.dp, 10.dp, 0.dp
                         )
                         .fillMaxWidth()
                         .heightIn(100.dp),
@@ -116,13 +116,12 @@ fun DisplayCigarReview(
                         containerColor = lushForestGrassLight
                     )
                 ) {
-
+                    // TIPS: First card for Brand, Name, and Origin
                     Column(
                         modifier = Modifier.padding(5.dp)
                     ) {
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Text(
@@ -134,8 +133,7 @@ fun DisplayCigarReview(
                             )
                         }
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Text(
@@ -148,8 +146,7 @@ fun DisplayCigarReview(
                             )
                         }
                         Row(
-                            modifier = Modifier
-                                .fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Text(
@@ -187,10 +184,11 @@ fun DisplayCigarReview(
                     .padding(5.dp, 0.dp)
                 ///////////////////////////////////////////////////////////////////////////////
 
+                // TIPS: Second card for Scores displayed for Draw, Burn, and Construction
                 ElevatedCard(
                     modifier = Modifier
                         .padding(
-                            10.dp, 15.dp, 10.dp, 0.dp
+                            10.dp, 10.dp, 10.dp, 0.dp
                         )
                         .fillMaxWidth()
                         .heightIn(100.dp),
@@ -202,7 +200,7 @@ fun DisplayCigarReview(
                     Column(
                         modifier = Modifier.padding(10.dp, 5.dp)
                     ) {
-                        Row(
+                        Row( // TIPS: Draw
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(0.dp, 0.dp),
@@ -223,7 +221,7 @@ fun DisplayCigarReview(
                                 fontWeight = FontWeight.Bold
                             )
                         }
-                        Row(
+                        Row( // TIPS: Burn
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(0.dp, 0.dp),
@@ -244,7 +242,7 @@ fun DisplayCigarReview(
                                 fontWeight = FontWeight.Bold
                             )
                         }
-                        Row(
+                        Row( // TIPS: Construction
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(0.dp, 0.dp),
@@ -270,10 +268,11 @@ fun DisplayCigarReview(
 
                 ///////////////////////////////////////////////////////////////////////////////
 
+                // TIPS: Third card for Flavor, Aroma, Smoke, and Experience
                 ElevatedCard(
                     modifier = Modifier
                         .padding(
-                            10.dp, 15.dp, 10.dp, 0.dp
+                            10.dp, 10.dp, 10.dp, 0.dp
                         )
                         .fillMaxWidth()
                         .heightIn(100.dp),
@@ -284,7 +283,7 @@ fun DisplayCigarReview(
                     Column(
                         modifier = Modifier.padding(10.dp, 5.dp)
                     ) {
-                        Row(
+                        Row( // TIPS: Flavor
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(0.dp, 0.dp),
@@ -306,7 +305,7 @@ fun DisplayCigarReview(
                             )
                         }
 
-                        Row(
+                        Row( // TIPS: Aroma
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(0.dp, 0.dp),
@@ -328,7 +327,7 @@ fun DisplayCigarReview(
                             )
                         }
 
-                        Row(
+                        Row( // TIPS: Smoke
                           modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(0.dp, 0.dp),
@@ -349,7 +348,7 @@ fun DisplayCigarReview(
                                 fontWeight = FontWeight.Bold
                             )
                         }
-                        Row(
+                        Row( // TIPS: Experience
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(0.dp, 0.dp),
@@ -391,7 +390,7 @@ fun DisplayCigarReview(
                         modifier = Modifier.padding(0.dp)
                     ) {
                         Row {
-                            Text(
+                            Text( // TIPS: Final Score
                                 text = "Final Score:",
                                 fontSize = dynamicFontSize * 1.59f,
                                 fontWeight = FontWeight.Bold,
