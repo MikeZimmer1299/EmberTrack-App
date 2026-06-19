@@ -34,6 +34,10 @@ interface WhiskeyReviewDao {
     @Query("SELECT * FROM whiskey_reviews ORDER BY id DESC LIMIT 1")
     fun getMostRecentWhiskeyReview(): Flow<WhiskeyReviews?> // Flow auto-updates
 
+    // TIPS: Query to retrieve specific whiskey review to view.
+    @Query("SELECT * FROM whiskey_reviews WHERE id = :id LIMIT 1")
+    fun getDisplayWhiskeyReview(id: Int): Flow<WhiskeyReviews?>
+
     @Delete
     suspend fun deleteReview(review: WhiskeyReviews)
 
