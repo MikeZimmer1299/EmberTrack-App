@@ -409,7 +409,52 @@ fun DisplayWhiskeyReview(
                 ///////////////////////////////////////////////////////////////////////////////
                 ///////////////////////////////////////////////////////////////////////////////
 
-                // TODO: Final card for Overall Score
+                // TIPS: Overall Score Card
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(
+                            10.dp, // left
+                            10.dp,
+                            10.dp, // right
+                            60.dp
+                        )
+                        .fillMaxWidth()
+                        .heightIn(70.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = lushForestGrassLight
+                    )
+                ) {
+                    Column{
+                        Row{
+                            Text(
+                                text = "Final Score:",
+                                fontSize = dynamicFontSize * 1.59f,
+                                fontWeight = FontWeight.Bold,
+                                modifier = Modifier
+                                    .padding(10.dp, 5.dp, 0.dp, 0.dp)
+                                    .drawBehind {
+                                        val strokeWidthPx = 3.dp.toPx()
+                                        val verticalOffset = size.height
+                                        drawLine(
+                                            color = Color.Black,
+                                            strokeWidth = strokeWidthPx,
+                                            start = Offset(0f, verticalOffset),
+                                            end = Offset(size.width, verticalOffset)
+                                        )
+                                    }
+                            )
+                            Text(
+                                text = review.overallScore.toString(),
+                                fontSize = dynamicFontSize * 2f,
+                                fontWeight = FontWeight.Bold,
+                                textAlign = TextAlign.End, // TODO: Work on this text align
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(0.dp, 0.dp, 10.dp, 0.dp)
+                            )
+                        }
+                    }
+                }
             }
         }
     }
