@@ -196,7 +196,7 @@ fun whiskeyTypesList(): List<String>{
         "Wheat",
         "Tennessee",
         "American",
-        "American Single Malt",
+        "U.S. Single Malt",
         "Single Malt Scotch",
         "Blended",
         "Blended Scotch",
