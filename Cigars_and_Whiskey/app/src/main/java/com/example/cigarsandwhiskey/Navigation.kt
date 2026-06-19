@@ -184,6 +184,14 @@ fun Navigation(database: AppDatabase){
                 val reviewId = backStackEntry.arguments?.getInt("reviewId") ?: return@composable
                 DisplayCigarReview(navController, reviewId, database.cigarReviewDao())
             }
+            // Used for onClick events within whiskey reviews to look at the entire review's stats
+            composable(
+                "display_whiskey_review/{reviewId}",
+                arguments = listOf(navArgument("reviewId") {type = NavType.IntType})
+            ) { backStackEntry ->
+                val reviewId = backStackEntry.arguments?.getInt("reviewId") ?: return@composable
+                DisplayWhiskeyReview(navController, reviewId, database.myWhiskeyReviewDao())
+            }
         }
     }
 }
