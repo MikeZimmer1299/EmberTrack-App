@@ -573,7 +573,7 @@ fun NewWhiskeyReview(
                     0.dp
                 )
                 .fillMaxWidth()
-                .height(140.dp),
+                .heightIn(140.dp),
             colors = CardDefaults.cardColors(
                 containerColor = lushForestGrassLight
             )
