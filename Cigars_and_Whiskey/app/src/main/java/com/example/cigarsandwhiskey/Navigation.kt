@@ -161,7 +161,7 @@ fun Navigation(database: AppDatabase){
             startDestination = "home"
         ){
             // Drawer Screen Options
-            composable("home"){ HomeScreen(database) }
+            composable("home"){ HomeScreen(database, navController) }
 //            composable("my_humidors") { HumidorOptionScreen(navController, database.myHumidorsDao()) } // removed for now, may implement at a later time
             composable("my_cigars"){ MyCigarsScreen(navController, database.myCigarsDao(), scope) }
             composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao(), scope) }
