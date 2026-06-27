@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 import com.example.cigarsandwhiskey.AppDatabase
 import com.example.cigarsandwhiskey.ui.theme.*
@@ -41,7 +42,10 @@ import com.example.cigarsandwhiskey.ui.theme.*
 //  onClick: Card does not *usually* accept click events. This implementation is to overload
 
 @Composable
-fun HomeScreen(database: AppDatabase){
+fun HomeScreen(
+    database: AppDatabase,
+    navController: NavController
+){
 
     // TIPS: Dynamic Screen Size Variables
     val screenConfig = LocalConfiguration.current
@@ -103,7 +107,6 @@ fun HomeScreen(database: AppDatabase){
             // TODO: May make these, instead of rows, as other cards? Example below of elevated card
             //  This is the correct move
             ElevatedCard(
-//            onClick = {},
                 modifier = Modifier
                     .padding(
                         10.dp, // left
@@ -151,22 +154,25 @@ fun HomeScreen(database: AppDatabase){
                             0.dp
                         )
                 ) {
-                    Card(
-//                    onClick = {},
-                        modifier = Modifier
-                            .heightIn(130.dp)
-                            .weight(1f)
-                            .padding(
-                                5.dp, // left
-                                0.dp,
-                                5.dp, // right
-                                10.dp
-                            ),
-                        colors = CardDefaults.cardColors(
-                            containerColor = earthForestMediumDark
-                        )
-                    ) {
-                        mostRecentCigarReview?.let { review ->
+                    // TIPS: Most recent cigar review, first card in first ElevatedCard
+                    mostRecentCigarReview?.let { review ->
+                        Card(
+                            onClick = {
+                                navController.navigate("display_cigar_review/${review.id}")
+                            },
+                            modifier = Modifier
+                                .heightIn(130.dp)
+                                .weight(1f)
+                                .padding(
+                                    5.dp, // left
+                                    0.dp,
+                                    5.dp, // right
+                                    10.dp
+                                ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = earthForestMediumDark
+                            )
+                        ) {
                             Text(
                                 text = review.brand,
                                 fontSize = 30.sp,
@@ -191,20 +197,8 @@ fun HomeScreen(database: AppDatabase){
                                 softWrap = true,
                                 modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 5.dp)
                             )
-
-                        } ?: Text(
-                            text = "Time to add your first cigar review!",
-                            fontSize = 33.sp,
-                            lineHeight = 40.sp,
-                            fontWeight = FontWeight.Bold,
-                            softWrap = true,
-                            modifier = Modifier.padding(10.dp, 10.dp),
-                            textAlign = TextAlign.Center
-                        )
-
-                    }
-                    Card(
-//                    onClick = {},
+                        }
+                    } ?: Card(
                         modifier = Modifier
                             .heightIn(130.dp)
                             .weight(1f)
@@ -218,7 +212,36 @@ fun HomeScreen(database: AppDatabase){
                             containerColor = earthForestMediumDark
                         )
                     ) {
-                        mostRecentWhiskeyReview?.let { review ->
+                        Text(
+                            text = "Time to add your first cigar review!",
+                            fontSize = 33.sp,
+                            lineHeight = 40.sp,
+                            fontWeight = FontWeight.Bold,
+                            softWrap = true,
+                            modifier = Modifier.padding(10.dp, 10.dp),
+                            textAlign = TextAlign.Center
+                        )
+                    }
+
+                    // TIPS: Most Recent Whiskey Review, second card in first ElevatedCard
+                    mostRecentWhiskeyReview?.let { review ->
+                        Card(
+                            onClick = {
+                                navController.navigate("display_whiskey_review/${review.id}")
+                            },
+                            modifier = Modifier
+                                .heightIn(130.dp)
+                                .weight(1f)
+                                .padding(
+                                    5.dp, // left
+                                    0.dp,
+                                    5.dp, // right
+                                    10.dp
+                                ),
+                            colors = CardDefaults.cardColors(
+                                containerColor = earthForestMediumDark
+                            )
+                        ){
                             Text(
                                 text = review.brand,
                                 fontSize = 30.sp,
@@ -243,8 +266,26 @@ fun HomeScreen(database: AppDatabase){
                                 softWrap = true,
                                 modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 5.dp)
                             )
-
-                        } ?: Text(
+                        }
+                    } ?: Card(
+                        onClick = {
+                            // TODO: Add same implementation as in Whiskey Reviews to allow user to
+                            //  be brought to DisplayWhiskeyReview screen for this review
+                        },
+                        modifier = Modifier
+                            .heightIn(130.dp)
+                            .weight(1f)
+                            .padding(
+                                5.dp, // left
+                                0.dp,
+                                5.dp, // right
+                                10.dp
+                            ),
+                        colors = CardDefaults.cardColors(
+                            containerColor = earthForestMediumDark
+                        )
+                    ) {
+                        Text(
                             text = "Time to add your first whiskey review!",
                             fontSize = 33.sp,
                             lineHeight = 40.sp,
