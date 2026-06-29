@@ -114,7 +114,7 @@ fun DisplayWhiskeyReview(
                 ) {
                     // TIPS: First card for Distillery and Name
                     Column(
-                        modifier = Modifier.padding(5.dp)
+                        modifier = Modifier.padding(0.dp)
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
@@ -122,9 +122,9 @@ fun DisplayWhiskeyReview(
                         ){
                             Text(
                                 text = review.brand,
-                                fontSize = dynamicFontSize * 1.6f,
+                                fontSize = dynamicFontSize * 2f,
                                 fontWeight = FontWeight.Bold,
-                                lineHeight = dynamicFontSize * 1.4f,
+                                lineHeight = dynamicFontSize * 1.55f,
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -134,7 +134,7 @@ fun DisplayWhiskeyReview(
                         ){
                             Text(
                                 text = review.whiskeyName,
-                                fontSize = dynamicFontSize * 1.4f,
+                                fontSize = dynamicFontSize * 1.7f,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(0.dp, 0.dp),
                                 lineHeight = dynamicFontSize * 1.4f,
@@ -248,13 +248,13 @@ fun DisplayWhiskeyReview(
                             ){
                                 Text(
                                     text = "Proof:",
-                                    fontSize = dynamicFontSize,
+                                    fontSize = dynamicFontSize * 1.2f,
                                     fontWeight = FontWeight.Bold
                                 )
                             }
                             Text(
                                 text = "${review.proof}/" + review.proof.toFloat() / 2 + "%",
-                                fontSize = dynamicFontSize * 1.2f,
+                                fontSize = dynamicFontSize,
                                 fontWeight = FontWeight.Bold
                             )
                         }

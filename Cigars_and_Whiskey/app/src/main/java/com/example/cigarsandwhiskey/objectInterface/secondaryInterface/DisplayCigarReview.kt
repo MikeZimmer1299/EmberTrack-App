@@ -100,10 +100,6 @@ fun DisplayCigarReview(
             {cigarReviewDao.getDisplayCigarReview(id)}.collectAsState(initial = null)
             Log.d("Output", "cigarReviewDao.getDisplayCigarReview() success")
 
-            // TODO: Now to figure out how to format the data to be visually pleasing.
-            //  The order is going to be the same as new cigar reviews.
-            //  The hard part is the design, similar but not copy-pasted
-
             reviewToShow?.let { review ->
                 ElevatedCard(
                     modifier = Modifier
@@ -126,7 +122,7 @@ fun DisplayCigarReview(
                         ) {
                             Text(
                                 text = review.brand,
-                                fontSize = dynamicFontSize * 1.6f,
+                                fontSize = dynamicFontSize * 2.6f,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = dynamicFontSize * 1.4f,
                                 textAlign = TextAlign.Center
@@ -138,7 +134,7 @@ fun DisplayCigarReview(
                         ) {
                             Text(
                                 text = review.cigarName,
-                                fontSize = dynamicFontSize * 1.4f,
+                                fontSize = dynamicFontSize * 2f,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(0.dp, 0.dp),
                                 lineHeight = dynamicFontSize * 1.4f,
@@ -151,7 +147,7 @@ fun DisplayCigarReview(
                         ) {
                             Text(
                                 text = review.origin,
-                                fontSize = dynamicFontSize * 1.2f,
+                                fontSize = dynamicFontSize * 1.7f,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(0.dp, 0.dp),
                                 lineHeight = dynamicFontSize * 1.4f,
