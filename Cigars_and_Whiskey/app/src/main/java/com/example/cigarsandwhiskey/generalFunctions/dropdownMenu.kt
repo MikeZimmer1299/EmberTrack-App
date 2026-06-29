@@ -147,7 +147,7 @@ fun cigarOriginList(): List<String>{
     val originList = listOf<String>(
         "Dominican Republic", "Nicaragua",
         "Honduras", "United States",
-        "Cuba", "Costa Rica"
+        "Cuba", "Costa Rica", "Undisclosed"
     )
 
     return originList
