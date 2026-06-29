@@ -1,16 +1,19 @@
 package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -137,7 +140,7 @@ fun DisplayCigarReview(
                                 fontSize = dynamicFontSize * 2f,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(0.dp, 0.dp),
-                                lineHeight = dynamicFontSize * 1.4f,
+                                lineHeight = dynamicFontSize * 1.6f,
                                 textAlign = TextAlign.Center
                             )
                         }
@@ -367,6 +370,70 @@ fun DisplayCigarReview(
                         }
                     }
                 }
+                ///////////////////////////////////////////////////////////////////////////////
+
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(
+                            10.dp, 10.dp, 10.dp, 0.dp
+                        )
+                        .fillMaxWidth()
+                        .heightIn(100.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = lushForestGrassLight
+                    )
+                ) {
+                    Row {
+                        Text(
+                            text = "Notes",
+                            fontSize = dynamicFontSize * 1.2f,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .padding(13.dp, 5.dp, 0.dp, 3.dp)
+                                .drawBehind {
+                                    val strokeWidthPx = 3.dp.toPx()
+                                    val verticalOffset = size.height
+                                    drawLine(
+                                        color = Color.Black,
+                                        strokeWidth = strokeWidthPx,
+                                        start = Offset(0f, verticalOffset),
+                                        end = Offset(size.width, verticalOffset)
+                                    )
+                                }
+                        )
+                    }
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(10.dp, 5.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .background(
+                                    color = Color.White,
+                                    shape = RoundedCornerShape(6.dp)
+                                )
+                                .padding(10.dp)
+                                .heightIn(25.dp)
+                        ) {
+                            if(review.notes.isBlank()){
+                                Text(
+                                    text = "No notes were made.",
+                                    fontSize = 18.sp
+                                )
+                            } else {
+                                Text(
+                                    text = review.notes,
+                                    fontSize = 18.sp
+                                )
+                            }
+
+                        }
+                    }
+                }
+
+                ///////////////////////////////////////////////////////////////////////////////
 
                 ElevatedCard(
                     modifier = Modifier
@@ -422,6 +489,14 @@ fun DisplayCigarReview(
             } ?: run {Text(
                 text = "Failed to get information. Failed to get info for ID: $id"
             )}
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .height(20.dp)
+            ) {
+                // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+                //  card in the list. But it works, so ¯\_(ツ)_/¯
+            }
         }
     }
 }
