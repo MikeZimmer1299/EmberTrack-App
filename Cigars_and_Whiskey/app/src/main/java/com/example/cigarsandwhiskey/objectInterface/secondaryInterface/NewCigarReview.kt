@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -25,7 +26,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
@@ -35,6 +38,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -94,6 +98,9 @@ fun NewCigarReview(
             ratings.average().toFloat()
         }
     }
+
+    // TODO: Newly added: Notes
+    var notes by remember { mutableStateOf("") }
 
     var openAlertDialog by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
@@ -454,6 +461,62 @@ fun NewCigarReview(
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
 
+        ElevatedCard(
+            modifier = Modifier
+                .padding(10.dp, 10.dp, 10.dp, 0.dp)
+                .fillMaxWidth()
+                .heightIn(130.dp),
+            colors = CardDefaults.cardColors(
+                containerColor = lushForestGrassLight
+            )
+        ){
+            Column(modifier = Modifier.padding(5.dp)) {
+                Row() {
+                    Text(
+                        text = "Notes",
+                        fontSize = 35.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .padding(5.dp, 0.dp, 25.dp, 0.dp)
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                val verticalOffset = size.height
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, verticalOffset),
+                                    end = Offset(size.width, verticalOffset)
+                                )
+                            }
+                    )
+                }
+                Row() {
+                    TextField(
+                        value = notes,
+                        onValueChange = { notes = it },
+                        placeholder = { Text(
+                            text = "Tasting notes (Optional)",
+                            modifier = Modifier.alpha(.5f)
+                        )},
+                        colors = OutlinedTextFieldDefaults.colors(
+                            unfocusedContainerColor = Color.White,
+                            focusedContainerColor = Color.White,
+                            unfocusedTextColor = Color.Black,
+                            focusedTextColor = Color.Black,
+                            unfocusedPlaceholderColor = Color.Black
+                        ),
+                        modifier = Modifier
+                            .padding(start = 4.dp, end = 4.dp, top = 12.dp, bottom = 5.dp)
+                            .fillMaxHeight()
+                            .fillMaxWidth()
+                    )
+                }
+            }
+        }
+
+        ///////////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////////
+
         // TIPS: Card for the Overall Rating (Final Score)
         ElevatedCard(
             modifier = Modifier
@@ -502,12 +565,6 @@ fun NewCigarReview(
                 }
             }
         }
-
-        ///////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////
-
-        // TODO: Eventually, written review section (optional to user)
-
 
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
@@ -570,6 +627,7 @@ fun NewCigarReview(
                                 aroma = ratings[4].toInt(),
                                 smokeProduction = ratings[5].toInt(),
                                 experience = ratings[6].toInt(),
+                                notes = notes,
                                 finalScore = finalScore,
                             )
                             if (!cigarReviewCompletion(newReview)) {
