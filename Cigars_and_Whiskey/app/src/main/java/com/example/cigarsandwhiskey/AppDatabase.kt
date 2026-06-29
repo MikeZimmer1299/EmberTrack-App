@@ -19,9 +19,9 @@ import com.example.cigarsandwhiskey.objects.WhiskeyReviews
 
 @Database(
     entities = [CigarReviews::class, WhiskeyReviews::class, MyCigars::class, MyWhiskey::class, MyHumidor::class],
-    version = 1,
-    exportSchema = false, // change to true when migration needs to be done at a later time
-//    autoMigrations = [AutoMigration(from = 1, to = 2)]
+    version = 2,
+    exportSchema = true, // change to true when migration needs to be done at a later time
+    autoMigrations = [AutoMigration(from = 1, to = 2)]
 )
 
 abstract class AppDatabase : RoomDatabase() {
