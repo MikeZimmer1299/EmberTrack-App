@@ -1,5 +1,6 @@
 package com.example.cigarsandwhiskey.objectInterface
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
@@ -173,32 +175,45 @@ fun HomeScreen(
                                 containerColor = earthForestMediumDark
                             )
                         ) {
-                            Text(
-                                text = review.brand,
-                                fontSize = 30.sp,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                            )
-                            Text(
-                                text = review.cigarName,
-                                fontSize = 30.sp,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(10.dp, 0.dp)
-                            )
-                            Text(
-                                text = "Score: ${"%.1f".format(review.finalScore)}",
-                                fontSize = 30.sp,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 5.dp)
-                            )
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = review.brand,
+                                    fontSize = dynamicFontSize * 1.5f,
+                                    lineHeight = dynamicFontSize * 1.3f,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                                )
+                                Text(
+                                    text = review.cigarName,
+                                    fontSize = dynamicFontSize * 1.5f,
+                                    lineHeight = dynamicFontSize * 1.3f,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, 0.dp)
+                                )
+                                Text(
+                                    text = "Score: ${"%.1f".format(review.finalScore)}",
+                                    fontSize = dynamicFontSize * 1.5f,
+                                    lineHeight = dynamicFontSize * 1.3f,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(
+                                        start = 10.dp,
+                                        end = 10.dp,
+                                        bottom = 5.dp
+                                    )
+                                )
+                            }
                         }
                     } ?: Card(
+                        onClick = {
+                            navController.navigate("new_cigar_review")
+                        },
                         modifier = Modifier
                             .heightIn(130.dp)
                             .weight(1f)
@@ -210,7 +225,7 @@ fun HomeScreen(
                             ),
                         colors = CardDefaults.cardColors(
                             containerColor = earthForestMediumDark
-                        )
+                        ),
                     ) {
                         Text(
                             text = "Time to add your first cigar review!",
@@ -222,7 +237,17 @@ fun HomeScreen(
                             textAlign = TextAlign.Center
                         )
                     }
+                }
 
+                Row(
+                    modifier = Modifier
+                        .padding(
+                            5.dp, // left
+                            0.dp,
+                            5.dp, // right
+                            0.dp
+                        )
+                ) {
                     // TIPS: Most Recent Whiskey Review, second card in first ElevatedCard
                     mostRecentWhiskeyReview?.let { review ->
                         Card(
@@ -242,35 +267,43 @@ fun HomeScreen(
                                 containerColor = earthForestMediumDark
                             )
                         ){
-                            Text(
-                                text = review.brand,
-                                fontSize = 30.sp,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)
-                            )
-                            Text(
-                                text = review.whiskeyName,
-                                fontSize = 30.sp,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(10.dp, 0.dp)
-                            )
-                            Text(
-                                text = "Score: ${review.overallScore}",
-                                fontSize = 30.sp,
-                                lineHeight = 30.sp,
-                                fontWeight = FontWeight.Bold,
-                                softWrap = true,
-                                modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 5.dp)
-                            )
+                            Column(
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = review.brand,
+                                    fontSize = dynamicFontSize * 1.5f,
+                                    lineHeight = dynamicFontSize * 1.3f,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp),
+                                    textAlign = TextAlign.Center
+                                )
+                                Text(
+                                    text = review.whiskeyName,
+                                    fontSize = dynamicFontSize * 1.4f,
+                                    lineHeight = dynamicFontSize * 1.3f,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(10.dp, 0.dp),
+                                    textAlign = TextAlign.Center
+                                )
+                                Text(
+                                    text = "Score: ${review.overallScore}",
+                                    fontSize = dynamicFontSize * 1.4f,
+                                    lineHeight = dynamicFontSize * 1.3f,
+                                    fontWeight = FontWeight.Bold,
+                                    softWrap = true,
+                                    modifier = Modifier.padding(start = 10.dp, end = 10.dp, bottom = 5.dp),
+                                    textAlign = TextAlign.Center
+                                )
+                            }
                         }
                     } ?: Card(
                         onClick = {
-                            // TODO: Add same implementation as in Whiskey Reviews to allow user to
-                            //  be brought to DisplayWhiskeyReview screen for this review
+                            navController.navigate("new_whiskey_review")
                         },
                         modifier = Modifier
                             .heightIn(130.dp)
@@ -287,8 +320,8 @@ fun HomeScreen(
                     ) {
                         Text(
                             text = "Time to add your first whiskey review!",
-                            fontSize = 33.sp,
-                            lineHeight = 40.sp,
+                            fontSize = dynamicFontSize * 1.5f,
+                            lineHeight = dynamicFontSize * 1.3f,
                             fontWeight = FontWeight.Bold,
                             softWrap = true,
                             modifier = Modifier.padding(10.dp, 10.dp),
