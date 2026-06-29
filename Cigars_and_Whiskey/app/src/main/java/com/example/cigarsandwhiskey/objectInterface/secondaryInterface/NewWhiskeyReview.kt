@@ -31,6 +31,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -434,7 +435,10 @@ fun NewWhiskeyReview(
                     TextField(
                         value = whiskeyFlavors,
                         onValueChange = {whiskeyFlavors = it},
-                        placeholder = {Text("What are the flavors?")},
+                        placeholder = {Text(
+                            "What are the flavors?",
+                            modifier = Modifier.alpha(.5f)
+                        )},
                         colors = OutlinedTextFieldDefaults.colors(
                             unfocusedContainerColor = Color.White,
                             focusedContainerColor = Color.White,
@@ -488,7 +492,10 @@ fun NewWhiskeyReview(
                     TextField(
                         value = whiskeyAroma,
                         onValueChange = {whiskeyAroma = it},
-                        placeholder = {Text("What are the aromas?")},
+                        placeholder = {Text(
+                            "What are the aromas?",
+                            modifier = Modifier.alpha(.5f)
+                        )},
                         colors = OutlinedTextFieldDefaults.colors(
                             unfocusedContainerColor = Color.White,
                             focusedContainerColor = Color.White,
@@ -542,7 +549,10 @@ fun NewWhiskeyReview(
                     TextField(
                         value = mouthFeel,
                         onValueChange = {mouthFeel = it},
-                        placeholder = {Text("What is the mouthfeel?")},
+                        placeholder = {Text(
+                            "What is the mouthfeel?",
+                            modifier = Modifier.alpha(.5f)
+                        )},
                         colors = OutlinedTextFieldDefaults.colors(
                             unfocusedContainerColor = Color.White,
                             focusedContainerColor = Color.White,
