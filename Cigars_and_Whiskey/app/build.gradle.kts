@@ -60,6 +60,8 @@ dependencies {
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
+
     // Allows usage of SQL Database for local storage
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
