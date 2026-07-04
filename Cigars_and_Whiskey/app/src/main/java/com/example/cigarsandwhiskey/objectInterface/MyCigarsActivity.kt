@@ -170,6 +170,15 @@ fun MyCigarsScreen(
                     }
                 }
             }
+
+            ElevatedCard(
+                modifier = Modifier
+                    .padding(20.dp)
+                    .height(20.dp)
+            ) {
+                // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+                //  card in the list. But it works, so ¯\_(ツ)_/¯
+            }
         }
 
         if (deleteCigar) {
@@ -191,12 +200,6 @@ fun MyCigarsScreen(
             modifier = Modifier
                 .align(Alignment.BottomEnd)
                 .padding(15.dp, 15.dp, 10.dp, 55.dp),
-//                .padding(
-//                    305.dp, // left
-//                    920.dp,
-//                    0.dp, // right
-//                    0.dp
-//                ),
             containerColor = lushForestGrassLight,
             onClick = {
                 navController.navigate("add_new_cigar")
@@ -208,13 +211,5 @@ fun MyCigarsScreen(
         // TODO: Also need to think about how to add a humidor to be tracked
         //  This has been added to "later"
 
-        ElevatedCard(
-            modifier = Modifier
-                .padding(20.dp)
-                .height(20.dp)
-        ) {
-            // TIPS: Intentionally left blank. A terrible way to add spacing below the last
-            //  card in the list. But it works, so ¯\_(ツ)_/¯
-        }
     }
 }
