@@ -1,12 +1,5 @@
 package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
-
-/*
-* TODO: The width and height sizing has been rectified. The text sizing is where
-*  I will need to better implement a solution. I'm not 100% sure how I will go
-*  about finding a solution, but I'll figure it out when it becomes a problem.
-*/
-
 import android.util.Log
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
@@ -461,6 +454,7 @@ fun NewCigarReview(
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
 
+        // TIPS: Card for personal notes
         ElevatedCard(
             modifier = Modifier
                 .padding(10.dp, 10.dp, 10.dp, 0.dp)
@@ -569,7 +563,7 @@ fun NewCigarReview(
         ///////////////////////////////////////////////////////////////////////////////
         ///////////////////////////////////////////////////////////////////////////////
 
-        // TODO: Final Card that will allow the user to create the new review, adding it
+        // TIPS: Final Card that will allow the user to create the new review, adding it
         //  to the list of Cigar Reviews
 
         var newReview by remember { mutableStateOf(CigarReviews()) }
@@ -611,8 +605,9 @@ fun NewCigarReview(
                     )
 
                     Spacer(modifier = Modifier.width((screenWidth * .05f).dp))
+                    // TODO: Test the weight method for this, instead of using screen width
 
-                    Button( // TODO: Add a date slot to the review, will autofill when made
+                    Button(
                         onClick = {
                             newReview = newReview.copy(
                                 brand = cigarBrand,

@@ -60,9 +60,6 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-
-// TODO: New secondary screen for when the user wishes to create a new
-//  review for a recently enjoyed whiskey
 @Composable
 fun NewWhiskeyReview(
     navController: NavController,
@@ -608,10 +605,7 @@ fun NewWhiskeyReview(
                 )
             }
 
-            // Initiates the rating bar click-ability
-            // TIPS: Allows each card to have its own rating bar that will
-            //  not affect the others
-//                var rating: Float by remember { mutableFloatStateOf(0f) }
+            // TIPS: Initiates the rating bar click-ability
             ratingBar(
                 rating = score,
                 onRatingChanged = { score = it }
@@ -662,6 +656,7 @@ fun NewWhiskeyReview(
                     )
 
                     Spacer(modifier = Modifier.width((screenWidth * .04f).dp))
+                    // TODO: Test the weight method for this, instead of using screen width
 
                     Button(
                         onClick = {
