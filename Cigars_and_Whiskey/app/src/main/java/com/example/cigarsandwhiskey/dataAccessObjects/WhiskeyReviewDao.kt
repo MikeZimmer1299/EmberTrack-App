@@ -19,6 +19,7 @@ interface WhiskeyReviewDao {
     @Query("SELECT * FROM whiskey_reviews ORDER BY id DESC")
     fun getAllWhiskeyReviews(): Flow<List<WhiskeyReviews>>
 
+    /////////////////////////////////////////////////////////////////////////////
     // TIPS: This is for the search function, which will return
     //  whiskeys by a specific name
     @Query("SELECT * FROM whiskey_reviews WHERE whiskeyName = :name LIMIT 1")
@@ -30,6 +31,13 @@ interface WhiskeyReviewDao {
     @Query("SELECT * FROM whiskey_reviews WHERE brand = :brand")
     fun getAllWhiskeyBrandReviews(brand: String): List<WhiskeyReviews?>
 
+    // TIPS: This is for the search function, which will return
+    //  whiskeys by a specific origin
+    @Query("SELECT * FROM whiskey_reviews WHERE origin = :origin")
+    fun getAllWhiskeyOriginReviews(origin: String): List<WhiskeyReviews?>
+    /////////////////////////////////////////////////////////////////////////////
+
+    /////////////////////////////////////////////////////////////////////////////
     // TIPS: This is intended to be used on the HomeScreen
     @Query("SELECT * FROM whiskey_reviews ORDER BY id DESC LIMIT 1")
     fun getMostRecentWhiskeyReview(): Flow<WhiskeyReviews?> // Flow auto-updates
@@ -37,8 +45,9 @@ interface WhiskeyReviewDao {
     // TIPS: Query to retrieve specific whiskey review to view.
     @Query("SELECT * FROM whiskey_reviews WHERE id = :id LIMIT 1")
     fun getDisplayWhiskeyReview(id: Int): Flow<WhiskeyReviews?>
+    /////////////////////////////////////////////////////////////////////////////
 
+    /////////////////////////////////////////////////////////////////////////////
     @Delete
     suspend fun deleteReview(review: WhiskeyReviews)
-
 }
