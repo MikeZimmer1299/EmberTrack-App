@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -25,6 +27,10 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun Navigation(database: AppDatabase){
+
+    val screenConfig = LocalConfiguration.current
+    val screenWidth = screenConfig.screenWidthDp
+    val dynamicFontSize = (screenWidth * 0.072f).sp
 
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
@@ -40,7 +46,8 @@ fun Navigation(database: AppDatabase){
             ) {
                 Text("Menu",
                     modifier = Modifier.padding(16.dp),
-                    color = Color.White
+                    color = Color.White,
+                    fontSize = dynamicFontSize * .6f
                 )
                 HorizontalDivider()
                 NavigationDrawerItem(
