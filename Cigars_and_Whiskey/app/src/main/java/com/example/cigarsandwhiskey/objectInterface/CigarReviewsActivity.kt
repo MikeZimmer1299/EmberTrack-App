@@ -2,24 +2,30 @@ package com.example.cigarsandwhiskey.objectInterface
 
 import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.border
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.filled.FilterList
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -43,8 +49,7 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 import com.example.cigarsandwhiskey.objects.CigarReviews
-import com.example.cigarsandwhiskey.objects.MyCigars
-import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarOption
+import com.example.cigarsandwhiskey.specializedFunctions.CigarReviewFilter
 import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarReviewOption
 import kotlinx.coroutines.CoroutineScope
 
@@ -61,157 +66,183 @@ fun CigarReviewsScreen(
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
 
-    var deleteReview by remember { mutableStateOf(false) }
-    var reviewToDelete by remember { mutableStateOf<CigarReviews?>(null) }
+    CigarReviewFilter { openFilter ->
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Card(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(0.dp, 0.dp)
-                .verticalScroll(rememberScrollState()),
-            colors = CardDefaults.cardColors(
-                containerColor = lushForestGreenDark
-            )
-        ) {
+        var deleteReview by remember { mutableStateOf(false) }
+        var reviewToDelete by remember { mutableStateOf<CigarReviews?>(null) }
 
-            // TIPS: Title for Screen
-            Column(
+        Box(modifier = Modifier.fillMaxSize()) {
+            Card(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(15.dp, 30.dp, 0.dp, 0.dp),
-            ) {
-                Text(
-                    text = "Cigar Reviews",
-                    fontSize = dynamicFontSize * 1.4f,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier
-                        .drawBehind {
-                            val strokeWidthPx = 3.dp.toPx()
-                            drawLine(
-                                color = Color.Black,
-                                strokeWidth = strokeWidthPx,
-                                start = Offset(0f, size.height),
-                                end = Offset(size.width, size.height)
-                            )
-                        }
+                    .fillMaxSize()
+                    .padding(0.dp, 0.dp)
+                    .verticalScroll(rememberScrollState()),
+                colors = CardDefaults.cardColors(
+                    containerColor = lushForestGreenDark
                 )
-            }
+            ) {
 
-            ///////////////////////////////////////////////////////////////////////////////
-            ///////////////////////////////////////////////////////////////////////////////
-
-            // TIPS: Grab the cigar reviews from the database, storing them into a list
-            val reviewList by cigarDao.getAllCigarReviews()
-                .collectAsStateWithLifecycle(emptyList())
-
-            Log.d("Output", "cigarDao.getAllCigarReviews() success")
-
-            reviewList.forEach { reviews ->
-                ElevatedCard(
+                // TIPS: Title for Screen
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .heightIn(160.dp) // min height is 160.dp
-                        .padding(
-                            10.dp, // left
-                            10.dp,
-                            10.dp, // right
-                            0.dp
-                        )
-                        .combinedClickable(
-                            onClick = {
-                                navController.navigate("display_cigar_review/${reviews.id}")
-                            },
-                            onLongClick = {
-                                deleteReview = true
-                                reviewToDelete = reviews
-                            }
-                        ),
-                    colors = CardDefaults.cardColors(containerColor = lushForestGrassLight)
+                        .padding(15.dp, 30.dp, 10.dp, 0.dp),
                 ) {
-                    Row(
-                        modifier = Modifier.padding(10.dp, 0.dp)
+                    Text(
+                        text = "Cigar Reviews",
+                        fontSize = dynamicFontSize * 1.4f,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .drawBehind {
+                                val strokeWidthPx = 3.dp.toPx()
+                                drawLine(
+                                    color = Color.Black,
+                                    strokeWidth = strokeWidthPx,
+                                    start = Offset(0f, size.height),
+                                    end = Offset(size.width, size.height)
+                                )
+                            }
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    IconButton(
+                        onClick = {
+                            // TODO: Instead of a dropdown menu, I think it should populate as a
+                            //  dialog box, like how the warning populates for an unfinished review.
+                            //  The other idea is to have it be a popout like the Navigation panel.
+                            //  The second idea may actually work better, but we'll see how it looks
+                            openFilter()
+                        },
+                        modifier = Modifier
+                            .size((screenWidth * .135f).dp)
                     ) {
-                        Text(
-                            text = reviews.brand,
-                            fontSize = dynamicFontSize * 1.2f,
-                            fontWeight = FontWeight.Bold,
-                            lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
-                            softWrap = true
-                        )
-                    }
-                    Row(
-                        modifier = Modifier.padding(10.dp, 0.dp)
-                    ) {
-                        Text(
-                            text = reviews.cigarName,
-                            fontSize = dynamicFontSize * 1.2f,
-                            fontWeight = FontWeight.Bold,
-                            lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
-                            softWrap = true
-                        )
-                    }
-                    Row(
-                        modifier = Modifier.padding(12.dp, 0.dp)
-                    ) {
-                        Text(
-                            text = "Size: ${reviews.sizeLength} x ${reviews.ringGauge}",
-                            fontSize = dynamicFontSize * 1.1f,
-                            fontWeight = FontWeight.SemiBold,
-                            lineHeight = dynamicFontSize * 1.2f
-                        )
-                    }
-                    Row(
-                        modifier = Modifier.padding(12.dp, 0.dp)
-                    ) {
-                        Text(
-                            text = "Final Score: ${"%.1f".format(reviews.finalScore)}",
-                            fontSize = dynamicFontSize * 1.1f,
-                            fontWeight = FontWeight.SemiBold,
-                            lineHeight = dynamicFontSize * 1.2f
+                        Icon(
+                            imageVector = Icons.Default.FilterList, // TODO: Changing to a filter icon when I get home later
+                            contentDescription = "Filter List",
+                            Modifier.border( // TODO: May remove border, depends how filter icon looks with it
+                                width = 3.dp,
+                                color = Color.Black,
+                                shape = RoundedCornerShape(10.dp)
+                            )
+                                .size((screenWidth * .1f).dp)
                         )
                     }
                 }
-                Log.d("Output", "ReviewList has added a review")
-            }
-            ElevatedCard(
-                modifier = Modifier
-                    .padding(20.dp)
-                    .height(20.dp)
-            ) {
-                // TIPS: Intentionally left blank. A terrible way to add spacing below the last
-                //  card in the list. But it works, so ¯\_(ツ)_/¯
-            }
-        }
 
-        if (deleteReview) {
-            DeleteCigarReviewOption(
-                onDismissRequest = { deleteReview = false },
-                onConfirmation = {
-                    deleteReview = false
-                },
-                dialogTitle = "Delete Review",
-                dialogText = "Are you sure you want to delete this cigar review?",
-                reviewToDelete,
-                scope,
-                cigarDao
+                ///////////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////
+
+                // TIPS: Grab the cigar reviews from the database, storing them into a list
+                val reviewList by cigarDao.getAllCigarReviews()
+                    .collectAsStateWithLifecycle(emptyList())
+
+                Log.d("Output", "cigarDao.getAllCigarReviews() success")
+
+                reviewList.forEach { reviews ->
+                    ElevatedCard(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(160.dp) // min height is 160.dp
+                            .padding(
+                                10.dp, // left
+                                10.dp,
+                                10.dp, // right
+                                0.dp
+                            )
+                            .combinedClickable(
+                                onClick = {
+                                    navController.navigate("display_cigar_review/${reviews.id}")
+                                },
+                                onLongClick = {
+                                    deleteReview = true
+                                    reviewToDelete = reviews
+                                }
+                            ),
+                        colors = CardDefaults.cardColors(containerColor = lushForestGrassLight)
+                    ) {
+                        Row(
+                            modifier = Modifier.padding(10.dp, 0.dp)
+                        ) {
+                            Text(
+                                text = reviews.brand,
+                                fontSize = dynamicFontSize * 1.2f,
+                                fontWeight = FontWeight.Bold,
+                                lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
+                                softWrap = true
+                            )
+                        }
+                        Row(
+                            modifier = Modifier.padding(10.dp, 0.dp)
+                        ) {
+                            Text(
+                                text = reviews.cigarName,
+                                fontSize = dynamicFontSize * 1.2f,
+                                fontWeight = FontWeight.Bold,
+                                lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
+                                softWrap = true
+                            )
+                        }
+                        Row(
+                            modifier = Modifier.padding(12.dp, 0.dp)
+                        ) {
+                            Text(
+                                text = "Size: ${reviews.sizeLength} x ${reviews.ringGauge}",
+                                fontSize = dynamicFontSize * 1.1f,
+                                fontWeight = FontWeight.SemiBold,
+                                lineHeight = dynamicFontSize * 1.2f
+                            )
+                        }
+                        Row(
+                            modifier = Modifier.padding(12.dp, 0.dp)
+                        ) {
+                            Text(
+                                text = "Final Score: ${"%.1f".format(reviews.finalScore)}",
+                                fontSize = dynamicFontSize * 1.1f,
+                                fontWeight = FontWeight.SemiBold,
+                                lineHeight = dynamicFontSize * 1.2f
+                            )
+                        }
+                    }
+                    Log.d("Output", "ReviewList has added a review")
+                }
+                ElevatedCard(
+                    modifier = Modifier
+                        .padding(20.dp)
+                        .height(20.dp)
+                ) {
+                    // TIPS: Intentionally left blank. A terrible way to add spacing below the last
+                    //  card in the list. But it works, so ¯\_(ツ)_/¯
+                }
+            }
+
+            if (deleteReview) {
+                DeleteCigarReviewOption(
+                    onDismissRequest = { deleteReview = false },
+                    onConfirmation = {
+                        deleteReview = false
+                    },
+                    dialogTitle = "Delete Review",
+                    dialogText = "Are you sure you want to delete this cigar review?",
+                    reviewToDelete,
+                    scope,
+                    cigarDao
+                )
+            }
+
+
+            ///////////////////////////////////////////////////////////////////////////////
+            ///////////////////////////////////////////////////////////////////////////////
+
+            // TIPS: This button allows a user to add a new cigar review.
+            //  This sits on top of the above card
+            ExtendedFloatingActionButton(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(15.dp, 15.dp, 10.dp, 55.dp),
+                containerColor = lushForestGrassLight,
+                onClick = { navController.navigate("new_cigar_review") },
+                icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
+                text = { Text(text = "Add Review", fontSize = dynamicFontSize * .47f) }
             )
         }
-
-
-        ///////////////////////////////////////////////////////////////////////////////
-        ///////////////////////////////////////////////////////////////////////////////
-
-        // TIPS: This button allows a user to add a new cigar review.
-        //  This sits on top of the above card
-        ExtendedFloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(15.dp, 15.dp, 10.dp, 55.dp),
-            containerColor = lushForestGrassLight,
-            onClick = { navController.navigate("new_cigar_review") },
-            icon = { Icon(Icons.Filled.Edit, "Add Review Button") },
-            text = { Text(text = "Add Review", fontSize = dynamicFontSize * .47f) }
-        )
     }
 }
