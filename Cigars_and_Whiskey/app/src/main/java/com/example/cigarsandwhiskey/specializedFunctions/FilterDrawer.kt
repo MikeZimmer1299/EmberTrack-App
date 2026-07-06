@@ -52,7 +52,9 @@ fun CigarReviewFilter(
     val scope = rememberCoroutineScope()
 
     var filterQuery by remember { mutableStateOf("") }
+    var cigarBrandQuery by remember { mutableStateOf("") }
     var cigarNameQuery by remember { mutableStateOf("") }
+    var cigarOriginQuery by remember { mutableStateOf("") }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -71,11 +73,10 @@ fun CigarReviewFilter(
                     fontSize = dynamicFontSize * .6f
                 )
                 HorizontalDivider()
-                // TODO: 3 main filters:
-                //  Cigar brand, based on dropdown list
-                //  Cigar name, based on user's text input
-                //  Country of Origin, based on dropdown list
 
+                // TODO: Will return later to potentially clean up the design and
+                //  change its implementation to be better in general. It serves its purpose as
+                //  it sits now.
                 Button(
                     onClick = {
                         onFilterChange(FilterType.ALL, "")
@@ -89,15 +90,19 @@ fun CigarReviewFilter(
                     val cigarBrandsList = cigarBrandsList()
                     DropdownMenu(
                         itemList = cigarBrandsList,
-                        initialText = "Choose a Band",
+                        selectedText = cigarBrandQuery.ifEmpty { "Choose a Band" },
                         modifier = Modifier.weight(screenWidth * .0011f).padding(5.dp, 3.dp),
-                        onItemClick = {filterQuery = cigarBrandsList[it]}
+                        onItemClick = {cigarBrandQuery = cigarBrandsList[it]}
                     )
                 }
                 Button(
                     onClick = {
-                        onFilterChange(FilterType.BRAND, filterQuery)
-                        scope.launch { drawerState.close() }
+                        if(cigarBrandQuery.isEmpty()){
+                            // do nothing
+                        } else {
+                            onFilterChange(FilterType.BRAND, cigarBrandQuery)
+                            scope.launch { drawerState.close() }
+                        }
                     },
                     modifier = Modifier.width((screenWidth * .24f).dp)
                 ) {
@@ -113,8 +118,12 @@ fun CigarReviewFilter(
                 }
                 Button(
                     onClick = {
-                        onFilterChange(FilterType.NAME, cigarNameQuery)
-                        scope.launch { drawerState.close() }
+                        if(cigarNameQuery.isEmpty()){
+                            // Do nothing
+                        } else {
+                            onFilterChange(FilterType.NAME, cigarNameQuery)
+                            scope.launch { drawerState.close() }
+                        }
                     },
                     modifier = Modifier.width((screenWidth * .24f).dp)
                 ) {
@@ -124,15 +133,19 @@ fun CigarReviewFilter(
                     val cigarOriginsList = cigarOriginList()
                     DropdownMenu(
                         itemList = cigarOriginsList,
-                        initialText = "Country of Origin",
+                        selectedText = cigarOriginQuery.ifEmpty { "Country of Origin" },
                         modifier = Modifier.weight(screenWidth * .0011f).padding(5.dp, 3.dp),
-                        onItemClick = {filterQuery = cigarOriginsList[it]}
+                        onItemClick = {cigarOriginQuery = cigarOriginsList[it]}
                     )
                 }
                 Button(
                     onClick = {
-                        onFilterChange(FilterType.COUNTRY, filterQuery)
-                        scope.launch { drawerState.close() }
+                        if(cigarOriginQuery.isEmpty()){
+                            // do nothing
+                        } else {
+                            onFilterChange(FilterType.COUNTRY, cigarOriginQuery)
+                            scope.launch { drawerState.close() }
+                        }
                     },
                     modifier = Modifier.width((screenWidth * .24f).dp)
                 ) {
@@ -143,6 +156,10 @@ fun CigarReviewFilter(
     ) {
         // TIPS: Draws main screen, then allows coroutine logic to open the drawer
         content {
+            filterQuery = ""
+            cigarBrandQuery = ""
+            cigarNameQuery = ""
+            cigarOriginQuery = ""
             scope.launch { drawerState.open() }
         }
 
@@ -165,7 +182,9 @@ fun WhiskeyReviewFilter(
     val scope = rememberCoroutineScope()
 
     var filterQuery by remember { mutableStateOf("") }
+    var whiskeyBrandQuery by remember { mutableStateOf("") }
     var whiskeyNameQuery by remember { mutableStateOf("") }
+    var whiskeyOriginQuery by remember { mutableStateOf("") }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -184,10 +203,6 @@ fun WhiskeyReviewFilter(
                     fontSize = dynamicFontSize * .6f
                 )
                 HorizontalDivider()
-                // TODO: 3 main filters:
-                //  Whiskey brand, based on dropdown list
-                //  Whiskey name, based on user's text input
-                //  Country of Origin, based on dropdown list
 
                 Button(
                     onClick = {
@@ -202,15 +217,19 @@ fun WhiskeyReviewFilter(
                     val whiskeyBrandsList = whiskeyBrandsList()
                     DropdownMenu(
                         itemList = whiskeyBrandsList(),
-                        initialText = "Choose a Band",
+                        selectedText = whiskeyBrandQuery.ifEmpty { "Choose a Band" },
                         modifier = Modifier.weight(screenWidth * .0011f).padding(5.dp, 3.dp),
-                        onItemClick = {filterQuery = whiskeyBrandsList[it]}
+                        onItemClick = {whiskeyBrandQuery = whiskeyBrandsList[it]}
                     )
                 }
                 Button(
                     onClick = {
-                        onFilterChange(FilterType.BRAND, filterQuery)
-                        scope.launch { drawerState.close() }
+                        if(whiskeyBrandQuery.isEmpty()){
+                            // do nothing
+                        } else {
+                            onFilterChange(FilterType.BRAND, whiskeyBrandQuery)
+                            scope.launch { drawerState.close() }
+                        }
                     },
                     modifier = Modifier.width((screenWidth * .24f).dp)
                 ) {
@@ -226,8 +245,12 @@ fun WhiskeyReviewFilter(
                 }
                 Button(
                     onClick = {
-                        onFilterChange(FilterType.NAME, whiskeyNameQuery)
-                        scope.launch { drawerState.close() }
+                        if(whiskeyNameQuery.isEmpty()){
+                            // do nothing
+                        } else {
+                            onFilterChange(FilterType.NAME, whiskeyNameQuery)
+                            scope.launch { drawerState.close() }
+                        }
                     },
                     modifier = Modifier.width((screenWidth * .24f).dp)
                 ) {
@@ -237,15 +260,19 @@ fun WhiskeyReviewFilter(
                     val whiskeyOriginsList = whiskeyOriginList()
                     DropdownMenu(
                         itemList = whiskeyOriginsList,
-                        initialText = "Country of Origin",
+                        selectedText = whiskeyOriginQuery.ifEmpty { "Country of Origin" },
                         modifier = Modifier.weight(screenWidth * .0011f).padding(5.dp, 3.dp),
-                        onItemClick = {filterQuery = whiskeyOriginsList[it]}
+                        onItemClick = {whiskeyOriginQuery = whiskeyOriginsList[it]}
                     )
                 }
                 Button(
                     onClick = {
-                        onFilterChange(FilterType.COUNTRY, filterQuery)
-                        scope.launch { drawerState.close() }
+                        if(whiskeyOriginQuery.isEmpty()){
+                            // do nothing
+                        } else {
+                            onFilterChange(FilterType.COUNTRY, whiskeyOriginQuery)
+                            scope.launch { drawerState.close() }
+                        }
                     },
                     modifier = Modifier.width((screenWidth * .24f).dp)
                 ) {
@@ -256,6 +283,10 @@ fun WhiskeyReviewFilter(
     ) {
         // TIPS: Draws main screen, then allows coroutine logic to open the drawer
         content {
+            filterQuery = ""
+            whiskeyBrandQuery = ""
+            whiskeyNameQuery = ""
+            whiskeyOriginQuery = ""
             scope.launch { drawerState.open() }
         }
     }
