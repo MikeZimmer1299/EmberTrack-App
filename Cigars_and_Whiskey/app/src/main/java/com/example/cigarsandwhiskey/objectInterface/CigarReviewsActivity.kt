@@ -28,6 +28,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -51,6 +52,8 @@ import com.example.cigarsandwhiskey.dataAccessObjects.CigarReviewDao
 import com.example.cigarsandwhiskey.objects.CigarReviews
 import com.example.cigarsandwhiskey.specializedFunctions.CigarReviewFilter
 import com.example.cigarsandwhiskey.specializedFunctions.DeleteCigarReviewOption
+import com.example.cigarsandwhiskey.specializedFunctions.FilterType
+import com.example.cigarsandwhiskey.viewModels.CigarReviewViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -58,7 +61,8 @@ import kotlinx.coroutines.CoroutineScope
 fun CigarReviewsScreen(
     navController: NavController,
     cigarDao: CigarReviewDao,
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    viewModel: CigarReviewViewModel
     ) {
 
     // TIPS: Dynamic Screen Size Variables
@@ -66,10 +70,15 @@ fun CigarReviewsScreen(
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.072f).sp
 
-    CigarReviewFilter { openFilter ->
+    var deleteReview by remember { mutableStateOf(false) }
+    var reviewToDelete by remember { mutableStateOf<CigarReviews?>(null) }
 
-        var deleteReview by remember { mutableStateOf(false) }
-        var reviewToDelete by remember { mutableStateOf<CigarReviews?>(null) }
+    LaunchedEffect(Unit) {viewModel.updateFilter(FilterType.ALL, "")}
+    val reviewList by viewModel.reviewList.collectAsStateWithLifecycle()
+
+    CigarReviewFilter(
+        onFilterChange = {type, query -> viewModel.updateFilter(type, query)}
+    ) { openFilter ->
 
         Box(modifier = Modifier.fillMaxSize()) {
             Card(
@@ -132,9 +141,6 @@ fun CigarReviewsScreen(
                 ///////////////////////////////////////////////////////////////////////////////
 
                 // TIPS: Grab the cigar reviews from the database, storing them into a list
-                val reviewList by cigarDao.getAllCigarReviews()
-                    .collectAsStateWithLifecycle(emptyList())
-
                 Log.d("Output", "cigarDao.getAllCigarReviews() success")
 
                 reviewList.forEach { reviews ->
@@ -150,7 +156,7 @@ fun CigarReviewsScreen(
                             )
                             .combinedClickable(
                                 onClick = {
-                                    navController.navigate("display_cigar_review/${reviews.id}")
+                                    navController.navigate("display_cigar_review/${reviews?.id}")
                                 },
                                 onLongClick = {
                                     deleteReview = true
@@ -163,7 +169,7 @@ fun CigarReviewsScreen(
                             modifier = Modifier.padding(10.dp, 0.dp)
                         ) {
                             Text(
-                                text = reviews.brand,
+                                text = reviews?.brand ?: "",
                                 fontSize = dynamicFontSize * 1.2f,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
@@ -174,7 +180,7 @@ fun CigarReviewsScreen(
                             modifier = Modifier.padding(10.dp, 0.dp)
                         ) {
                             Text(
-                                text = reviews.cigarName,
+                                text = reviews?.cigarName ?: "",
                                 fontSize = dynamicFontSize * 1.2f,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
@@ -185,7 +191,7 @@ fun CigarReviewsScreen(
                             modifier = Modifier.padding(12.dp, 0.dp)
                         ) {
                             Text(
-                                text = "Size: ${reviews.sizeLength} x ${reviews.ringGauge}",
+                                text = "Size: ${reviews?.sizeLength} x ${reviews?.ringGauge}",
                                 fontSize = dynamicFontSize * 1.1f,
                                 fontWeight = FontWeight.SemiBold,
                                 lineHeight = dynamicFontSize * 1.2f
@@ -195,7 +201,7 @@ fun CigarReviewsScreen(
                             modifier = Modifier.padding(12.dp, 0.dp)
                         ) {
                             Text(
-                                text = "Final Score: ${"%.1f".format(reviews.finalScore)}",
+                                text = "Final Score: ${"%.1f".format(reviews?.finalScore)}",
                                 fontSize = dynamicFontSize * 1.1f,
                                 fontWeight = FontWeight.SemiBold,
                                 lineHeight = dynamicFontSize * 1.2f
