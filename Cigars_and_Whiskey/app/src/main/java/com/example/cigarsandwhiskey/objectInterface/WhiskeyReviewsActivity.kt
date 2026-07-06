@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,9 +47,11 @@ import androidx.navigation.NavController
 import com.example.cigarsandwhiskey.dataAccessObjects.WhiskeyReviewDao
 import com.example.cigarsandwhiskey.objects.WhiskeyReviews
 import com.example.cigarsandwhiskey.specializedFunctions.DeleteWhiskeyReviewOption
+import com.example.cigarsandwhiskey.specializedFunctions.FilterType
 import com.example.cigarsandwhiskey.specializedFunctions.WhiskeyReviewFilter
 import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
+import com.example.cigarsandwhiskey.viewModels.WhiskeyReviewViewModel
 import kotlinx.coroutines.CoroutineScope
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -56,7 +59,8 @@ import kotlinx.coroutines.CoroutineScope
 fun WhiskeyReviewsScreen(
     navController: NavController,
     whiskeyReviewDao: WhiskeyReviewDao,
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    viewModel: WhiskeyReviewViewModel
     ) {
 
     // TIPS: Dynamic Screen Size Variables
@@ -67,9 +71,14 @@ fun WhiskeyReviewsScreen(
     var deleteReview by remember { mutableStateOf(false) }
     var reviewToDelete by remember { mutableStateOf<WhiskeyReviews?>(null) }
 
+    LaunchedEffect(Unit) {viewModel.updateFilter(FilterType.ALL, "")}
+    val reviewList by viewModel.reviewList.collectAsStateWithLifecycle()
+
     // TIPS: Call to FilterDrawer file, which wraps the screen content and gives it access to draw
     //  over the main content
-    WhiskeyReviewFilter { openFilter ->
+    WhiskeyReviewFilter(
+        onFilterChange = {type, query -> viewModel.updateFilter(type, query)}
+    ) { openFilter ->
 
         Box(modifier = Modifier.fillMaxSize()) {
 
@@ -131,8 +140,6 @@ fun WhiskeyReviewsScreen(
                 ///////////////////////////////////////////////////////////////////////////////
 
                 // TODO: First card with whiskey brand, name, type, and proof
-                val reviewList by whiskeyReviewDao.getAllWhiskeyReviews()
-                    .collectAsStateWithLifecycle(emptyList())
 
                 Log.d("Output", "whiskeyReviewDao.getAllWhiskeyReviews() success")
 
@@ -149,7 +156,7 @@ fun WhiskeyReviewsScreen(
                             )
                             .combinedClickable(
                                 onClick = {
-                                    navController.navigate("display_whiskey_review/${reviews.id}")
+                                    navController.navigate("display_whiskey_review/${reviews?.id}")
                                 },
                                 onLongClick = {
                                     deleteReview = true
@@ -162,7 +169,7 @@ fun WhiskeyReviewsScreen(
                             modifier = Modifier.padding(10.dp, 0.dp)
                         ) {
                             Text(
-                                text = reviews.brand,
+                                text = reviews?.brand ?: "",
                                 fontSize = dynamicFontSize * 1.2f,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
@@ -173,7 +180,7 @@ fun WhiskeyReviewsScreen(
                             modifier = Modifier.padding(10.dp, 0.dp)
                         ) {
                             Text(
-                                text = reviews.whiskeyName,
+                                text = reviews?.whiskeyName ?: "",
                                 fontSize = dynamicFontSize * 1.2f,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
@@ -184,7 +191,8 @@ fun WhiskeyReviewsScreen(
                             modifier = Modifier.padding(10.dp, 0.dp)
                         ) {
                             Text(
-                                text = "Proof: ${reviews.proof} / " + reviews.proof.toFloat() / 2 + "%",
+                                text = "Proof: ${reviews?.proof} / " + reviews?.proof?.toFloat()
+                                    ?.div(2) + "%",
                                 fontSize = dynamicFontSize * 1.1f,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
@@ -195,7 +203,7 @@ fun WhiskeyReviewsScreen(
                             modifier = Modifier.padding(10.dp, 0.dp)
                         ) {
                             Text(
-                                text = "Overall Score: ${reviews.overallScore}",
+                                text = "Overall Score: ${reviews?.overallScore}",
                                 fontSize = dynamicFontSize * 1.1f,
                                 fontWeight = FontWeight.Bold,
                                 lineHeight = dynamicFontSize * 1.2f, // prevents text overlap when wrapping text
