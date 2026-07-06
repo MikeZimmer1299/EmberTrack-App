@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -22,6 +23,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.cigarsandwhiskey.objectInterface.*
 import com.example.cigarsandwhiskey.objectInterface.secondaryInterface.*
+import com.example.cigarsandwhiskey.viewModels.CigarReviewViewModel
+import com.example.cigarsandwhiskey.viewModels.WhiskeyReviewViewModel
 //import com.example.cigarsandwhiskey.objects.MyHumidor.*
 import kotlinx.coroutines.launch
 
@@ -174,8 +177,12 @@ fun Navigation(database: AppDatabase){
             composable("my_whiskey") { MyWhiskeyScreen(navController, database.myWhiskeyDao(), scope) }
             composable("cigar_brands"){ CigarBrandsScreen() }
             composable("whiskey_brands"){ WhiskeyBrandsScreen() }
-            composable("cigar_reviews"){ CigarReviewsScreen(navController, database.cigarReviewDao(), scope) }
-            composable("whiskey_reviews"){ WhiskeyReviewsScreen(navController, database.myWhiskeyReviewDao(), scope) }
+            composable("cigar_reviews"){ val factory = CigarReviewViewModel.provideFactory((database.cigarReviewDao()))
+                val viewModel: CigarReviewViewModel = viewModel(factory = factory)
+                CigarReviewsScreen(navController, database.cigarReviewDao(), scope, viewModel) }
+            composable("whiskey_reviews"){ val factory = WhiskeyReviewViewModel.provideFactory(database.myWhiskeyReviewDao())
+                val viewModel: WhiskeyReviewViewModel = viewModel(factory = factory)
+                WhiskeyReviewsScreen(navController, database.myWhiskeyReviewDao(), scope, viewModel) }
 
             // Buttons from within different screens
             composable("add_new_cigar"){ AddCigars(navController, database.myCigarsDao(), scope) }
