@@ -36,13 +36,12 @@ import androidx.compose.ui.window.PopupProperties
 @Composable
 fun DropdownMenu(
     itemList: List<String>,
-    initialText: String,
+    selectedText: String,
     modifier: Modifier = Modifier,
     onItemClick: (Int) -> Unit
 ){
     var showDropdown by rememberSaveable { mutableStateOf(false) }
     val scrollState = rememberScrollState()
-    var selectedText by rememberSaveable { mutableStateOf(initialText)}
 
     Box(modifier = modifier) {
 
@@ -90,8 +89,6 @@ fun DropdownMenu(
                                     .width(320.dp)
                                     .height(50.dp)
                                     .clickable {
-                                        selectedText = item
-                                        // if this ^^^ is NOT here, the text doesn't update. IDE is wrong
                                         onItemClick(index)
                                         showDropdown = !showDropdown
                                     },
