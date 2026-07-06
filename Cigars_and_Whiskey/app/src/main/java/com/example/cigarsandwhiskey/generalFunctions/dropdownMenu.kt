@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
 
-
 // I think I have this to be able to be universal for any lists
 @Composable
 fun DropdownMenu(
@@ -60,7 +59,8 @@ fun DropdownMenu(
             contentAlignment = Alignment.Center
         ) {
             Text(text = selectedText, modifier = Modifier.padding(5.dp),
-                fontSize = (LocalConfiguration.current.screenWidthDp * 0.043f).sp
+                fontSize = (LocalConfiguration.current.screenWidthDp * 0.043f).sp,
+                color = Color.Black
             )
         }
 
@@ -97,7 +97,7 @@ fun DropdownMenu(
                                     },
                                 contentAlignment = Alignment.Center
                             ) {
-                                Text(text = item, fontSize = 20.sp)
+                                Text(text = item, fontSize = 20.sp, color = Color.Black)
                             }
                         }
                     }
