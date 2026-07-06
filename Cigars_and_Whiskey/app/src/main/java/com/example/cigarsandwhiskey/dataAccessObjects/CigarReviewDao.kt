@@ -21,19 +21,19 @@ interface CigarReviewDao{
     // TIPS: This is for the filter function, which will return
     //  cigars by a specific name
     @Query("SELECT * FROM cigar_reviews WHERE cigarName = :name")
-    fun getAllCigarNameReviews(name: String): Flow<List<CigarReviews?>>
+    fun getAllCigarNameReviews(name: String): Flow<List<CigarReviews>>
 
     // TIPS: This is for the filter function, which will return
     //  cigars by a specific brand
     @Query("SELECT * FROM cigar_reviews WHERE brand = :brand")
-    fun getAllBrandReviews(brand: String): Flow<List<CigarReviews?>>
+    fun getAllBrandReviews(brand: String): Flow<List<CigarReviews>>
     // Changed to List to view all reviews from a brand. I will need to implement
     //  an update to the screen to display reviews from the brand, not just all reviews
 
     // TIPS: This is for the filter function, which will return
     //  cigars from a specific country
     @Query("SELECT * FROM cigar_reviews WHERE origin = :origin")
-    fun getAllCountryReviews(origin: String): Flow<List<CigarReviews?>>
+    fun getAllCountryReviews(origin: String): Flow<List<CigarReviews>>
     /////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////////

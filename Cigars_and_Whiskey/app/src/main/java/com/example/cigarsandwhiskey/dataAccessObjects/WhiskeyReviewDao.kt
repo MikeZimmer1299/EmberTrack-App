@@ -22,18 +22,18 @@ interface WhiskeyReviewDao {
     // TIPS: This is for the search function, which will return
     //  whiskeys by a specific name
     @Query("SELECT * FROM whiskey_reviews WHERE whiskeyName = :name")
-    fun getAllWhiskeyReviews(name: String): Flow<List<WhiskeyReviews?>>
+    fun getAllWhiskeyReviews(name: String): Flow<List<WhiskeyReviews>>
 
     // TIPS: This is for the search function, which will return
     //  cigars by a specific brand. May need to change this to a list, so then
     //  all the cigars from a specific brand display
     @Query("SELECT * FROM whiskey_reviews WHERE brand = :brand")
-    fun getAllWhiskeyBrandReviews(brand: String): Flow<List<WhiskeyReviews?>>
+    fun getAllWhiskeyBrandReviews(brand: String): Flow<List<WhiskeyReviews>>
 
     // TIPS: This is for the search function, which will return
     //  whiskeys by a specific origin
     @Query("SELECT * FROM whiskey_reviews WHERE origin = :origin")
-    fun getAllWhiskeyOriginReviews(origin: String): Flow<List<WhiskeyReviews?>>
+    fun getAllWhiskeyOriginReviews(origin: String): Flow<List<WhiskeyReviews>>
     /////////////////////////////////////////////////////////////////////////////
 
     /////////////////////////////////////////////////////////////////////////////
