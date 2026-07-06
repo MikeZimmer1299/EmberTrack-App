@@ -114,10 +114,6 @@ fun WhiskeyReviewsScreen(
                     Spacer(modifier = Modifier.weight(1f))
                     IconButton(
                         onClick = {
-                            // TODO: Instead of a dropdown menu, I think it should populate as a
-                            //  dialog box, like how the warning populates for an unfinished review.
-                            //  The other idea is to have it be a popout like the Navigation panel.
-                            //  The second idea may actually work better, but we'll see how it looks
                             openFilter()
                         },
                         modifier = Modifier
