@@ -155,15 +155,13 @@ fun AddCigars(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(20.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .044f).dp))
 
                         val menuWeight = screenWidth * .0011f
                         val cigarBrandList = cigarBrandsList()
                         DropdownMenu(
                             cigarBrandList,
-//                    selectedIndex, // this may be unnecessary
-                            "Choose a Brand",
+                            cigarBrand.ifEmpty { "Choose a Brand" },
                             modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                             onItemClick = { cigarBrand = cigarBrandList[it] }
                         )
@@ -195,7 +193,6 @@ fun AddCigars(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(20.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .049f).dp))
 
                         val menuWeight = screenWidth * .0011f
@@ -232,14 +229,13 @@ fun AddCigars(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(17.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .042f).dp))
 
                         val menuWeight = screenWidth * .0011f
                         val cigarOriginList = cigarOriginList()
                         DropdownMenu(
                             cigarOriginList,
-                            "Country of Origin",
+                            cigarOrigin.ifEmpty { "Country of Origin" },
                             modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                             onItemClick = { cigarOrigin = cigarOriginList[it] }
                         )
@@ -287,7 +283,6 @@ fun AddCigars(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(8.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .022f).dp))
 
                         val menuWeight = screenWidth * .0011f
@@ -325,7 +320,6 @@ fun AddCigars(
                                 }
                         )
 
-//                        Spacer(modifier = Modifier.width(30.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .066f).dp))
 
                         val menuWeight = screenWidth * .0011f
@@ -362,7 +356,6 @@ fun AddCigars(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(79.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .168f).dp))
 
                         val menuWeight = screenWidth * .0011f

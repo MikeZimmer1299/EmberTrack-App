@@ -167,7 +167,7 @@ fun NewWhiskeyReview(
                     val whiskeyBrandsList = whiskeyBrandsList()
                     DropdownMenu(
                         whiskeyBrandsList,
-                        "Choose a Brand",
+                        whiskeyBrand.ifEmpty { "Choose a Brand" },
                         modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                         onItemClick = {whiskeyBrand = whiskeyBrandsList[it]}
                     )
@@ -265,7 +265,7 @@ fun NewWhiskeyReview(
                     val whiskeyTypeList = whiskeyTypesList()
                     DropdownMenu(
                         whiskeyTypeList,
-                        "Choose a Type",
+                        whiskeyType.ifEmpty { "Choose a Type" },
                         modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                         onItemClick = {whiskeyType = whiskeyTypeList[it]}
                     )
@@ -305,7 +305,7 @@ fun NewWhiskeyReview(
                     val whiskeyOriginList = whiskeyOriginList()
                     DropdownMenu(
                         whiskeyOriginList,
-                        "Choose an Origin",
+                        whiskeyOrigin.ifEmpty { "Choose an Origin" },
                         modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                         onItemClick = {whiskeyOrigin = whiskeyOriginList[it]}
                     )
@@ -345,7 +345,7 @@ fun NewWhiskeyReview(
                     val whiskeyAgeList = whiskeyAgeList()
                     DropdownMenu(
                         whiskeyAgeList,
-                        "Age Statement",
+                        whiskeyAge.ifEmpty { "Age Statement" },
                         modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                         onItemClick = {whiskeyAge = whiskeyAgeList[it]}
                     )

@@ -152,14 +152,13 @@ fun AddWhiskey(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(73.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .095f).dp))
 
                         val menuWeight = screenWidth * .0011f
                         val whiskeyBrandList = whiskeyBrandsList()
                         DropdownMenu(
                             whiskeyBrandList,
-                            initialText = "Choose a Brand",
+                            selectedText = whiskeyBrand.ifEmpty { "Choose a Brand" },
                             modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                             onItemClick = { whiskeyBrand = whiskeyBrandList[it] }
                         )
@@ -245,14 +244,13 @@ fun AddWhiskey(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(130.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .249f).dp))
 
                         val menuWeight = screenWidth * .0011f
                         val whiskeyTypeList = whiskeyTypesList()
                         DropdownMenu(
                             whiskeyTypeList,
-                            "Choose a Type",
+                            whiskeyType.ifEmpty { "Choose a Type" },
                             modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                             onItemClick = { whiskeyType = whiskeyTypeList[it] }
                         )
@@ -282,14 +280,13 @@ fun AddWhiskey(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(113.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .206f).dp))
 
                         val menuWeight = screenWidth * .0011f
                         val whiskeyOriginList = whiskeyOriginList()
                         DropdownMenu(
                             whiskeyOriginList,
-                            "Choose an Origin",
+                            whiskeyOrigin.ifEmpty { "Choose an Origin" },
                             modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                             onItemClick = { whiskeyOrigin = whiskeyOriginList[it] }
                         )
@@ -319,14 +316,13 @@ fun AddWhiskey(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(115.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .213f).dp))
 
                         val menuWeight = screenWidth * .0011f
                         val whiskeyAgeList = whiskeyAgeList()
                         DropdownMenu(
                             whiskeyAgeList,
-                            "Age Statement",
+                            whiskeyAge.ifEmpty { "Age Statement" },
                             modifier = Modifier.weight(menuWeight).padding(end = 4.dp),
                             onItemClick = { whiskeyAge = whiskeyAgeList[it] }
                         )
@@ -356,7 +352,6 @@ fun AddWhiskey(
                                     )
                                 }
                         )
-//                        Spacer(modifier = Modifier.width(120.dp))
                         Spacer(modifier = Modifier.width((screenWidth * .227f).dp))
 
                         val menuWeight = screenWidth * .0011f

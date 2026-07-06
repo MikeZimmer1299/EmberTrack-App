@@ -190,7 +190,7 @@ fun NewCigarReview(
                     val cigarBrandList = cigarBrandsList()
                     DropdownMenu( // TIPS: Dropdown menu of cigar brands
                         cigarBrandList,
-                        "Choose a Brand",
+                        cigarBrand.ifEmpty{"Choose a Brand"},
                         modifier = Modifier.weight(menuWeight).padding(end = 7.dp),
                         onItemClick = { cigarBrand = cigarBrandList[it] }
                     )
@@ -276,7 +276,7 @@ fun NewCigarReview(
                     val cigarOriginList = cigarOriginList()
                     DropdownMenu( // TIPS: Dropdown menu of countries
                         cigarOriginList,
-                        "Country of Origin",
+                        cigarCountry.ifEmpty { "Country of Origin" },
                         modifier = Modifier.weight(menuWeight).padding(end = 7.dp),
                         onItemClick = { cigarCountry = cigarOriginList[it] }
                     )
