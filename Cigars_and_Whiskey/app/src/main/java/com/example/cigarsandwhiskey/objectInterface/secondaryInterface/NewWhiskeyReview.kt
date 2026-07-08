@@ -1,6 +1,7 @@
 package com.example.cigarsandwhiskey.objectInterface.secondaryInterface
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -86,16 +87,12 @@ fun NewWhiskeyReview(
     val screenWidth = screenConfig.screenWidthDp
     val dynamicFontSize = (screenWidth * 0.08f).sp
 
-    Card(
-        modifier = Modifier.fillMaxSize(),
-        colors = CardDefaults.cardColors(
-            containerColor = lushForestGreenDark
-        )
+    Column(
+        modifier = Modifier.fillMaxSize().background(lushForestGreenDark),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .imePadding()
                 .verticalScroll(rememberScrollState())
                 .pointerInput(Unit) {
                     detectTapGestures(onTap = {
