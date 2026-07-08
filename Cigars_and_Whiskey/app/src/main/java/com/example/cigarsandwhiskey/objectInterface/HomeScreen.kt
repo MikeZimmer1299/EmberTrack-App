@@ -186,7 +186,8 @@ fun HomeScreen(
                                     lineHeight = dynamicFontSize * 1.3f,
                                     fontWeight = FontWeight.Bold,
                                     softWrap = true,
-                                    modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp)
+                                    modifier = Modifier.padding(start = 10.dp, end = 10.dp, top = 5.dp),
+                                    textAlign = TextAlign.Center
                                 )
                                 Text(
                                     text = review.cigarName,
@@ -194,7 +195,8 @@ fun HomeScreen(
                                     lineHeight = dynamicFontSize * 1.3f,
                                     fontWeight = FontWeight.Bold,
                                     softWrap = true,
-                                    modifier = Modifier.padding(10.dp, 0.dp)
+                                    modifier = Modifier.padding(10.dp, 0.dp),
+                                    textAlign = TextAlign.Center
                                 )
                                 Text(
                                     text = "Score: ${"%.1f".format(review.finalScore)}",
@@ -206,7 +208,8 @@ fun HomeScreen(
                                         start = 10.dp,
                                         end = 10.dp,
                                         bottom = 5.dp
-                                    )
+                                    ),
+                                    textAlign = TextAlign.Center
                                 )
                             }
                         }
