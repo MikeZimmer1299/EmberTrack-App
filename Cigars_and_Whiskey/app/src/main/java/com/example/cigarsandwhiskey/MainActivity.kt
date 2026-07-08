@@ -12,9 +12,8 @@ import com.example.cigarsandwhiskey.ui.theme.CigarsAndWhiskeyTheme
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        super.onCreate(savedInstanceState)
 
         val database = AppDatabase.getDatabase(this)
 
