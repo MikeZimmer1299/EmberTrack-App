@@ -3,7 +3,6 @@ package com.example.cigarsandwhiskey.generalFunctions
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -19,17 +18,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalConfiguration
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 // Reusable text field that allows the user to input text for different pieces of information,
-//  such as cigar name,
+//  such as cigar name
 @Composable
 fun InputTextField(
     text: String,
@@ -43,7 +41,7 @@ fun InputTextField(
     val focusManager = LocalFocusManager.current
 
     var parentWidth by remember { mutableIntStateOf(0) }
-    val density = LocalDensity.current
+
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -67,7 +65,7 @@ fun InputTextField(
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = designatedKeyboard,
-                    imeAction = ImeAction.Done
+                    capitalization = KeyboardCapitalization.Characters
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = { focusManager.clearFocus() }
@@ -76,7 +74,6 @@ fun InputTextField(
 
             if (text.isEmpty()) {
                 Text(text = placeholder, color = Color.Black,
-//                    fontSize = 20.sp
                     fontSize = (LocalConfiguration.current.screenWidthDp * 0.04f).sp
                 )
             }
