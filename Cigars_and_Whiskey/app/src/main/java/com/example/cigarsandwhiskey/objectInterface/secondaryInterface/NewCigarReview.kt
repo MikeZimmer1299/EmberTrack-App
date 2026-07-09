@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -45,6 +46,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -510,9 +512,9 @@ fun NewCigarReview(
                             ),
                             modifier = Modifier
                                 .padding(start = 4.dp, end = 4.dp, top = 12.dp, bottom = 5.dp)
-//                                .fillMaxHeight()
                                 .fillMaxWidth()
-                                .height((screenWidth * .3f).dp)
+                                .height((screenWidth * .3f).dp),
+                            keyboardOptions = KeyboardOptions(KeyboardCapitalization.Sentences)
                         )
                     }
                 }

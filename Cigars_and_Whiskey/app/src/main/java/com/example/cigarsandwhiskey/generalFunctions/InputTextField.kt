@@ -65,7 +65,7 @@ fun InputTextField(
                 modifier = Modifier.fillMaxWidth(),
                 keyboardOptions = KeyboardOptions(
                     keyboardType = designatedKeyboard,
-                    capitalization = KeyboardCapitalization.Characters
+                    capitalization = KeyboardCapitalization.Sentences
                 ),
                 keyboardActions = KeyboardActions(
                     onDone = { focusManager.clearFocus() }
