@@ -125,9 +125,9 @@ fun DisplayCigarReview(
                         ) {
                             Text(
                                 text = review.brand,
-                                fontSize = dynamicFontSize * 2.6f,
+                                fontSize = dynamicFontSize * 2.3f,
                                 fontWeight = FontWeight.Bold,
-                                lineHeight = dynamicFontSize * 1.4f,
+                                lineHeight = dynamicFontSize * 2f,
                                 textAlign = TextAlign.Center
                             )
                         }

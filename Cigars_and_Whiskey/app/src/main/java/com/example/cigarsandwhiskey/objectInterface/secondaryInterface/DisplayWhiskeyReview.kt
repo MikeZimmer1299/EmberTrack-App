@@ -137,7 +137,7 @@ fun DisplayWhiskeyReview(
                                 fontSize = dynamicFontSize * 1.7f,
                                 fontWeight = FontWeight.Bold,
                                 modifier = Modifier.padding(0.dp, 0.dp),
-                                lineHeight = dynamicFontSize * 1.4f,
+                                lineHeight = dynamicFontSize * 1.7f,
                                 textAlign = TextAlign.Center
                             )
                         }
