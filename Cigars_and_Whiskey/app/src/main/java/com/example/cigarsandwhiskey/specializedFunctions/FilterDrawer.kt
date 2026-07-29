@@ -90,7 +90,7 @@ fun CigarReviewFilter(
                     val cigarBrandsList = cigarBrandsList()
                     DropdownMenu(
                         itemList = cigarBrandsList,
-                        selectedText = cigarBrandQuery.ifEmpty { "Choose a Band" },
+                        selectedText = cigarBrandQuery.ifEmpty { "Choose a Brand" },
                         modifier = Modifier.weight(screenWidth * .0011f).padding(5.dp, 3.dp),
                         onItemClick = {cigarBrandQuery = cigarBrandsList[it]}
                     )
