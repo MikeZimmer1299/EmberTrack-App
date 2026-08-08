@@ -168,7 +168,7 @@ fun whiskeyBrandsList(): List<String>{
         "GlenGrant", "Glenlivet", "Glenmorangie", "Glenrothes","Glen Scotia", "Green River", "Green Spot", "Hakushu",
         "Hazelburn", "Hibiki", "High West", "Highland Park", "Hudson", "I.W. Harper", "Jack Daniel's", "Jameson", "Jefferson's",
         "Jim Beam", "Johnnie Walker", "Jura", "Kaiyo", "Kilchoman", "Kilkerran", "Knappogue Castle", "Knob Creek", "Lagavulin",
-        "Lagg", "Laphroaig", "Larceny", "Ledaig", "Leopold Bros.", "Little Book", "Longrow", "Lot No. 40",
+        "Lagg", "Laphroaig", "Larceny", "Larrikin", "Ledaig", "Leopold Bros.", "Little Book", "Longrow", "Lot No. 40",
         "Maker's Mark", "Michter's", "Midleton", "Monkey Shoulder", "Mortlach", "New Riff", "Nikka", "Nulu", "Oban",
         "Old Elk", "Old Fitzgerald", "Old Forester", "Old Grand-Dad", "Old Overholt", "Old Pepper", "Old Pulteney",
         "Peerless", "Pendleton", "Penelope", "Pikesville Rye", "Pinhook", "Powers", "Rabbit Hole", "Redbreast",
