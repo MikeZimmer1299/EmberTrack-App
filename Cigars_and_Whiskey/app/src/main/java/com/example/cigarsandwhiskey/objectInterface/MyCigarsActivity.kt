@@ -45,6 +45,14 @@ import com.example.cigarsandwhiskey.ui.theme.lushForestGrassLight
 import com.example.cigarsandwhiskey.ui.theme.lushForestGreenDark
 import kotlinx.coroutines.CoroutineScope
 
+/*
+* TODO: Object modification
+*  Currently, the user can not modify their collection. If they smoke one of the cigars,
+*  they are unable to decrease the number of cigars. Or in the case of buying more, they
+*  are unable to increase the number of cigars.
+*  I need to fix this.
+*/
+
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MyCigarsScreen(
